@@ -24,4 +24,13 @@ service.interceptors.response.use(response => {
   return Promise.reject(error)
 })
 
-export default service
+export default {
+  get (url, data) {
+    return service.get(url, {
+      params: data
+    })
+  },
+  post (url, data = null) {
+    return service.post(url, data)
+  }
+}

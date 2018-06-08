@@ -4,7 +4,6 @@
 </template>
 
 <script>
-import { login } from '@/api/login'
 export default {
   name: 'Login',
   data () {
@@ -12,8 +11,7 @@ export default {
     }
   },
   methods: {
-    async handleLogin () {
-      await login()
+    async login () {
     }
   }
 }
