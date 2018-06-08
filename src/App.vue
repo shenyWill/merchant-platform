@@ -19,7 +19,17 @@ export default {
   color: #2c3e50;
 }
 body {
+  margin-top: 60px;
+  padding: 0;
   margin: 0;
+  height: 100%;
+  background: no-repeat;
+  background-size: 100% 100%;
+}
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
   background-color: #eceeee;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="product">
 
+  <div class="product">
     <div class="product-contain">
       <p class="welcome">
         <span class="hi">Hi</span>
@@ -10,6 +10,8 @@
       <Consumption></Consumption>
       <!-- 签约产品 -->
       <Contract></Contract>
+      <!-- 操作指引 -->
+      <Operation></Operation>
     </div>
 
     
@@ -19,13 +21,17 @@
 <script>
 import Consumption from '@/components/product/Consumption'
 import Contract from '@/components/product/Contract'
+import Operation from '@/components/product/Operation'
 export default {
   components: {
     Consumption,
-    Contract
+    Contract,
+    Operation
   },
   mounted(){
-    $('.product').show();
+    setTimeout(() => {
+      $('.welcome').slideUp(2000)
+    },2000)
   }
 }
 </script>
@@ -36,10 +42,9 @@ export default {
   background: #eceeee;
   overflow: hidden;
   margin-right: 20px;
-  // display: none;
 }
 .product-contain {
-  width: 90%;
+  width: 100%;
   float: right;
   min-width: 1100px;
   
@@ -54,6 +59,10 @@ export default {
     line-height: 52px;
     background-color: #00140b;
     margin-bottom: 7px;
+    margin-top: 0;
+    &.hide {
+      display: none;
+    }
   }
   .hi {
     height: 26px;

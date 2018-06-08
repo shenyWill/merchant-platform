@@ -64,9 +64,6 @@ export default {
         border-radius: 5px;
         margin-right: 74px;
         position: relative;
-        &:nth-child(3n) {
-            margin-right: 0;
-        }
         img {
             width: 79px;
             height: 79px;
