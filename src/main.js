@@ -4,6 +4,7 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import $ from 'jquery'
 
 Vue.config.productionTip = false
 
