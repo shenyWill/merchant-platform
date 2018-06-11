@@ -1,7 +1,7 @@
 <template>
     <div class='operation'>
         <ul class='operation-nav'>
-            <li class='operation-title'>操作指引</li>
+            <li class='operation-title'><i class="iconfont icon-zhiyin"></i> 操作指引</li>
             <li class='operation-list'>1、申请新产品</li>
             <li class='operation-list'>2、新建新应用</li>
             <li class='operation-list'>3、应用绑定产品</li>
@@ -92,8 +92,18 @@ export default {
     }
   }
   .operation-title {
-    padding: 8px 17px;
+    width: 133px;
+    height: 43px;
+    line-height: 43px;
+    box-sizing: border-box;
+    padding-left: 20px;
     font-size: 21px;
+    i {
+      position: absolute;
+      left: 3px;
+      top: 2px;
+      font-size: 25px;
+    }
   }
   .operation-list {
     padding: 14px 17px;

@@ -6,6 +6,7 @@ import App from './App';
 import router from './router';
 /* eslint-disable no-unused-vars */
 import $ from 'jquery';
+import './assets/font/iconfont.css';
 /* eslint-enable no-unused-vars */
 
 Vue.config.productionTip = false;
