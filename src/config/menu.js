@@ -1,17 +1,17 @@
 export default [{
-  icon: require('@/assets/images/product.png'),
+  icon: 'icon-bag',
   name: '产品管理',
   route: '/product'
 }, {
-  icon: require('@/assets/images/application.png'),
+  icon: 'icon-yingyonguanli',
   name: '应用管理',
   route: '/application'
 }, {
-  icon: require('@/assets/images/data.png'),
+  icon: 'icon-chart',
   name: '数据统计',
   route: '/application'
 }, {
-  icon: require('@/assets/images/account.png'),
+  icon: 'icon-user',
   name: '账号管理',
   route: '/account'
 }];

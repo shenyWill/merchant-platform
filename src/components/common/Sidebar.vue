@@ -34,7 +34,7 @@ export default {
   top: 62px;
   width: 99px;
 
-  background-color: #26314a;
+  background-color: #263e4a;
   z-index: 999;
 }
 .menu-item-list {

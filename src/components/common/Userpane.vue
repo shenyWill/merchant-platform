@@ -4,6 +4,7 @@
       <img class="avatar" :src="userInfo.avatar" alt="">
       <p class="username-title">{{ userInfo.username }}</p>
     </div>
+    <i :class="['nav-userpane_icon', 'iconfont', userInfo.isIdentified ? 'icon-yes' : '']"></i>
     <p class="user-identify">{{ userInfo.isIdentified ? '用户已认证' : '用户未认证' }}</p>
     <div @mouseover="toggleShow()" @mouseout="toggleShow()" v-show="isShow" class="dropdown-menu">
       <div class="dropdown-setting">
@@ -99,5 +100,10 @@ export default {
   color: white;
   bottom: 10px;
   font-size: 12px;
+}
+.nav-userpane_icon {
+  position: relative;
+  color: white;
+  bottom: 8px;
 }
 </style>

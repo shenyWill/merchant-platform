@@ -1,7 +1,7 @@
 <template>
   <div class="menu-item">
     <div class="menu-item-container">
-      <img class="menu-item-image" :src="icon" alt="item">
+      <i :class="['iconfont', 'menu-item_icon', icon]"></i>
       <p class="menu-item-name">{{ name }}</p>
     </div>
   </div>
@@ -43,6 +43,10 @@ export default {
 }
 .menu-item :hover {
   background-color: #1a2f3a;
+}
+.menu-item_icon {
+  font-size: 37px;
+  color: #18688c;
 }
 .menu-item-name {
   margin: 0;
