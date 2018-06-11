@@ -28,12 +28,14 @@ export default {
 
 <style>
 .sidebar {
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   top: 62px;
   width: 99px;
+
   background-color: #26314a;
+  z-index: 999;
 }
 .menu-item-list {
   margin-top: 30px;

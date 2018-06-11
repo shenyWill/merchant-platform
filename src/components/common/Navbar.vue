@@ -23,11 +23,13 @@ export default {
 
 <style>
 .nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 62px;
+
   background-color: #1a2f3a;
+  z-index: 999;
 }
 </style>
