@@ -80,6 +80,7 @@ export default {
   background-color: #1a2f3a;
   width: 139px;
   height: 104px;
+  z-index: 999;
 }
 .dropdown-menu div {
   text-align: center;
