@@ -13,8 +13,6 @@
       <!-- 操作指引 -->
       <Operation></Operation>
     </div>
-
-    
   </div>
 </template>
 
@@ -28,10 +26,10 @@ export default {
     Contract,
     Operation
   },
-  mounted(){
+  mounted() {
     setTimeout(() => {
       $('.welcome').slideUp(2000)
-    },2000)
+    }, 2000)
   }
 }
 </script>
@@ -47,7 +45,6 @@ export default {
   width: 100%;
   float: right;
   min-width: 1100px;
-  
 
   // 欢迎样式
   .welcome {
