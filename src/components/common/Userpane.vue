@@ -27,25 +27,25 @@ export default {
           avatar: require('@/assets/images/logo.png'),
           username: 'admin',
           isIdentified: true
-        }
+        };
       }
     }
   },
   data () {
     return {
       isShow: false
-    }
+    };
   },
   methods: {
     toggleShow () {
-      this.isShow = !this.isShow
+      this.isShow = !this.isShow;
     },
     handleSetting () {
     },
     logout () {
     }
   }
-}
+};
 </script>
 
 <style>

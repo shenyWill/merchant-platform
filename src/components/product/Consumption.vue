@@ -17,13 +17,13 @@
 
 <script>
 // 引入基本模板
-let echarts = require('echarts/lib/echarts')
+let echarts = require('echarts/lib/echarts');
 // 引入柱状图组件
-require('echarts/lib/chart/line')
+require('echarts/lib/chart/line');
 // 引入提示框和title组件
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/title')
-require('echarts/lib/component/legend')
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/title');
+require('echarts/lib/component/legend');
 export default {
   data() {
     return {
@@ -77,19 +77,19 @@ export default {
           }
         ]
       }
-    }
+    };
   },
   methods: {
     // 画折线图
     drawLine() {
-      let myChart = echarts.init(document.getElementById('consumption-line'))
-      myChart.setOption(this.option)
+      let myChart = echarts.init(document.getElementById('consumption-line'));
+      myChart.setOption(this.option);
     }
   },
   mounted() {
-      this.drawLine()
+      this.drawLine();
   }
-}
+};
 </script>
 
 <style lang='scss' scoped>

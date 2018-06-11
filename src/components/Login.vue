@@ -8,13 +8,13 @@ export default {
   name: 'Login',
   data () {
     return {
-    }
+    };
   },
   methods: {
     async login () {
     }
   }
-}
+};
 </script>
 
 <style>

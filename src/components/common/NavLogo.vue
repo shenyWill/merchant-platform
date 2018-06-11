@@ -10,9 +10,9 @@ export default {
   name: 'NavLogo',
   data () {
     return {
-    }
+    };
   }
-}
+};
 </script>
 
 <style>

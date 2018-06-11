@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import MenuItem from './MenuItem'
-import menu from '@/config/menu'
+import MenuItem from './MenuItem';
+import menu from '@/config/menu';
 export default {
   name: 'Sidebar',
   components: {
@@ -21,9 +21,9 @@ export default {
   data () {
     return {
       menu: menu
-    }
+    };
   }
-}
+};
 </script>
 
 <style>

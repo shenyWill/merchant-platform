@@ -7,6 +7,7 @@ module.exports = {
   },
   env: {
     browser: true,
+    jquery:true
   },
   extends: [
     // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
@@ -28,6 +29,8 @@ module.exports = {
     'no-multiple-empty-lines':[1,{'max':3}],
     'indent':0,
     "space-before-function-paren": [0, "always"],
-    "no-undef": 2
+    "no-undef": 2,
+    "no-console": 2,
+    "semi": [2, "always"]
   }
 }

@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Navbar from '@/components/common/Navbar'
-import Sidebar from '@/components/common/Sidebar'
+import Navbar from '@/components/common/Navbar';
+import Sidebar from '@/components/common/Sidebar';
 export default {
   name: 'Index',
   components: {
@@ -17,11 +17,11 @@ export default {
   },
   data () {
     return {
-    }
+    };
   },
   methods: {
   }
-}
+};
 </script>
 
 <style>

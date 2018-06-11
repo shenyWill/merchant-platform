@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Userpane from './Userpane'
-import NavLogo from './NavLogo'
+import Userpane from './Userpane';
+import NavLogo from './NavLogo';
 export default {
   name: 'Navbar',
   components: {
@@ -16,9 +16,9 @@ export default {
   },
   data () {
     return {
-    }
+    };
   }
-}
+};
 </script>
 
 <style>

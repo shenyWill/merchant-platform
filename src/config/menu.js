@@ -14,4 +14,4 @@ export default [{
   icon: require('@/assets/images/account.png'),
   name: '账号管理',
   route: '/account'
-}]
+}];

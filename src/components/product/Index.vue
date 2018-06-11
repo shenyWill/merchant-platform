@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import Consumption from '@/components/product/Consumption'
-import Contract from '@/components/product/Contract'
-import Operation from '@/components/product/Operation'
+import Consumption from '@/components/product/Consumption';
+import Contract from '@/components/product/Contract';
+import Operation from '@/components/product/Operation';
 export default {
   components: {
     Consumption,
@@ -28,10 +28,10 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      $('.welcome').slideUp(2000)
-    }, 2000)
+      $('.welcome').slideUp(2000);
+    }, 2000);
   }
-}
+};
 </script>
 
 

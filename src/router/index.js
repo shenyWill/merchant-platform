@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Index from '@/components/Index'
-import Login from '@/components/Login'
-import Product from '@/components/product/Index'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Index from '@/components/Index';
+import Login from '@/components/Login';
+import Product from '@/components/product/Index';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [{
@@ -23,4 +23,4 @@ export default new Router({
       component: Login
     }
   ]
-})
+});

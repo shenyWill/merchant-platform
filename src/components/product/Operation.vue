@@ -14,16 +14,16 @@
 <script>
 export default {
   mounted() {
-    let timeoutShow, timeoutHide
+    let timeoutShow, timeoutHide;
     $('.operation-title,.operation-list').hover(
       () => {
         (function operationListShow(i) {
           if (timeoutHide) {
-            clearTimeout(timeoutHide)
+            clearTimeout(timeoutHide);
           }
           timeoutShow = setTimeout(() => {
             if (i > 4) {
-              return
+              return;
             }
             if (
               $('.operation-list')
@@ -32,33 +32,33 @@ export default {
             ) {
               $('.operation-list')
                 .eq(i)
-                .addClass('active')
+                .addClass('active');
             }
-            i++
-            operationListShow(i)
-          }, 100)
-        })(0)
+            i++;
+            operationListShow(i);
+          }, 100);
+        })(0);
       },
       () => {
         (function operationListHide(i) {
           if (timeoutShow) {
-            clearTimeout(timeoutShow)
+            clearTimeout(timeoutShow);
           }
           timeoutHide = setTimeout(() => {
             if (i > 4) {
-              return
+              return;
             }
             $('.operation-list')
               .eq(4 - i)
-              .removeClass('active')
-            i++
-            operationListHide(i)
-          }, 100)
-        })(0)
+              .removeClass('active');
+            i++;
+            operationListHide(i);
+          }, 100);
+        })(0);
       }
-    )
+    );
   }
-}
+};
 </script>
 
 
