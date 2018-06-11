@@ -33,7 +33,7 @@ export default {
   bottom: 0;
   top: 62px;
   width: 99px;
-  background-color: #26314a;
+  background-color: #263e4a;
 }
 .menu-item-list {
   margin-top: 30px;

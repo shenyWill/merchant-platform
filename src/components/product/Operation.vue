@@ -16,7 +16,10 @@ export default {
   mounted() {
     let timeoutShow, timeoutHide;
     $('.operation-title,.operation-list').hover(
-      () => {
+      function() {
+        if ($(this).is('.operation-list')) {
+          $(this).toggleClass('active-color');
+        }
         (function operationListShow(i) {
           if (timeoutHide) {
             clearTimeout(timeoutHide);
@@ -39,7 +42,10 @@ export default {
           }, 100);
         })(0);
       },
-      () => {
+      function() {
+        if ($(this).is('.operation-list')) {
+          $(this).toggleClass('active-color');
+        }
         (function operationListHide(i) {
           if (timeoutShow) {
             clearTimeout(timeoutShow);
@@ -86,7 +92,7 @@ export default {
     }
   }
   .operation-title {
-    padding: 10px 17px;
+    padding: 8px 17px;
     font-size: 21px;
   }
   .operation-list {
@@ -96,6 +102,9 @@ export default {
     transition: all 1s;
     &.active {
       transform: translateX(0);
+    }
+    &.active-color {
+      background-color: #548faa;
     }
   }
 }
