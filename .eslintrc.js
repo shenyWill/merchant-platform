@@ -7,7 +7,8 @@ module.exports = {
   },
   env: {
     browser: true,
-    jquery: true
+    jquery: true,
+    mocha: true
   },
   extends: [
     // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
@@ -32,5 +33,9 @@ module.exports = {
     "no-undef": 2,
     "no-console": 2,
     "semi": [2, "always"]
+  },
+  globals: {
+    expect: true,
+    sinon: true
   }
 }

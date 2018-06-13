@@ -2,7 +2,6 @@
 const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
-const webpack = require("webpack")
 const vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve (dir) {
@@ -39,13 +38,6 @@ module.exports = {
       '@': resolve('src'),
     }
   },
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
-    new webpack.ProvidePlugin({
-    jQuery: "jquery",
-    $: "jquery"
-    })  
-  ],
   module: {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),
@@ -66,10 +58,6 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
-      },
-      {
-        test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
