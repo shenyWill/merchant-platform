@@ -7,6 +7,9 @@ import router from './router';
 /* eslint-disable no-unused-vars */
 import $ from 'jquery';
 import './assets/font/iconfont.css';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 /* eslint-enable no-unused-vars */
 
 Vue.config.productionTip = false;
@@ -18,3 +21,4 @@ new Vue({
   components: { App },
   template: '<App/>'
 });
+
