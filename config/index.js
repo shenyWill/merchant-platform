@@ -19,13 +19,6 @@ module.exports = {
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
-    proxyTable: {
-      '/': {
-        target: '',
-        changeOrigin: true,
-        logLevel: 'debug'
-      }
-    },
 
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and

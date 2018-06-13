@@ -29,3 +29,6 @@ Session.vim
 tags
 # Persistent undo
 [._]*.un~
+
+# Tern
+.tern-project
