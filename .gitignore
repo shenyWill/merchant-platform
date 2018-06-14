@@ -32,3 +32,6 @@ tags
 
 # Tern
 .tern-project
+
+# Test Coverage
+test/unit/coverage/

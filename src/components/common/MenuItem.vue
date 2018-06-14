@@ -1,8 +1,8 @@
 <template>
   <div class="menu-item">
-    <div class="menu-item-container">
-      <i :class="['iconfont', 'menu-item_icon', icon]"></i>
-      <p class="menu-item-name">{{ name }}</p>
+    <div class="menu-item__container">
+      <i :class="['iconfont', 'menu-item__icon', icon]"></i>
+      <p class="menu-item__name">{{ name }}</p>
     </div>
   </div>
 </template>
@@ -37,18 +37,18 @@ export default {
   width: 100%;
   cursor: pointer;
 }
-.menu-item-container {
+.menu-item__container {
   padding-top: 20px;
   height: 100%;
 }
 .menu-item :hover {
   background-color: #1a2f3a;
 }
-.menu-item_icon {
+.menu-item__icon {
   font-size: 37px;
   color: #18688c;
 }
-.menu-item-name {
+.menu-item__name {
   margin: 0;
   color: #18688c;
 }
