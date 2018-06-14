@@ -1,7 +1,7 @@
 <template>
     <div class="application">
         <el-button type="primary" class="add-btn">+ 新建应用</el-button>
-        <el-table :data="appTableData" border class="app-table" row-class-name="app-table-tr" >
+        <el-table :data="appTableData" border class="app-table" row-class-name="app-table-tr">
             <el-table-column prop="id" label="序号" width="180" align="center"></el-table-column>
             <el-table-column prop="name" label="应用名称" width="180" align="center"></el-table-column>
             <el-table-column prop="APIKey" label="API Key" width="180" align="center"></el-table-column>
@@ -27,60 +27,69 @@
 
 <style lang="scss">
 .application .app-table .app-table-tr:nth-of-type(2n) {
-    background: #eeeff6;
+  background: #eeeff6;
+}
+.el-table--border td,
+.el-table--border th {
+  border-right: 2px solid #cdcfd0;
+}
+.el-table .has-gutter th {
+  background-color: #48a9e7;
+  color: #121212;
 }
 </style>
 
 <script>
 export default {
-    data() {
-        return {
-            appTableData: [
-                {
-                    id: 1,
-                    name: '人脸比对',
-                    APIKey: 'dasdasdasasasdwdqr',
-                    type: '社交',
-                    createTime: '2018-06-05',
-                    switch: true
-                },
-                {
-                    id: 2,
-                    name: '人脸检测',
-                    APIKey: 'werterwgwerh',
-                    type: '移动支付',
-                    createTime: '2018-06-05',
-                    switch: true
-                },
-                {
-                    id: 3,
-                    name: '活体检测',
-                    APIKey: 'werterwgwerh',
-                    type: '娱乐',
-                    createTime: '2018-06-05',
-                    switch: false
-                }
-            ]
-        };
-    },
-    methods: {
-        handleEdit(index, row) {
-            // console.log(row)
+  data() {
+    return {
+      appTableData: [
+        {
+          id: 1,
+          name: '人脸比对',
+          APIKey: 'dasdasdasasasdwdqr',
+          type: '社交',
+          createTime: '2018-06-05',
+          switch: true
+        },
+        {
+          id: 2,
+          name: '人脸检测',
+          APIKey: 'werterwgwerh',
+          type: '移动支付',
+          createTime: '2018-06-05',
+          switch: true
+        },
+        {
+          id: 3,
+          name: '活体检测',
+          APIKey: 'werterwgwerh',
+          type: '娱乐',
+          createTime: '2018-06-05',
+          switch: false
         }
+      ]
+    };
+  },
+  methods: {
+    handleEdit(index, row) {
+      // console.log(row)
     }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 .application {
-    text-align: left;
-    background: #ffffff;
-    padding: 43px 30px 30px 39px;
-    .add-btn {
-        margin-bottom: 26px;
-    }
-    .app-table {
-        width: 100%;
-    }
+  text-align: left;
+  background: #ffffff;
+  padding: 43px 30px 30px 39px;
+  .add-btn {
+    margin-bottom: 26px;
+  }
+  .app-table {
+    width: 100%;
+    border: 2px solid #cdcfd0;
+  }
 }
 </style>

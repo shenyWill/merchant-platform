@@ -1,9 +1,9 @@
 <template>
   <div class="menu-item">
-    <div class="menu-item-container">
+    <router-link class="menu-item-container" :to="route">
       <i :class="['iconfont', 'menu-item_icon', icon]"></i>
       <p class="menu-item-name">{{ name }}</p>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -40,6 +40,8 @@ export default {
 .menu-item-container {
   padding-top: 20px;
   height: 100%;
+  text-decoration: none;
+  display: block;
 }
 .menu-item :hover {
   background-color: #1a2f3a;
