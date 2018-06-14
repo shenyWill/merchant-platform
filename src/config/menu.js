@@ -3,7 +3,7 @@ export default [{
   name: '产品管理',
   route: '/product'
 }, {
-  icon: 'icon-yingyonguanli',
+  icon: 'icon-yingyongguanli',
   name: '应用管理',
   route: '/application'
 }, {
