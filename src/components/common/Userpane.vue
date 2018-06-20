@@ -68,7 +68,7 @@ export default {
 .avatar {
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 20px;
 }
 .username-title {
   position: relative;
@@ -79,7 +79,7 @@ export default {
 }
 .dropdown-menu {
   background-color: #1a2f3a;
-  width: 139px;
+  width: 158px;
   height: 104px;
   z-index: 999;
 }

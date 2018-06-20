@@ -1,8 +1,8 @@
 <template>
   <div class="menu-item">
-    <router-link class="menu-item-container" :to="route">
-      <i :class="['iconfont', 'menu-item_icon', icon]"></i>
-      <p class="menu-item-name">{{ name }}</p>
+    <router-link class="menu-item__container" :to="route">
+      <i :class="['iconfont', 'menu-item__icon', icon]"></i>
+      <p class="menu-item__name">{{ name }}</p>
     </router-link>
   </div>
 </template>
@@ -22,6 +22,12 @@ export default {
     route: {
       type: String,
       default: ''
+    },
+    children: {
+      type: Array,
+      default: () => {
+        return [];
+      }
     }
   },
   data () {
@@ -38,20 +44,21 @@ export default {
   cursor: pointer;
 }
 .menu-item__container {
-  padding-top: 20px;
+  margin-top: 10px;
+  padding-top: 10px;
   height: 100%;
   text-decoration: none;
   display: block;
 }
-.menu-item :hover {
-  background-color: #1a2f3a;
+.menu-item:hover {
+  background-color: #3b3b3b;
 }
 .menu-item__icon {
   font-size: 37px;
-  color: #18688c;
+  color: white;
 }
 .menu-item__name {
   margin: 0;
-  color: #18688c;
+  color: white;
 }
 </style>

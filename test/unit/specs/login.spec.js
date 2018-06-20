@@ -1,4 +1,4 @@
-describe('Login.vue', () => {
+describe('Login', () => {
   it('create', done => {
     done();
   });

@@ -9,7 +9,7 @@ export default [{
 }, {
   icon: 'icon-chart',
   name: '数据统计',
-  route: '/application'
+  route: '/stats'
 }, {
   icon: 'icon-user',
   name: '账号管理',

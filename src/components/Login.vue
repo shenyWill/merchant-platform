@@ -23,6 +23,7 @@
       <el-form class="login-component_login-form">
         <el-form-item>
           <el-input
+            clearable
             type="text"
             auto-complete="off"
             class="login-component_login-input"
@@ -32,6 +33,7 @@
         </el-form-item>
         <el-form-item>
           <el-input
+            clearable
             type="password"
             auto-complete="off"
             class="login-component_login-input"

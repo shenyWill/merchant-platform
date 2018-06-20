@@ -29,7 +29,7 @@ export default {
   right: 0;
   height: 62px;
 
-  background-color: #1a2f3a;
+  background-color: #3b3b3b;
   z-index: 999;
 }
 </style>

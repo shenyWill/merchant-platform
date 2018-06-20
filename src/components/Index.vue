@@ -29,7 +29,6 @@ export default {
   height: 100%;
   margin-top: 62px;
   margin-left: 98px;
-  background-color: #eceeee;
   padding-top: 17px;
   padding-left: 15px;
 }

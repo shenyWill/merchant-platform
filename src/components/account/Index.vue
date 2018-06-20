@@ -1,0 +1,210 @@
+<template>
+  <div class="account">
+    <div class="account__avatar">
+      <img :src="userInfo.avatar" alt="avatar">
+    </div>
+
+    <div class="account__username">
+      {{ userInfo.username }}
+    </div>
+
+    <div class="account__info-container">
+      <div class="account__info">
+        <div class="account__info-label">
+          用户名：
+        </div>
+        <div class="account__info-value">
+          {{ userInfo.username }}
+        </div>
+      </div>
+
+      <div class="account__info">
+        <div class="account__info-label">
+          用户昵称：
+        </div>
+        <div class="account__info-value">
+          {{ userInfo.nickname }}
+        </div>
+      </div>
+
+      <div class="account__info">
+        <div class="account__info-label">
+          邮箱：
+        </div>
+        <div class="account__info-value">
+          {{ userInfo.email }}
+        </div>
+      </div>
+
+      <div class="account__info">
+        <div class="account__info-label">
+          手机：
+        </div>
+        <div class="account__info-value">
+          {{ userInfo.mobile }}
+        </div>
+      </div>
+
+      <div class="account__info">
+        <div class="account__info-label">
+          用户状态：
+        </div>
+        <el-switch
+          class="account__info-status"
+          v-model="userInfo.status"
+          >
+        </el-switch>
+      </div>
+
+      <el-button @click="showUserForm" type="primary">
+        修改信息
+      </el-button>
+
+      <el-dialog
+        title="修改账号信息"
+        :visible.sync="isUserFormVisible">
+        <el-form ref="userForm" :model="userForm" :rules="userRules" label-width="80px">
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="userForm.username" placeholder="请输入用户名"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input type="password" v-model="userForm.password" placeholder="请输入密码"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="confirmPwd">
+            <el-input type="password" v-model="userForm.confirmPwd" placeholder="请再次输入密码"></el-input>
+          </el-form-item>
+          <el-form-item label="用户昵称" prop="nickname">
+            <el-input v-model="userForm.nickname" placeholder="请输入用户昵称"></el-input>
+          </el-form-item>
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="userForm.email" placeholder="请输入邮箱"></el-input>
+          </el-form-item>
+          <el-form-item label="手机" prop="mobile">
+            <el-input v-model="userForm.mobile" placeholder="请输入手机号码"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer">
+          <el-button @click="isUserFormVisible=false">取消</el-button>
+          <el-button type="primary" @click="submitUserForm">修改</el-button>
+        </span>
+      </el-dialog>
+
+    </div>
+
+    <div>
+    </div>
+
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Account',
+  data () {
+    return {
+      isUserFormVisible: false,
+      isCompanyFormVisible: false,
+      userInfo: {
+      },
+      userForm: {
+      },
+      userRules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在3到10个字符', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ],
+        nickname: [
+          { required: true, message: '请输入用户昵称', trigger: 'blur' }
+        ],
+        email: [
+          { required: true, message: '请输入邮箱', trigger: 'blur' }
+        ],
+        mobile: [
+          { required: true, message: '请输入手机号码', trigger: 'blur' }
+        ]
+      }
+    };
+  },
+  methods: {
+    getUserInfo () {
+      const data = {
+        avatar: require('@/assets/images/logo.png'),
+        username: 'admin',
+        nickname: 'admin',
+        email: 'admin@example.com',
+        mobile: '18613945882',
+        status: true
+      };
+      return data;
+    },
+    showUserForm () {
+      this.isUserFormVisible = true;
+    },
+    submitUserForm (formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+        } else {
+          return false;
+        }
+      });
+    }
+  },
+  mounted () {
+    this.userInfo = this.getUserInfo();
+  }
+};
+</script>
+
+<style>
+.account {
+  position: relative;
+  margin: 0 10px;
+  text-align: center;
+}
+.account__avatar {
+  margin-top: 34px;
+}
+.account__avatar img {
+  width: 196px;
+  height: 196px;
+  border-radius: 98px;
+}
+.account__username {
+  font-size: 31px;
+  font-weight: bold;
+}
+.account__info-container {
+  margin-top: 50px;
+}
+.account__info {
+  position: relative;
+  min-width: 250px;
+  width: 350px;
+  margin: 30px auto;
+}
+.account__info div {
+  display: inline-block;
+}
+.account__info-label {
+  position: absolute;
+  left: 0;
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 80px;
+}
+.account__info-value {
+  position: relative;
+  right: 0;
+  left: 50px;
+  min-width: 250px;
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+.account__info-status {
+  text-align: left;
+  width: 150px;
+}
+</style>
