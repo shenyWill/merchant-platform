@@ -1,7 +1,7 @@
 <template>
   <div class="nav-logo">
-    <img class="image-logo" src="@/assets/images/navlogo.png" alt="">
-    <p class="logo-title">AI云平台</p>
+    <img @click="toIndexPage" class="nav-logo__image" src="@/assets/images/navlogo.png" alt="">
+    <p class="nav-logo__title">AI云平台</p>
   </div>
 </template>
 
@@ -11,6 +11,11 @@ export default {
   data () {
     return {
     };
+  },
+  methods: {
+    toIndexPage () {
+      this.$router.push('/');
+    }
   }
 };
 </script>
@@ -23,11 +28,12 @@ export default {
   padding-top: 10px;
   padding-left: 10px;
 }
-.image-logo {
+.nav-logo__image {
   height: auto;
   width: 150px;
+  cursor: pointer;
 }
-.logo-title {
+.nav-logo__title {
   position: relative;
   display: inline;
   font-size: 14px;
