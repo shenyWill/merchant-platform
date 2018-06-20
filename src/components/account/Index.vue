@@ -3,11 +3,9 @@
     <div class="account__avatar">
       <img :src="userInfo.avatar" alt="avatar">
     </div>
-
     <div class="account__username">
       {{ userInfo.username }}
     </div>
-
     <div class="account__info-container">
       <div class="account__info">
         <div class="account__info-label">
@@ -17,7 +15,6 @@
           {{ userInfo.username }}
         </div>
       </div>
-
       <div class="account__info">
         <div class="account__info-label">
           用户昵称：
@@ -26,7 +23,6 @@
           {{ userInfo.nickname }}
         </div>
       </div>
-
       <div class="account__info">
         <div class="account__info-label">
           邮箱：
@@ -35,7 +31,6 @@
           {{ userInfo.email }}
         </div>
       </div>
-
       <div class="account__info">
         <div class="account__info-label">
           手机：
@@ -44,7 +39,6 @@
           {{ userInfo.mobile }}
         </div>
       </div>
-
       <div class="account__info">
         <div class="account__info-label">
           用户状态：
@@ -55,10 +49,27 @@
           >
         </el-switch>
       </div>
-
       <el-button @click="showUserForm" type="primary">
         修改信息
       </el-button>
+
+      <div class="account__company">
+        <el-form ref="companyForm" :model="companyForm" :rules="companyRules" label-width="120px" labelPosition="left">
+          <el-form-item label="商户编号：" prop="id">
+            <el-input v-model="companyForm.id"></el-input>
+          </el-form-item>
+          <el-form-item label="公司名称：" prop="name">
+            <el-input v-model="companyForm.name"></el-input>
+          </el-form-item>
+          <el-form-item label="联系人：" prop="contacts">
+            <el-input v-model="companyForm.contacts"></el-input>
+          </el-form-item>
+          <el-form-item label="地区：" prop="region">
+            <el-input v-model="companyForm.region"></el-input>
+          </el-form-item>
+          <el-button @click="showCompanyForm" type="primary">修改信息</el-button>
+        </el-form>
+      </div>
 
       <el-dialog
         title="修改账号信息"
@@ -107,6 +118,17 @@ export default {
       userInfo: {
       },
       userForm: {
+        username: '',
+        password: '',
+        nickname: '',
+        email: '',
+        mobile: ''
+      },
+      companyForm: {
+        id: '',
+        name: '',
+        contacts: '',
+        region: ''
       },
       userRules: {
         username: [
@@ -125,6 +147,8 @@ export default {
         mobile: [
           { required: true, message: '请输入手机号码', trigger: 'blur' }
         ]
+      },
+      companyRules: {
       }
     };
   },
@@ -142,6 +166,9 @@ export default {
     },
     showUserForm () {
       this.isUserFormVisible = true;
+    },
+    showCompanyForm () {
+      this.isCompanyFormVisible = true;
     },
     submitUserForm (formName) {
       this.$refs[formName].validate(valid => {
@@ -162,10 +189,11 @@ export default {
 .account {
   position: relative;
   margin: 0 10px;
-  text-align: center;
+  text-align: left;
 }
 .account__avatar {
   margin-top: 34px;
+  margin-left: 100px;
 }
 .account__avatar img {
   width: 196px;
@@ -175,15 +203,17 @@ export default {
 .account__username {
   font-size: 31px;
   font-weight: bold;
+  margin-left: 150px;
 }
 .account__info-container {
   margin-top: 50px;
+  margin-left: 30px;
 }
 .account__info {
   position: relative;
   min-width: 250px;
   width: 350px;
-  margin: 30px auto;
+  padding: 20px;
 }
 .account__info div {
   display: inline-block;
@@ -206,5 +236,14 @@ export default {
 .account__info-status {
   text-align: left;
   width: 150px;
+  left: 80px;
+}
+.account__company {
+  margin: 50px 0 20px;
+  max-width: 600px;
+}
+.account__company .el-form-item__label {
+  font-weight: bold;
+  font-size: 16px;
 }
 </style>

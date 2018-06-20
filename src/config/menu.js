@@ -9,7 +9,15 @@ export default [{
 }, {
   icon: 'icon-chart',
   name: '数据统计',
-  route: '/stats'
+  children: [{
+    name: '调用明细',
+    icon: '',
+    route: '/stats'
+  }, {
+    name: '监控统计',
+    icon: '',
+    route: '/stats'
+  }]
 }, {
   icon: 'icon-user',
   name: '账号管理',

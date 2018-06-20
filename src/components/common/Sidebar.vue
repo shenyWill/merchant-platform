@@ -5,6 +5,7 @@
       :key="index"
       :icon="item.icon"
       :name="item.name"
+      :children="item.children ? item.children : []"
       :route="item.route"/>
     </div>
   </div>

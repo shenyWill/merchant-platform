@@ -7,7 +7,7 @@
     <i :class="['nav-userpane_icon', 'iconfont', userInfo.isIdentified ? 'icon-yes' : '']"></i>
     <p class="user-identify">{{ userInfo.isIdentified ? '用户已认证' : '用户未认证' }}</p>
     <div @mouseover="toggleShow()" @mouseout="toggleShow()" v-show="isShow" class="dropdown-menu">
-      <div class="dropdown-setting">
+      <div class="dropdown-setting" @click="toAccountSetting">
         账号设置
       </div>
       <div class="dropdown-logout">
@@ -44,6 +44,9 @@ export default {
     handleSetting () {
     },
     logout () {
+    },
+    toAccountSetting () {
+      this.$router.push('/account');
     }
   }
 };
