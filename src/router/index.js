@@ -7,6 +7,7 @@ import SecretGenerate from '@/components/secret/Generate';
 import Product from '@/components/product/Index';
 import Application from '@/components/Application/Index';
 import Account from '@/components/account/Index';
+import ProductTest from '@/components/product/Test';
 
 import StatsDetail from '@/components/stats/Detail';
 
@@ -23,6 +24,10 @@ export default new Router({
         component: Product
       },
       {
+        path: '/product/test',
+        name: 'ProductTest',
+        component: ProductTest
+      }, {
         path: '/application',
         name: 'Application',
         component: Application
