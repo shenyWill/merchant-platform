@@ -8,6 +8,7 @@
         <el-form
           ref="identify-form"
           :model="form"
+          :rules="formRules"
           label-width="80px"
           label-position="left">
           <el-form-item label="上传图片">
@@ -17,7 +18,6 @@
               :auto-upload="false"
               :show-file-list="false"
               :on-change="handleImageChange"
-              :before-upload="beforeImageUpload"
               >
               <img class="image-upload" :src="image" v-if="image">
               <i v-else slot="trigger" class="el-icon-plus product-face-compare__uploader-icon"></i>
@@ -33,8 +33,8 @@
           </el-form-item>
 
           <div class="product-face-compare__footer">
-            <p>只能上传JPG、JPEG、PNG格式文件，文件不能超过2MB</p>
-            <el-button type="primary">提交</el-button>
+            <p>{{ tips }}</p>
+            <el-button @click="submit" type="primary">提交</el-button>
           </div>
         </el-form>
       </el-row>
@@ -43,19 +43,56 @@
 </template>
 
 <script>
+import { validateUploadImage, img2Base64, showMessage } from '@/utils';
+import { imageUploadTips } from '@/config/errorMsg';
+
 export default {
   name: 'FaceIdentification',
   data () {
     return {
       image: '',
       form: {
-      }
+        image: '',
+        name: '',
+        userCode: ''
+      },
+      formRules: {
+        // TODO
+        name: [
+        ],
+        userCode: [
+        ]
+      },
+      tips: '只能上传JPG、JPEG、PNG格式图片，单张图片转码后不能超过2MB'
     };
   },
   methods: {
-    handleImageChange () {
+    handleImageChange (file) {
+      if (validateUploadImage(file)) {
+        const url = URL.createObjectURL(file.raw);
+        let image = new Image();
+        image.src = url;
+        image.onload = () => {
+          const data = img2Base64(image);
+          this.image = data;
+          this.$emit('data', data);
+        };
+      }
     },
-    beforeImageUpload () {
+    async submit () {
+      if (this.image === '') {
+        showMessage.call(this, 'error', imageUploadTips);
+        return;
+      }
+      this.$refs['identify-form'].validate(valid => {
+        if (valid) {
+          // TODO
+          this.$emit('loading', true);
+          this.$emit('loading', false);
+        } else {
+          return false;
+        }
+      });
     }
   }
 };

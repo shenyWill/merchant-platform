@@ -64,7 +64,6 @@ export default {
   width: 139px;
 }
 .userinfo:hover {
-  background-color: rgba(26, 47, 60, 0.6);
   cursor: pointer;
 }
 .avatar {
@@ -80,7 +79,7 @@ export default {
   font-size: 16px;
 }
 .dropdown-menu {
-  background-color: #1a2f3a;
+  background-color: #4f4f4f;
   width: 158px;
   height: 104px;
   z-index: 999;
@@ -94,7 +93,7 @@ export default {
   color: white;
 }
 .dropdown-menu div:hover {
-  background-color: black;
+  background-color: #3b3b3b;
 }
 .user-identify {
   position: relative;
