@@ -17,7 +17,6 @@
               :auto-upload="false"
               :show-file-list="false"
               :on-change="handleFirstImageChange"
-              :before-upload="beforeFirstImageUpload"
               >
               <img class="image-upload" :src="firstImage" v-if="firstImage">
               <i v-else slot="trigger" class="el-icon-plus product-face-compare__uploader-icon"></i>
@@ -29,15 +28,14 @@
               :auto-upload="false"
               :show-file-list="false"
               :on-change="handleSecondImageChange"
-              :before-upload="beforeSecondImageUpload"
               >
               <img class="image-upload" :src="secondImage" v-if="secondImage">
               <i v-else slot="trigger" class="el-icon-plus product-face-compare__uploader-icon"></i>
             </el-upload>
           </el-form-item>
           <div class="product-face-compare__footer">
-            <p>只能上传JPG、JPEG、PNG格式文件，文件不能超过2MB</p>
-            <el-button type="primary">提交</el-button>
+            <p>{{ tips }}</p>
+            <el-button @click="submit" type="primary">提交</el-button>
           </div>
         </el-form>
       </el-row>
@@ -47,36 +45,61 @@
 </template>
 
 <script>
-import { fileType } from '@/utils';
+import { validateUploadImage, img2Base64, showMessage } from '@/utils';
+import { imageUploadTips } from '@/config/errorMsg';
+import api from '@/api';
+
 export default {
   name: 'FaceCompare',
-  props: [
-    'form'
-  ],
   data () {
     return {
       firstImage: '',
-      firstImageData: '',
       secondImage: '',
-      secondImageData: ''
+      form: {
+        firstImage: '',
+        secondImage: ''
+      },
+      tips: '只能上传JPG、JPEG、PNG格式图片，单张图片转码后不能超过2MB'
     };
   },
   methods: {
-    isImage (name) {
-      const type = fileType(name);
-      const lists = ['jpg', 'jpeg', 'png'];
-      for (let i = 0; i < lists.length; i++) {
-        if (type === lists[i]) return true;
+    handleFirstImageChange (file) {
+      if (validateUploadImage(file)) {
+        const url = URL.createObjectURL(file.raw);
+        let image = new Image();
+        image.src = url;
+        image.onload = () => {
+          const data = img2Base64(image);
+          this.firstImage = data;
+          this.form.firstImage = data;
+        };
       }
-      return false;
     },
-    beforeFirstImageUpload () {
+    handleSecondImageChange (file) {
+      if (validateUploadImage(file)) {
+        const url = URL.createObjectURL(file.raw);
+        let image = new Image();
+        image.src = url;
+        image.onload = () => {
+          const data = img2Base64(image);
+          this.secondImage = data;
+          this.form.secondImage = data;
+        };
+      }
     },
-    handleFirstImageChange () {
-    },
-    beforeSecondImageUpload () {
-    },
-    handleSecondImageChange () {
+    async submit () {
+      if (this.firstImage === '' || this.secondImage === '') {
+        showMessage.call(this, 'error', imageUploadTips);
+        return;
+      }
+      try {
+        // TODO
+        const res = await api.post('', this.form);
+        this.$emit('loading', true);
+        this.$emit('result', res.data);
+        this.$emit('loading', false);
+      } catch (error) {
+      }
     }
   }
 };
@@ -112,5 +135,10 @@ export default {
 }
 .product-face-compare__footer p {
   font-size: 14px;
+}
+.image-upload {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>

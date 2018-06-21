@@ -1,4 +1,22 @@
 export default {
   serverURL: '',
-  loginAPI: '/aicloudadmin/admin/sysaccount/login'
+  prepro: '',
+  loginAPI: '/aicloudadmin/admin/sysaccount/login',
+
+  product: {
+    list: '',
+    add: '',
+    update: '',
+    test: ''
+  },
+
+  account: {
+    list: ''
+  },
+
+  application: {
+  },
+
+  stat: {
+  }
 };

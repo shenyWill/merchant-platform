@@ -1,6 +1,6 @@
 <template>
   <div class="product-test">
-    <el-card>
+    <el-card v-loading="isLoading">
       <div slot="header">
         产品测试
       </div>
@@ -8,7 +8,9 @@
         <div class="product-test__label">
           产品名称
         </div>
-        <el-select v-model="selectedProduct" placeholder="请选择产品">
+        <el-select
+          v-model="selectedProduct"
+          placeholder="请选择产品">
           <el-option
             v-for="product in products"
             :label="product.apiName"
@@ -20,8 +22,13 @@
       </div>
 
       <el-row>
-        <FaceCompare v-if="selectedProduct === 'PRODUCT_FACE_COMPARE'"/>
-        <FaceIdentification v-if="selectedProduct === 'PRODUCT_FACE_IDENTIFY'"/>
+        <FaceCompare
+          @result="handleCompareResult"
+          @loading="toggleLoading"
+          v-if="selectedProduct === 'PRODUCT_FACE_COMPARE'"/>
+        <FaceIdentification
+          @result="handleIdentifyResult"
+          v-if="selectedProduct === 'PRODUCT_FACE_IDENTIFY'"/>
       </el-row>
       <div class="product-test__result">
         <div class="product-test__label">查询结果</div>
@@ -44,6 +51,7 @@ export default {
   data () {
     return {
       score: '',
+      isLoading: false,
       selectedProduct: 'PRODUCT_FACE_COMPARE',
       products: [{
         apiName: '人脸比对',
@@ -53,6 +61,15 @@ export default {
         apiCode: 'PRODUCT_FACE_IDENTIFY'
       }]
     };
+  },
+  methods: {
+    handleCompareResult (data) {
+    },
+    handleIdentifyResult (data) {
+    },
+    toggleLoading (isLoading) {
+      this.isLoading = isLoading;
+    }
   }
 };
 </script>
@@ -62,6 +79,10 @@ export default {
   margin: 10px;
   padding: 10px;
   text-align: left;
+}
+.product-test .el-card__header {
+  color: white;
+  background-color: #4f4f4f;
 }
 .product-test__control {
   text-align: left;
