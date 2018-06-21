@@ -16,6 +16,8 @@ export default {
   },
 
   application: {
+    list: '/aicloudmerchant/merchant/userapp/page',
+    type: '/aicloudmerchant/merchant/userapp/types'
   },
 
   stat: {
