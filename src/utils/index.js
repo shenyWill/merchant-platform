@@ -1,13 +1,16 @@
-import { imageSizeTips, imageTypeTips } from '@/config/errorMsg';
+import {
+  imageSizeTips,
+  imageTypeTips
+} from '@/config/errorMsg';
 
-function fileType (name) {
+function fileType(name) {
   if (!name) return '';
   const dotIndex = name.lastIndexOf('.');
   const type = name.substring(dotIndex + 1).toLowerCase();
   return type;
 }
 
-function isImage (name) {
+function isImage(name) {
   const type = fileType(name);
   const lists = ['jpg', 'jpeg', 'png'];
   for (let i = 0; i < lists.length; i++) {
@@ -16,7 +19,7 @@ function isImage (name) {
   return false;
 }
 
-export function validateUploadImage (file) {
+export function validateUploadImage(file) {
   const isImg = isImage(file.name);
   if (!isImg) {
     showMessage.call(this, 'error', imageTypeTips);
@@ -31,7 +34,7 @@ export function validateUploadImage (file) {
   return true;
 }
 
-export function img2Base64 (image) {
+export function img2Base64(image) {
   let canvas = document.createElement('canvas');
   canvas.width = image.width;
   canvas.height = image.height;
@@ -41,7 +44,7 @@ export function img2Base64 (image) {
   return canvas.toDataURL(`image/${ext}`);
 }
 
-export function showMessage (type, message) {
+export function showMessage(type, message) {
   return this.$message({
     duration: 1000,
     type,
@@ -49,3 +52,21 @@ export function showMessage (type, message) {
   });
 }
 
+/*
+ * @param {String} obj
+ *
+ * */
+export function parseTime(obj) {
+  if (!obj) {
+    return '';
+  }
+  let date = new Date(obj);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours() > 9 ? date.getHours() : '0' + date.getHours();
+  const minutes = date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes();
+  const seconds = date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds();
+
+  return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`;
+}

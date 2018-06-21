@@ -40,6 +40,8 @@
 </style>
 
 <script>
+import api from '@/api';
+import config from '@/config';
 export default {
   data() {
     return {
@@ -75,6 +77,10 @@ export default {
     handleEdit(index, row) {
       // console.log(row)
     }
+  },
+  mounted() {
+    api.post(config.product.list, {}).then(response => {
+    });
   }
 };
 </script>

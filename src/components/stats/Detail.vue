@@ -139,6 +139,7 @@ export default {
     box-sizing: border-box;
     padding-left: 5px;
     font-size: 14px;
+    margin-bottom: 20px;
   }
   .chart-nav {
     position: absolute;

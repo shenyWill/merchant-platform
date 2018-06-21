@@ -1,10 +1,11 @@
 export default {
   serverURL: '',
   prepro: '',
-  loginAPI: '/aicloudadmin/admin/sysaccount/login',
+  loginAPI: '/aicloudmerchant/merchant/useraccount/login',
 
   product: {
-    list: '',
+    all: '/aicloudmerchant/merchant/userproduct/all',
+    list: '/aicloudmerchant/merchant/userproduct/page',
     add: '',
     update: '',
     test: ''

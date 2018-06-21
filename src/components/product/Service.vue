@@ -31,10 +31,10 @@
             </div>
             <div class="list-table">
                 <el-table :data="serviceList" border header-row-class-name="list-head">
-                    <el-table-column prop="code" label="产品编码" width="180"></el-table-column>
-                    <el-table-column prop="name" label="产品名称" width="180"></el-table-column>
-                    <el-table-column prop="type" label="签约类型" width="180"></el-table-column>
-                    <el-table-column prop="number" label="签约次数" width="180"></el-table-column>
+                    <el-table-column prop="apiCode" label="产品编码" width="180"></el-table-column>
+                    <el-table-column prop="apiName" label="产品名称" width="180"></el-table-column>
+                    <el-table-column prop="signType" label="签约类型" width="180"></el-table-column>
+                    <el-table-column prop="signNum" label="签约次数" width="180"></el-table-column>
                     <el-table-column prop="useNumber" label="已使用次数" width="180"></el-table-column>
                     <el-table-column prop="status" label="产品状态" width="180"></el-table-column>
                     <el-table-column prop="createTime" label="创建时间"></el-table-column>
@@ -46,49 +46,35 @@
 
 <script>
 import Search from '@/components/common/Search';
+import api from '@/api';
+import config from '@/config';
+import { parseTime } from '@/utils';
 export default {
   data() {
     return {
       searchData: {},
-      serviceList: [
-        {
-          code: 'PC20161616',
-          name: 'OCR识别',
-          type: '预付费',
-          number: '20000',
-          useNumber: '10000',
-          status: '启用',
-          createTime: '218-06-19'
-        },
-        {
-          code: 'PC20161616',
-          name: 'OCR识别',
-          type: '预付费',
-          number: '20000',
-          useNumber: '10000',
-          status: '启用',
-          createTime: '218-06-19'
-        },
-        {
-          code: 'PC20161616',
-          name: 'OCR识别',
-          type: '预付费',
-          number: '20000',
-          useNumber: '10000',
-          status: '启用',
-          createTime: '218-06-19'
-        },
-        {
-          code: 'PC20161616',
-          name: 'OCR识别',
-          type: '预付费',
-          number: '20000',
-          useNumber: '10000',
-          status: '启用',
-          createTime: '218-06-19'
-        }
-      ]
+      serviceList: []
     };
+  },
+  mounted() {
+      // 初始化获取产品列表
+    api.post(config.product.list, {}).then(response => {
+      let resObj = response.data;
+      if (Number(resObj.resCode) === 200) {
+        resObj.lists.forEach(value => {
+          value.signType === '2'
+            ? (value.signType = '后付费')
+            : (value.signType = '预付费');
+          value.status === '1'
+            ? (value.status = '启用')
+            : (value.status = '禁用');
+          value.createTime = parseTime(value.createTime);
+          this.serviceList.push(value);
+        });
+      }
+    });
+    api.post(config.product.all, {}).then(response => {
+    });
   },
   components: {
     Search

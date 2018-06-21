@@ -10,7 +10,13 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/aicloudmerchant': {
+        target: 'http://172.16.19.135:8084',
+        changeOrigin: true,
+        logLevel: 'debug',
+      }
+    },
 
     // Various Dev Server settings
     host: '172.16.33.116', // can be overwritten by process.env.HOST
