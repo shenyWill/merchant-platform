@@ -1,86 +1,73 @@
 <template>
-    <div class="application">
-        <el-button type="primary" class="add-btn">+ 新建应用</el-button>
-        <el-table :data="appTableData" border class="app-table" row-class-name="app-table-tr">
-            <el-table-column prop="id" label="序号" width="60" align="center"></el-table-column>
-            <el-table-column prop="name" label="应用名称" width="180" align="center"></el-table-column>
-            <el-table-column prop="APIKey" label="API Key" width="180" align="center"></el-table-column>
-            <el-table-column prop="type" label="类型" width="180" align="center"></el-table-column>
-            <el-table-column prop="createTime" label="创建时间" width="180" align="center"></el-table-column>
-            <!-- 状态 -->
-            <el-table-column label="状态" align="center">
-                <template slot-scope="scope">
-                    <el-switch v-model="scope.row.switch"></el-switch>
-                </template>
-            </el-table-column>
-            <!-- 操作 -->
-            <el-table-column label="操作" align="center" width="300">
-                <template slot-scope="scope">
-                  <el-button type='primary' size='small' @click="handleEdit(scope.$index,scope.row)">编辑</el-button>
-                  <el-button type='primary' size='small'>查看</el-button>
-                  <el-button type='primary' size='small'>绑定产品</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
+  <div class="application">
+    <h4 class="count-title">
+      <i class="el-icon-tickets"> 应用列表</i>
+      <span class="add-app">添加应用</span>
+    </h4>
+    <div class="list-table">
+      <el-table :data="appTableData" border class="app-table" row-class-name="app-table-tr">
+        <el-table-column prop="apiKey" label="API Key" width="300" align="center"></el-table-column>
+        <el-table-column prop="name" label="应用名称" width="180" align="center"></el-table-column>
+        <el-table-column prop="type" label="类型" width="120" align="center"></el-table-column>
+        <el-table-column prop="status" label="状态" width="100" align="center"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" align="center"></el-table-column>
+        <!-- 操作 -->
+        <el-table-column label="操作" align="center" width="300">
+          <template slot-scope="scope">
+            <el-button type='primary' size='small' @click="handleEdit(scope.$index,scope.row)">禁用</el-button>
+            <el-button type='primary' size='small'>绑定产品</el-button>
+            <el-button type='primary' size='small'>参数配置</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
+  </div>
 </template>
-
-<style lang="scss">
-// .application .app-table .app-table-tr:nth-of-type(2n) {
-//   background: #eeeff6;
-// }
-// .el-table--border td,
-// .el-table--border th {
-//   border-right: 2px solid #cdcfd0;
-// }
-// .el-table .has-gutter th {
-//   background-color: #48a9e7;
-//   color: #121212;
-// }
-</style>
 
 <script>
 import api from '@/api';
 import config from '@/config';
+import { parseTime } from '@/utils';
 export default {
   data() {
     return {
-      appTableData: [
-        {
-          id: 1,
-          name: '人脸比对',
-          APIKey: 'dasdasdasasasdwdqr',
-          type: '社交',
-          createTime: '2018-06-05',
-          switch: true
-        },
-        {
-          id: 2,
-          name: '人脸检测',
-          APIKey: 'werterwgwerh',
-          type: '移动支付',
-          createTime: '2018-06-05',
-          switch: true
-        },
-        {
-          id: 3,
-          name: '活体检测',
-          APIKey: 'werterwgwerh',
-          type: '娱乐',
-          createTime: '2018-06-05',
-          switch: false
-        }
-      ]
+      appTableData: [],
+      appType: []
     };
   },
   methods: {
     handleEdit(index, row) {
       // console.log(row)
+    },
+    responseAPI() {
+      api.post(config.application.list, {}).then(response => {
+        let resObj = response.data;
+        if (Number(resObj.resCode) === 200) {
+          this.appTableData = [];
+          resObj.lists.forEach(value => {
+            value.status === '1'
+              ? (value.status = '启用')
+              : (value.status = '禁用');
+            value.type = this.appType[value.type];
+            value.createTime = parseTime(value.createTime);
+            this.appTableData.push(value);
+          });
+        }
+      });
     }
   },
   mounted() {
-    api.post(config.product.list, {}).then(response => {
+    api.post(config.application.type, {}).then(response => {
+      let resObj = response.data;
+      if (Number(resObj.resCode) === 200) {
+        resObj.lists.forEach(value => {
+          let number = Number(value.paraVal);
+          this.appType[number] = value.paraName;
+        });
+      }
+      this.responseAPI();
     });
+    // api.post(config.loginAPI, {userName: 'test', password: '123456'}).then(response => {});
   }
 };
 </script>
@@ -95,7 +82,38 @@ export default {
   }
   .app-table {
     width: 100%;
-    border: 1px solid #cdcfd0;
+  }
+  .count-title {
+    height: 49px;
+    line-height: 49px;
+    background-color: rgba(242, 242, 242, 1);
+    border: 1px solid rgba(228, 228, 228, 1);
+    color: #666666;
+    font-size: 12px;
+    box-sizing: border-box;
+    padding-left: 10px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 0;
+  }
+  .add-app {
+    position: absolute;
+    display: block;
+    height: 30px;
+    width: 88px;
+    background-color: #ffffff;
+    color: #444;
+    right: 10px;
+    top: 8px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .list-table {
+    background-color: #ffffff;
+    border: 1px solid rgba(228, 228, 228, 1);
+    padding: 15px 10px;
   }
 }
 </style>

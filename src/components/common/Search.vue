@@ -9,7 +9,8 @@
                 <i class="el-icon-arrow-up" v-show="searchToggle"> 收起筛选</i>
                 <i class="el-icon-arrow-down" v-show="!searchToggle"> 展开筛选</i>
             </span>
-            <span class="search-title-result">查询结果</span>
+            <span class="search-title-reset" @click="searchReset">重置</span>
+            <span class="search-title-result" @click="searchResult">查询结果</span>
         </div>
         <div class="search-table">
             <slot name="search-form"></slot>
@@ -33,6 +34,12 @@ export default {
         this.searchToggle = true;
         $('.search-table').slideDown(500);
       }
+    },
+    searchResult() {
+      this.$emit('searchResult');
+    },
+    searchReset() {
+      this.$emit('searchReset');
     }
   }
 };
@@ -56,11 +63,11 @@ export default {
   }
   .search-title-filter {
     position: absolute;
-    right: 120px;
+    right: 230px;
     cursor: pointer;
     font-size: 14px;
   }
-  .search-title-result {
+  .search-title-result,.search-title-reset {
     position: absolute;
     right: 10px;
     cursor: pointer;
@@ -73,6 +80,12 @@ export default {
     text-align: center;
     line-height: 30px;
     top: 10px;
+    border-radius: 5px;
+  }
+  .search-title-reset {
+    right: 120px;
+    background-color: #999999;
+    color: #ffffff;
   }
   .search-table {
     color: #666666;
