@@ -1,7 +1,15 @@
 export default [{
   icon: 'icon-bag',
-  name: '产品管理',
-  route: '/product'
+  name: '服务中心',
+  children: [{
+    name: '产品管理',
+    icon: '',
+    route: '/product'
+  }, {
+    name: '产品测试',
+    icon: '',
+    route: '/product/test'
+  }]
 }, {
   icon: 'icon-yingyongguanli',
   name: '应用管理',

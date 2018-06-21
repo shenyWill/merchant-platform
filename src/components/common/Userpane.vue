@@ -10,7 +10,7 @@
       <div class="dropdown-setting" @click="toAccountSetting">
         账号设置
       </div>
-      <div class="dropdown-logout">
+      <div class="dropdown-logout" @click="logout">
         退出登录
       </div>
     </div>
@@ -41,9 +41,8 @@ export default {
     toggleShow () {
       this.isShow = !this.isShow;
     },
-    handleSetting () {
-    },
     logout () {
+      this.$router.push('/login');
     },
     toAccountSetting () {
       this.$router.push('/account');

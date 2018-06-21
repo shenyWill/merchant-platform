@@ -95,15 +95,24 @@
           </el-form-item>
         </el-form>
         <span slot="footer">
-          <el-button @click="isUserFormVisible=false">取消</el-button>
-          <el-button type="primary" @click="submitUserForm">修改</el-button>
+          <el-button @click="hideUserForm">取消</el-button>
+          <el-button type="primary" @click="submitForm('userForm')">修改</el-button>
         </span>
       </el-dialog>
 
     </div>
 
-    <div>
-    </div>
+    <el-dialog title="修改企业信息" :visible.sync="isCompanyFormVisible">
+      <el-form ref="companyForm" :model="companyForm" :rules="companyRules" label-width="80px">
+        <el-form-item>
+          <el-input></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer">
+        <el-button @click="hideCompanyForm">取消</el-button>
+        <el-button type="primary" @click="submitForm('companyForm')">修改</el-button>
+      </span>
+    </el-dialog>
 
   </div>
 </template>
@@ -167,10 +176,18 @@ export default {
     showUserForm () {
       this.isUserFormVisible = true;
     },
+    hideUserForm () {
+      this.isUserFormVisible = false;
+      this.$refs['userForm'].resetFields();
+    },
     showCompanyForm () {
       this.isCompanyFormVisible = true;
     },
-    submitUserForm (formName) {
+    hideCompanyForm () {
+      this.isCompanyFormVisible = false;
+      this.$refs['companyForm'].resetFields();
+    },
+    submitForm (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
         } else {
