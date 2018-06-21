@@ -1,5 +1,5 @@
 export default {
-  serverURL: '',
+  serverURL: 'http://172.16.19.135:8084/aicloudmerchant',
   prepro: '',
   loginAPI: '/aicloudmerchant/merchant/useraccount/login',
 

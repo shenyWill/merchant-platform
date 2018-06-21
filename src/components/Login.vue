@@ -20,18 +20,22 @@
       <el-card class="box-card login-component__login-card" shadow="never">
         <div class="login-card-title">用户名登录</div>
       </el-card>
-      <el-form class="login-component_login-form">
-        <el-form-item>
+      <el-form
+        :model="loginForm"
+        ref="loginForm"
+        :rules="rules"
+        class="login-component_login-form">
+        <el-form-item prop="userName">
           <el-input
             clearable
             type="text"
             auto-complete="off"
             class="login-component_login-input"
-            v-model="loginForm.username"
+            v-model="loginForm.userName"
             placeholder="账号">
           </el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="password">
           <el-input
             clearable
             type="password"
@@ -41,7 +45,7 @@
             placeholder="密码">
           </el-input>
         </el-form-item>
-        <el-button :disabled="buttonDisabled" @click="login" class="login-component_login-button">登录</el-button>
+        <el-button :disabled="buttonDisabled" @click="onSubmit" class="login-component_login-button">登录</el-button>
       </el-form>
     </div>
   </div>
@@ -49,9 +53,16 @@
 
 <script>
 import 'swiper/dist/css/swiper.css';
+import { mapMutations } from 'vuex';
+import { showMessage } from '@/utils';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
+import config from '@/config';
+import api from '@/api';
+import store from '@/store';
+
 export default {
   name: 'Login',
+  store,
   components: {
     swiper,
     swiperSlide
@@ -70,14 +81,49 @@ export default {
         speed: 400
       },
       loginForm: {
-        username: '',
+        userName: '',
         password: ''
+      },
+      rules: {
+        userName: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ]
       },
       buttonDisabled: false
     };
   },
   methods: {
-    async login () {
+    ...mapMutations([
+      'LOGIN'
+    ]),
+    login(data) {
+      return api.post(config.loginAPI, data);
+    },
+    async onSubmit () {
+      this.$refs['loginForm'].validate(async valid => {
+        if (valid) {
+          try {
+            this.buttonDisabled = true;
+            const response = await this.login(this.loginForm);
+            this.buttonDisabled = false;
+            if (response.data.resCode === '200') {
+              this.LOGIN(response.data.data);
+              this.$router.push('/product');
+            } else {
+              showMessage.call(this, 'error', response.data.resMsg);
+              return;
+            }
+          } catch (error) {
+            this.buttonDisabled = false;
+          }
+        } else {
+          this.buttonDisabled = false;
+          return false;
+        }
+      });
     }
   }
 };
