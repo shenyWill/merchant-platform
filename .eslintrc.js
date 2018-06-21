@@ -32,7 +32,8 @@ module.exports = {
     "space-before-function-paren": [0, "always"],
     "no-undef": 2,
     "no-console": 2,
-    "semi": [2, "always"]
+    "semi": [2, "always"],
+    "no-irregular-whitespace": 0
   },
   globals: {
     expect: true,

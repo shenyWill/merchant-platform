@@ -1,0 +1,15 @@
+// 公用样式清除
+ul,li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+// 表格的公共样式
+.list-table .list-head th {
+  background-color: rgba(242, 242, 242, 1);
+  color: #555;
+}
+// 搜索查询公共样式
+.search-item {
+  width: 300px;
+}

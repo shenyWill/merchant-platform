@@ -8,6 +8,7 @@ import ElementUI from 'element-ui';
 /* eslint-disable no-unused-vars */
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/font/iconfont.css';
+import './assets/css/common.scss';
 Vue.use(ElementUI);
 /* eslint-enable no-unused-vars */
 

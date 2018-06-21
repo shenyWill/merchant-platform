@@ -89,7 +89,7 @@ export default {
   }
   .app-table {
     width: 100%;
-    border: 2px solid #cdcfd0;
+    border: 1px solid #cdcfd0;
   }
 }
 </style>

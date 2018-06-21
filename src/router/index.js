@@ -11,6 +11,7 @@ import Service from '@/components/product/Service';
 import ProductTest from '@/components/product/Test';
 
 import StatsDetail from '@/components/stats/Detail';
+import StatsCount from '@/components/stats/Count';
 
 Vue.use(Router);
 
@@ -34,13 +35,17 @@ export default new Router({
         component: Application
       },
       {
-        path: '/service',
+        path: '/product/service',
         name: 'Service',
         component: Service
       }, {
         path: '/stats',
         name: 'Stats',
         component: StatsDetail
+      }, {
+        path: '/count',
+        name: 'Count',
+        component: StatsCount
       }, {
         path: '/secret/index',
         name: 'Secret',

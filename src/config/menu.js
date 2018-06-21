@@ -9,6 +9,10 @@ export default [{
     name: '产品测试',
     icon: '',
     route: '/product/test'
+  }, {
+    name: '产品服务',
+    icon: '',
+    route: '/product/service'
   }]
 }, {
   icon: 'icon-yingyongguanli',
@@ -24,7 +28,7 @@ export default [{
   }, {
     name: '监控统计',
     icon: '',
-    route: '/stats'
+    route: '/count'
   }]
 }, {
   icon: 'icon-user',
