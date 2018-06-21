@@ -7,6 +7,7 @@ import SecretGenerate from '@/components/secret/Generate';
 import Product from '@/components/product/Index';
 import Application from '@/components/Application/Index';
 import Account from '@/components/account/Index';
+import Service from '@/components/product/Service';
 
 import StatsDetail from '@/components/stats/Detail';
 
@@ -14,10 +15,10 @@ Vue.use(Router);
 
 export default new Router({
   routes: [{
-      path: '/',
-      name: 'Index',
-      component: Index,
-      children: [{
+    path: '/',
+    name: 'Index',
+    component: Index,
+    children: [{
         path: '/product',
         name: 'Product',
         component: Product
@@ -26,6 +27,11 @@ export default new Router({
         path: '/application',
         name: 'Application',
         component: Application
+      },
+      {
+        path: '/service',
+        name: 'Service',
+        component: Service
       }, {
         path: '/stats',
         name: 'Stats',
@@ -42,11 +48,11 @@ export default new Router({
         path: '/account',
         name: 'Account',
         component: Account
-      }]
-    }, {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    }
-  ]
+      }
+    ]
+  }, {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  }]
 });

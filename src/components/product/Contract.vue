@@ -59,7 +59,7 @@ export default {};
     background-color: #e9f6fc;
     float: left;
     border-radius: 5px;
-    margin-right: 74px;
+    margin-right: 35px;
     position: relative;
     img {
       width: 79px;

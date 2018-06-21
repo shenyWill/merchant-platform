@@ -2,7 +2,7 @@
     <div class="application">
         <el-button type="primary" class="add-btn">+ 新建应用</el-button>
         <el-table :data="appTableData" border class="app-table" row-class-name="app-table-tr">
-            <el-table-column prop="id" label="序号" width="180" align="center"></el-table-column>
+            <el-table-column prop="id" label="序号" width="60" align="center"></el-table-column>
             <el-table-column prop="name" label="应用名称" width="180" align="center"></el-table-column>
             <el-table-column prop="APIKey" label="API Key" width="180" align="center"></el-table-column>
             <el-table-column prop="type" label="类型" width="180" align="center"></el-table-column>
@@ -14,11 +14,11 @@
                 </template>
             </el-table-column>
             <!-- 操作 -->
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center" width="300">
                 <template slot-scope="scope">
-                    <span @click="handleEdit(scope.$index,scope.row)">编辑</span>
-                    <span>查看</span>
-                    <span>绑定产品</span>
+                  <el-button type='primary' size='small' @click="handleEdit(scope.$index,scope.row)">编辑</el-button>
+                  <el-button type='primary' size='small'>查看</el-button>
+                  <el-button type='primary' size='small'>绑定产品</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -26,17 +26,17 @@
 </template>
 
 <style lang="scss">
-.application .app-table .app-table-tr:nth-of-type(2n) {
-  background: #eeeff6;
-}
-.el-table--border td,
-.el-table--border th {
-  border-right: 2px solid #cdcfd0;
-}
-.el-table .has-gutter th {
-  background-color: #48a9e7;
-  color: #121212;
-}
+// .application .app-table .app-table-tr:nth-of-type(2n) {
+//   background: #eeeff6;
+// }
+// .el-table--border td,
+// .el-table--border th {
+//   border-right: 2px solid #cdcfd0;
+// }
+// .el-table .has-gutter th {
+//   background-color: #48a9e7;
+//   color: #121212;
+// }
 </style>
 
 <script>

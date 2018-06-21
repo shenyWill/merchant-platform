@@ -94,7 +94,6 @@ export default {
 }
 .secret__whitelist-input .el-textarea__inner {
   height: 201px;
-  font-height: 201px;
 }
 .secret__whitelist-info {
   margin: 0 10px;
