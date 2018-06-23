@@ -17,7 +17,11 @@ export default {
 
   application: {
     list: '/aicloudmerchant/merchant/userapp/page',
-    type: '/aicloudmerchant/merchant/userapp/types'
+    type: '/aicloudmerchant/merchant/userapp/types',
+    add: '/aicloudmerchant/merchant/userapp/add',
+    notsign: '/aicloudmerchant/merchant/userapp/notsigns',
+    bind: '/aicloudmerchant/merchant/userapp/bindproduct',
+    modify: '/aicloudmerchant/merchant/userapp/modify'
   },
 
   stat: {
