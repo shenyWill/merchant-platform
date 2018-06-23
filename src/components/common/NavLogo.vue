@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     toIndexPage () {
-      this.$router.push('/');
+      this.$router.push('/product');
     }
   }
 };

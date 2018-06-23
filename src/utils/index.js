@@ -3,6 +3,8 @@ import {
   imageTypeTips
 } from '@/config/errorMsg';
 
+import api from '@/api';
+
 function fileType(name) {
   if (!name) return '';
   const dotIndex = name.lastIndexOf('.');
@@ -17,6 +19,10 @@ function isImage(name) {
     if (type === lists[i]) return true;
   }
   return false;
+}
+
+export async function request (url, data = {}) {
+  return api.post(url, data);
 }
 
 export function validateUploadImage(file) {

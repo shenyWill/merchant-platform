@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '@/router';
 
 const service = axios.create({
   // config
@@ -19,6 +20,9 @@ service.interceptors.request.use(config => {
  *
  * */
 service.interceptors.response.use(response => {
+  if (response.data.resCode === '1004') {
+    router.push('/login');
+  }
   return response;
 }, error => {
   return Promise.reject(error);
@@ -30,7 +34,7 @@ export default {
       params: data
     });
   },
-  post (url, data = null) {
-    return service.post(url, data);
+  post (url, data = null, config = {}) {
+    return service.post(url, data, config);
   }
 };
