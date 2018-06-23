@@ -1,11 +1,11 @@
 <template>
   <div class="nav-userpane">
     <div class="userinfo" @mouseover="toggleShow()" @mouseout="toggleShow()">
-      <img class="avatar" :src="userInfo.avatar" alt="">
-      <p class="username-title">{{ userInfo.username }}</p>
+      <img class="avatar" :src="userInfo.avatar ? userInfo.avatar : avatar" alt="">
+      <p class="username-title">{{ userInfo.userName }}</p>
     </div>
-    <i :class="['nav-userpane_icon', 'iconfont', userInfo.isIdentified ? 'icon-yes' : '']"></i>
-    <p class="user-identify">{{ userInfo.isIdentified ? '用户已认证' : '用户未认证' }}</p>
+    <i :class="['nav-userpane_icon', 'iconfont', userInfo.authStatus ? 'icon-yes' : '']"></i>
+    <p class="user-identify">{{ userInfo.authStatus ? '用户已认证' : '用户未认证' }}</p>
     <div @mouseover="toggleShow()" @mouseout="toggleShow()" v-show="isShow" class="dropdown-menu">
       <div class="dropdown-setting" @click="toAccountSetting">
         账号设置
@@ -26,15 +26,16 @@ export default {
       default: () => {
         return {
           avatar: require('@/assets/images/logo.png'),
-          username: 'admin',
-          isIdentified: true
+          userName: 'admin',
+          authStatus: true
         };
       }
     }
   },
   data () {
     return {
-      isShow: false
+      isShow: false,
+      avatar: require('@/assets/images/logo.png')
     };
   },
   methods: {
@@ -73,6 +74,7 @@ export default {
 }
 .username-title {
   position: relative;
+  margin-left: 5px;
   display: inline;
   bottom: 10px;
   color: white;

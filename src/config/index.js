@@ -2,6 +2,7 @@ export default {
   serverURL: 'http://172.16.19.135:8084/aicloudmerchant',
   prepro: '',
   loginAPI: '/aicloudmerchant/merchant/useraccount/login',
+  user: '/aicloudmerchant/merchant/useraccount/currentuser',
 
   product: {
     all: '/aicloudmerchant/merchant/userproduct/all',
@@ -12,7 +13,13 @@ export default {
   },
 
   account: {
-    list: ''
+    list: '',
+    user: '/aicloudmerchant/merchant/useraccount/currentuser',
+    merchant: '/aicloudmerchant/merchant/userinfo/detail',
+    changePwd: '/aicloudmerchant/merchant/useraccount/modifypassword',
+    changeEmail: '/aicloudmerchant/merchant/useraccount/modifyemail',
+    changeMobile: '/aicloudmerchant/merchant/useraccount/modifyphone',
+    validateImage: '/aicloudmerchant/imageservlet'
   },
 
   application: {
