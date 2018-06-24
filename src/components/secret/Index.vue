@@ -1,13 +1,13 @@
 <template>
   <div class="secret">
     <div class="secret__input">
-      <div class="secret__input-title">appkey：</div>
+      <div class="secret__input-title">apiKey:：</div>
       <el-input></el-input>
     </div>
 
     <div class="secret__input">
       <div class="secret__input-title">平台签名公钥：</div>
-      <el-input></el-input>
+      <el-input type="textarea" v-model="platformPublicKey"></el-input>
     </div>
 
     <div class="secret__binding">
@@ -24,7 +24,6 @@
           label="应用编号">
         </el-table-column>
       </el-table>
-      <el-button type="primary">绑定应用</el-button>
     </div>
 
     <div class="secret__whitelist">
@@ -35,6 +34,7 @@
         </el-col>
         <el-col :span="12">
           <p class="secret__whitelist-info" v-html="ipInfo"></p>
+          <el-button class="secret__generate-button" type="primary" @click="generateKey">在线生成</el-button>
         </el-col>
       </el-row>
       <el-button type="primary">确定</el-button>
@@ -57,12 +57,21 @@ export default {
   name: 'Secret',
   data () {
     return {
+      platformPublicKey: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCXyE/yHrjuqHG9ZDVv2KIynVtozWyWj24c2HDBE8fokftA7bFodyrvvsaMrx4x/Q8kMbwt1wynAXTreeEFHm+DYfuuZYmpKd4jVrxJFPl3u87wmbIUwEDYWVK662YOwyZYaqjAiQelKI8tZCFuL8k2lDJqlt77Sw3JiECuJrNnMwIDAQAB',
       ipInfo: 'IP说明：<br/>如未设置IP白名单，则任何IP都可以请求<br/>该IP须为服务器外网IP，即最终出口访问的IP，可以是多个<br/>一行一个IP地址，如：<br/>12.6.56.125',
       tableData: [{
         name: '易丰信息',
         id: '1FDSDFSFS1231sdf0'
       }]
     };
+  },
+  methods: {
+    generateKey () {
+      this.$router.push('/secret/generate');
+    }
+  },
+  mounted () {
+    console.log(this.$route.query.id);
   }
 };
 </script>
@@ -100,6 +109,9 @@ export default {
 }
 .secret__whitelist .el-button {
   margin-top: 10px;
+}
+.secret__generate-button {
+  float: right;
 }
 .secret__user-public .el-textarea__inner {
   min-height: 122px!important;
