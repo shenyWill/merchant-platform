@@ -6,7 +6,9 @@ export default {
 
   product: {
     all: '/aicloudmerchant/merchant/userproduct/all',
+    detail: '/aicloudmerchant/merchant/userapp/detail',
     list: '/aicloudmerchant/merchant/userproduct/page',
+    modify: '/aicloudmerchant/merchant/userapp/modify',
     add: '',
     update: '',
     test: ''
