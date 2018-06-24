@@ -6,13 +6,13 @@ export default [{
     icon: '',
     route: '/product'
   }, {
-    name: '产品测试',
-    icon: '',
-    route: '/product/test'
-  }, {
     name: '产品服务',
     icon: '',
     route: '/product/service'
+  }, {
+    name: '产品测试',
+    icon: '',
+    route: '/product/test'
   }]
 }, {
   icon: 'icon-yingyongguanli',

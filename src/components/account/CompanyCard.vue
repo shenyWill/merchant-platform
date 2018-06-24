@@ -3,7 +3,7 @@
     <el-card class="account__collapse-card">
       <div slot="header" @click="toggleCard">
         认证信息：
-        <i class="iconfont account__card-icon icon-user"></i>
+        <i class="iconfont account__card-icon account__auth-icon icon-zhuanjiajianbiezhuanhuan"></i>
       </div>
       <div :class="['account__collapse-company', isToggle ? 'height-zero' : '']">
         <el-row>
@@ -96,5 +96,8 @@ export default {
 }
 .account__company-image :hover {
   border-color: #409EFF;
+}
+.account__auth-icon {
+  font-size: 30px;
 }
 </style>

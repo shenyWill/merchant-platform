@@ -26,11 +26,11 @@
         <el-button class="secret-generate__button" @click="generateSecret" type="primary">在线生成</el-button>
 
         <el-form-item class="secret-generate__user-public" label="用户签名公钥：">
-          <el-input type="textarea" resize="none"></el-input>
+          <el-input v-model="form.userPublicKey" type="textarea" resize="none"></el-input>
         </el-form-item>
 
         <el-form-item class="secret-generate__user-secret" label="用户签名私钥：">
-          <el-input type="textarea" resize="none"></el-input>
+          <el-input v-model="form.userPrivateKey" type="textarea" resize="none"></el-input>
         </el-form-item>
       </el-form>
     </div>
@@ -38,6 +38,9 @@
 </template>
 
 <script>
+import api from '@/api';
+import config from '@/config';
+
 export default {
   name: 'SecretGenerate',
   data () {
@@ -47,12 +50,22 @@ export default {
       secretOptions: [
       ],
       form: {
-        secretType: ''
+        secretType: '',
+        userPublicKey: '',
+        userPrivateKey: ''
       }
     };
   },
   methods: {
-    generateSecret () {
+    async generateSecret () {
+      const response = await api.post(config.secret.generate);
+      if (response.data.resCode === '200') {
+        this.form = {
+          ...this.form,
+          userPublicKey: response.data.data.publicKey,
+          userPrivateKey: response.data.data.privateKey
+        };
+      }
     }
   }
 };

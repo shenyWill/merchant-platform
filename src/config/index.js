@@ -32,5 +32,9 @@ export default {
   },
 
   stat: {
+  },
+
+  secret: {
+    generate: '/aicloudmerchant/merchant/userapp/signkey'
   }
 };

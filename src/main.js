@@ -4,17 +4,47 @@ import 'babel-polyfill';
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import store from './store';
+import api from './api';
+import config from './config';
 import ElementUI from 'element-ui';
-/* eslint-disable no-unused-vars */
+
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/font/iconfont.css';
 import './assets/css/common.scss';
-Vue.use(ElementUI);
-/* eslint-enable no-unused-vars */
 
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
+
+async function getUser () {
+  const response = await api.post(config.account.user);
+  if (response.data.resCode === '200') {
+    const user = response.data.data;
+    store.commit('SET_USER', user);
+    return user;
+  } else {
+    return null;
+  }
+}
+
+router.beforeEach(async (to, from, next) => {
+  let user = store.state.user;
+  if (!user) user = await getUser();
+  if (!user && to.path !== '/login') {
+    next({
+      path: '/login'
+    });
+    return;
+  }
+  if (user && to.path === '/login') {
+    next({
+      path: '/product'
+    });
+    return;
+  }
+  next();
+});
 
 /* eslint-disable no-new */
 new Vue({
@@ -23,4 +53,3 @@ new Vue({
   components: { App },
   template: '<App/>'
 });
-

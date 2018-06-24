@@ -3,7 +3,7 @@
     <el-card class="account__collapse-card">
       <div slot="header" @click="toggleCard">
         账号信息：
-        <i class="iconfont account__card-icon icon-user"></i>
+        <i class="iconfont account__card-icon account__user-icon icon-card"></i>
       </div>
       <div :class="['account__collapse-user', isToggle ? 'height-zero': '']">
         <div class="account__info">
@@ -215,7 +215,7 @@ export default {
     },
     showMobileDialog () {
       this.showDialog('mobileForm', () => {
-        this.fetchValidateImage();
+        if (!this.$refs['mobileForm']) this.fetchValidateImage();
         this.mobileDialog = true;
       });
     },
@@ -259,7 +259,6 @@ export default {
           this.$emit('reload');
         } else if (response.data.resCode === '1020') {
           showMessage.call(this, 'error', '验证码已过期');
-          this.validateImage = null;
         }
       }, () => {
         this.mobileDialog = false;
@@ -323,5 +322,8 @@ export default {
   cursor: pointer;
   margin: 5px;
   margin-left: 10px;
+}
+.account__user-icon {
+  font-size: 22px;
 }
 </style>

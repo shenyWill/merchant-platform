@@ -42,6 +42,7 @@
             auto-complete="off"
             class="login-component_login-input"
             v-model="loginForm.password"
+            @keyup.enter.native="onSubmit"
             placeholder="密码">
           </el-input>
         </el-form-item>
