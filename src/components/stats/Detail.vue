@@ -1,18 +1,17 @@
 <template>
   <div class="detail">
     <h4 class="detail-title">调用明细</h4>
-    <search>
+    <search @searchResult="searchResult" @searchReset="searchReset">
       <div slot="search-form">
         <el-form :inline="true" :model="searchData" class="search-form">
           <el-form-item label="产品名称" class="search-item">
-            <el-select v-model="searchData.productName" placeholder="请选择产品名称">
-              <el-option label="产品一" value="1"></el-option>
-              <el-option label="产品二" value="2"></el-option>
-              <el-option label="全部" value="2"></el-option>
+            <el-select v-model="searchData.apiCode" placeholder="请选择产品名称">
+              <el-option :label="item.apiName" :value="item.apiCode" v-for="item in productList" :key="item.apiCode"></el-option>
+              <el-option label="全部" value=""></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="　Apikey" class="search-item">
-            <el-input v-model="searchData.apikey" placeholder="请输入apikey"></el-input>
+            <el-input v-model="searchData.apiKey" placeholder="请输入apikey"></el-input>
           </el-form-item>
           <el-form-item label="开始日期" class="search-item">
             <el-date-picker v-model="searchData.startDate" placeholder="请选择日期"></el-date-picker>
@@ -29,11 +28,11 @@
       <div class="chart-title">
         <span class="chart-title-detail">调用曲线图</span>
         <ul class="chart-nav">
-          <li class="chart-list active">当天</li>
-          <li class="chart-list">本周</li>
-          <li class="chart-list">本月</li>
-          <li class="chart-list">上月</li>
-          <li class="chart-list">本年</li>
+          <li class="chart-list active" @click="checkoutDate('day')">当天</li>
+          <li class="chart-list" @click="checkoutDate('week')">本周</li>
+          <li class="chart-list" @click="checkoutDate('month')">本月</li>
+          <li class="chart-list" @click="checkoutDate('upmonth')">上月</li>
+          <li class="chart-list" @click="checkoutDate('year')">本年</li>
         </ul>
       </div>
       <div id='chart-line' class='chart-line'></div>
@@ -43,6 +42,9 @@
 
 <script>
 import Search from '@/components/common/Search';
+import config from '@/config';
+import api from '@/api';
+import { parseTime } from '@/utils';
 // 引入基本模板
 let echarts = require('echarts/lib/echarts');
 // 引入柱状图组件
@@ -58,6 +60,8 @@ export default {
   data() {
     return {
       searchData: {},
+      clickName: 'day',
+      productList: [], // 产品列表
       option: {
         tooltip: {
           trigger: 'axis'
@@ -79,7 +83,7 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+          data: []
         },
         yAxis: {
           type: 'value'
@@ -89,21 +93,21 @@ export default {
             name: '不计费次数',
             type: 'line',
             stack: '总量',
-            data: [120, 132, 101, 134, 90, 230, 210],
+            data: [],
             smooth: true
           },
           {
             name: '计费次数',
             type: 'line',
             stack: '总量',
-            data: [220, 182, 191, 234, 290, 330, 310],
+            data: [],
             smooth: true
           },
           {
             name: '总次数',
             type: 'line',
             stack: '总量',
-            data: [150, 232, 201, 154, 190, 330, 410],
+            data: [],
             smooth: true
           }
         ]
@@ -115,10 +119,81 @@ export default {
     drawLine() {
       let myChart = echarts.init(document.getElementById('chart-line'));
       myChart.setOption(this.option);
+    },
+    async responseAPI(url, data) {
+      const response = await api.post(url, data);
+      let resObj = response.data;
+      this.option.xAxis.data = [];
+      this.option.series.forEach(value => (value.data = []));
+      resObj.lists.forEach(value => {
+        this.option.xAxis.data.push(value.datestr);
+        this.option.series[0].data.push(value.invalid);
+        this.option.series[1].data.push(value.valid);
+        this.option.series[2].data.push(value.count);
+      });
+      this.drawLine();
+    },
+    // 查看不同日期统计
+    async checkoutDate(uname) {
+      $('.chart-list').removeClass('active');
+      $(event.target).addClass('active');
+      this.searchData = {};
+      this.clickName = uname;
+      let url = config.stat[uname];
+      this.responseAPI(url, {});
+    },
+    // 获取产品列表
+    async getProductList() {
+      const response = await api.post(config.product.list, {});
+      let resObj = response.data;
+      resObj.lists.forEach(value => {
+        this.productList.push({
+          apiCode: value.apiCode,
+          apiName: value.apiName
+        });
+      });
+    },
+    // 查询结果
+    searchResult() {
+      if (this.searchData.startDate && !this.searchData.endDate) {
+        this.$message({
+          message: '请输入结束时间！',
+          type: 'error'
+        });
+        return;
+      }
+      if (this.searchData.endDate && !this.searchData.startDate) {
+        this.$message({
+          message: '请输入开始时间！',
+          type: 'error'
+        });
+        return;
+      }
+      if (
+        Date.parse(this.searchData.endDate) <
+        Date.parse(this.searchData.startDate)
+      ) {
+        this.$message({
+          message: '结束时间不能晚于开始时间！',
+          type: 'error'
+        });
+        return;
+      }
+      if (this.searchData.startDate && this.searchData.startDate) {
+        this.searchData.startDate = parseTime(this.searchData.startDate);
+        this.searchData.endDate = parseTime(this.searchData.endDate);
+        this.responseAPI(config.stat.searchDay, this.searchData);
+      } else {
+        this.responseAPI(config.stat[this.clickName], this.searchData);
+      }
+    },
+    searchReset() {
+      this.searchData = {};
     }
   },
   mounted() {
-    this.drawLine();
+    this.responseAPI(config.stat.day, {});
+    this.getProductList();
   }
 };
 </script>

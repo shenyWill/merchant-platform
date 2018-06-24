@@ -32,5 +32,12 @@ export default {
   },
 
   stat: {
+    day: '/aicloudmerchant/merchant/userrecord/grouphour',
+    week: '/aicloudmerchant/merchant/userrecord/groupweek',
+    month: '/aicloudmerchant/merchant/userrecord/groupcurrmonth',
+    upmonth: '/aicloudmerchant/merchant/userrecord/groupupmonth',
+    year: '/aicloudmerchant/merchant/userrecord/groupyear',
+    searchDay: '/aicloudmerchant/merchant/userrecord/groupday',
+    page: '/aicloudmerchant/merchant/userrecord/page'
   }
 };

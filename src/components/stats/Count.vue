@@ -58,6 +58,9 @@
 
 <script>
 import Search from '@/components/common/Search';
+// import config from '@/config';
+// import api from '@/api';
+// import { parseTime } from '@/utils';
 export default {
   components: {
     Search
@@ -108,6 +111,16 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+      responseAPI() {
+        //   const response = api.post(config.stat.page, {});
+        //   let resObj = response.data;
+        //   if(resObj.)
+      }
+  },
+  mounted() {
+      this.responseAPI();
   }
 };
 </script>

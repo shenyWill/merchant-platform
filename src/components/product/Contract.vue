@@ -1,41 +1,64 @@
 <template>
-    <div class="contract">
-        <h1 class="contract-title">签约产品(3)</h1>
-        <div class="contract-product">
-            <p class="contract-product-detail">
-                <img src="@/assets/images/product-detail-icon.png" alt="">
-                <span class="detail-name">产品名称：人脸对比</span>
-                <span class="detail-time">申请时间：2018-06-15</span>
-                <span class="detail-num">签约次数：10000</span>
-                <span class="detail-see">查看详情</span>
-            </p>
-            <p class="contract-product-detail">
-                <img src="@/assets/images/product-detail-icon.png" alt="">
-                <span class="detail-name">产品名称：人脸对比</span>
-                <span class="detail-time">申请时间：2018-06-15</span>
-                <span class="detail-num">签约次数：10000</span>
-                <span class="detail-see">查看详情</span>
-            </p>
-            <p class="contract-product-detail">
-                <img src="@/assets/images/product-detail-icon.png" alt="">
-                <span class="detail-name">产品名称：人脸对比</span>
-                <span class="detail-time">申请时间：2018-06-15</span>
-                <span class="detail-num">签约次数：10000</span>
-                <span class="detail-see">查看详情</span>
-            </p>
-            <p class="contract-product-detail">
-                <img src="@/assets/images/product-detail-icon.png" alt="">
-                <span class="detail-name">产品名称：人脸对比</span>
-                <span class="detail-time">申请时间：2018-06-15</span>
-                <span class="detail-num">签约次数：10000</span>
-                <span class="detail-see">查看详情</span>
-            </p>
-        </div>
+  <div class="contract">
+    <h1 class="contract-title">签约产品(3)</h1>
+    <div class="contract-product">
+      <p class="contract-product-detail" v-for="item in productList" :key="item.id">
+        <img src="@/assets/images/product-detail-icon.png" alt="">
+        <span class="detail-name">产品名称：{{item.apiName}}</span>
+        <span class="detail-time">申请时间：{{item.createTime}}</span>
+        <span class="detail-num">签约次数：{{item.signNum}}</span>
+        <span class="detail-see" @click="showDetail(item)">查看详情</span>
+      </p>
     </div>
+    <!-- 查看详情弹出框 -->
+    <el-dialog title="产品详情" :visible.sync="detailDialog" class="detail-dialog">
+      <ul class="detai-nav">
+        <li class="detail-list"><span class="detail-list-key">产品编码</span><span class="detail-list-value">{{detailObj.apiCode}}</span></li>
+        <li class="detail-list"><span class="detail-list-key">产品名称</span><span class="detail-list-value">{{detailObj.apiName}}</span></li>
+        <li class="detail-list"><span class="detail-list-key">签约次数</span><span class="detail-list-value">{{detailObj.signNum}}</span></li>
+        <li class="detail-list"><span class="detail-list-key">已使用次数</span><span class="detail-list-value">{{detailObj.useNum}}</span></li>
+        <li class="detail-list"><span class="detail-list-key">状态</span><span class="detail-list-value">{{detailObj.status}}</span></li>
+        <li class="detail-list"><span class="detail-list-key">创建时间</span><span class="detail-list-value">{{detailObj.createTime}}</span></li>
+        <li class="detail-list"><span class="detail-list-key">更新时间</span><span class="detail-list-value">{{detailObj.updateTime}}</span></li>
+      </ul>
+    </el-dialog>
+  </div>
 </template>
 
 <script>
-export default {};
+import config from '@/config';
+import api from '@/api';
+import { parseTime } from '@/utils';
+export default {
+  data() {
+    return {
+      productList: [], // 产品列表
+      detailObj: {}, // 详情信息
+      detailDialog: false // 详情弹出框
+    };
+  },
+  methods: {
+    // 获取产品列表
+    async getProductList() {
+      const response = await api.post(config.product.list, {});
+      let resObj = response.data;
+      this.productList = [...resObj.lists];
+      this.productList.forEach(value => {
+        value.createTime = parseTime(value.createTime);
+        value.updateTime = parseTime(value.updateTime);
+      });
+    },
+    // 查看详情
+    showDetail(detail) {
+      Number(detail.status) === 1 ? detail.status = '启用' : detail.status = '禁用';
+      this.detailObj = detail;
+      this.detailDialog = true;
+    }
+  },
+  mounted() {
+    this.getProductList();
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -90,6 +113,26 @@ export default {};
       font-weight: bold;
       cursor: pointer;
     }
+  }
+  .detail-dialog {
+    min-width: 1000px;
+  }
+  .detai-nav {
+    border: 1px solid #666666;
+    min-width: 600px;
+  }
+  .detail-list {
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    border-bottom: 1px solid #666666;
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+  .detail-list-key {
+    width: 15%;
+    display: inline-block;
   }
 }
 </style>
