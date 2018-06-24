@@ -4,10 +4,10 @@ import 'babel-polyfill';
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import store from './store';
-import api from './api';
-import config from './config';
 import ElementUI from 'element-ui';
+import store from './store';
+import config from './config';
+import api from './api';
 
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/font/iconfont.css';
@@ -20,9 +20,7 @@ Vue.use(ElementUI);
 async function getUser () {
   const response = await api.post(config.account.user);
   if (response.data.resCode === '200') {
-    const user = response.data.data;
-    store.commit('SET_USER', user);
-    return user;
+    return response.data.data;
   } else {
     return null;
   }
@@ -30,17 +28,9 @@ async function getUser () {
 
 router.beforeEach(async (to, from, next) => {
   let user = store.state.user;
-  if (!user) user = await getUser();
-  if (!user && to.path !== '/login') {
-    next({
-      path: '/login'
-    });
-    return;
-  }
+  if (!user && to.path !== '/login') user = await getUser();
   if (user && to.path === '/login') {
-    next({
-      path: '/product'
-    });
+    next({path: '/product'});
     return;
   }
   next();
