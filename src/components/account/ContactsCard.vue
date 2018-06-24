@@ -3,7 +3,7 @@
     <el-card class="account__collapse-card">
       <div slot="header" @click="toggleCard">
         联系方式：
-        <i class="iconfont account__card-icon icon-user"></i>
+        <i class="iconfont account__card-icon icon-homephone"></i>
       </div>
       <div :class="['account__collapse-contacts', isToggle ? 'height-zero' : '']">
         <el-row>

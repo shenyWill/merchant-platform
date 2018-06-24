@@ -17,7 +17,7 @@
           <template slot-scope="scope">
             <el-button  size='small' @click="handleDisable(scope.$index,scope.row)" class="disable-btn" v-text="scope.row.status == '启用' ? '禁用': '启用'"></el-button>
             <el-button  size='small' :disabled="scope.row.status == '启用' ? false : true" @click="handleBindProduct(scope.$index,scope.row)">绑定产品</el-button>
-            <el-button  size='small' :disabled="scope.row.status == '启用' ? false : true">参数配置</el-button>
+            <el-button  size='small' @click="handleSettings(scope.row.id)" :disabled="scope.row.status == '启用' ? false : true">参数配置</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -212,6 +212,10 @@ export default {
       } else {
         this.bindProductDialog = false;
       }
+    },
+    // 参数设置
+    handleSettings (id) {
+      this.$router.push({path: 'secret', query: { id: id }});
     }
   },
   mounted() {

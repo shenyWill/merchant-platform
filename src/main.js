@@ -5,16 +5,36 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import ElementUI from 'element-ui';
-/* eslint-disable no-unused-vars */
+import store from './store';
+import config from './config';
+import api from './api';
+
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/font/iconfont.css';
 import './assets/css/common.scss';
-Vue.use(ElementUI);
-/* eslint-enable no-unused-vars */
 
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
+
+async function getUser () {
+  const response = await api.post(config.account.user);
+  if (response.data.resCode === '200') {
+    return response.data.data;
+  } else {
+    return null;
+  }
+}
+
+router.beforeEach(async (to, from, next) => {
+  let user = store.state.user;
+  if (!user && to.path !== '/login') user = await getUser();
+  if (user && to.path === '/login') {
+    next({path: '/product'});
+    return;
+  }
+  next();
+});
 
 /* eslint-disable no-new */
 new Vue({
@@ -23,4 +43,3 @@ new Vue({
   components: { App },
   template: '<App/>'
 });
-

@@ -76,3 +76,6 @@ export function parseTime(obj) {
 
   return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`;
 }
+
+export function browserVersion () {
+}

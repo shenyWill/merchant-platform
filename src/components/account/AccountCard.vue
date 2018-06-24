@@ -3,7 +3,7 @@
     <el-card class="account__collapse-card">
       <div slot="header" @click="toggleCard">
         账号信息：
-        <i class="iconfont account__card-icon icon-user"></i>
+        <i class="iconfont account__card-icon account__user-icon icon-card"></i>
       </div>
       <div :class="['account__collapse-user', isToggle ? 'height-zero': '']">
         <div class="account__info">
@@ -74,7 +74,7 @@
       </div>
     </el-card>
 
-    <el-dialog title="修改手机号码" :visible.sync="mobileDialog">
+    <el-dialog title="修改手机号码" :visible.sync="mobileDialog" :close-on-click-modal="false" :lock-scroll="false">
       <el-form ref="mobileForm" :model="mobileForm" label-width="100px" :rules="mobileRules">
         <el-form-item label="新手机号码" prop="userPhone">
           <el-input v-model="mobileForm.userPhone"></el-input>
@@ -91,11 +91,12 @@
         </el-form-item>
       </el-form>
       <div slot="footer">
+        <el-button @click="mobileDialog = false">取消</el-button>
         <el-button type="primary" @click="changeMobile">确定</el-button>
       </div>
     </el-dialog>
 
-    <el-dialog title="修改密码" :visible.sync="passwordDialog">
+    <el-dialog title="修改密码" :visible.sync="passwordDialog" :close-on-click-modal="false" :lock-scroll="false">
       <el-form ref="passwordForm" :model="passwordForm" label-width="100px" :rules="passwordRules">
         <el-form-item label="原始密码" prop="oldPassword">
           <el-input type="password" v-model="passwordForm.oldPassword"></el-input>
@@ -108,17 +109,19 @@
         </el-form-item>
       </el-form>
       <div slot="footer">
+        <el-button @click="passwordDialog = false">取消</el-button>
         <el-button type="primary" @click="changePassword">确定</el-button>
       </div>
     </el-dialog>
 
-    <el-dialog title="修改邮箱" :visible.sync="emailDialog">
+    <el-dialog title="修改邮箱" :visible.sync="emailDialog" :close-on-click-modal="false" :lock-scroll="false">
       <el-form ref="emailForm" :model="emailForm" label-width="100px" :rules="emailRules">
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="emailForm.email"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer">
+        <el-button @click="emailDialog = false">取消</el-button>
         <el-button type="primary" @click="changeEmail">确定</el-button>
       </div>
     </el-dialog>
@@ -215,7 +218,7 @@ export default {
     },
     showMobileDialog () {
       this.showDialog('mobileForm', () => {
-        this.fetchValidateImage();
+        if (!this.$refs['mobileForm']) this.fetchValidateImage();
         this.mobileDialog = true;
       });
     },
@@ -259,7 +262,6 @@ export default {
           this.$emit('reload');
         } else if (response.data.resCode === '1020') {
           showMessage.call(this, 'error', '验证码已过期');
-          this.validateImage = null;
         }
       }, () => {
         this.mobileDialog = false;
@@ -323,5 +325,8 @@ export default {
   cursor: pointer;
   margin: 5px;
   margin-left: 10px;
+}
+.account__user-icon {
+  font-size: 22px;
 }
 </style>

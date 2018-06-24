@@ -6,7 +6,9 @@ export default {
 
   product: {
     all: '/aicloudmerchant/merchant/userproduct/all',
+    detail: '/aicloudmerchant/merchant/userapp/detail',
     list: '/aicloudmerchant/merchant/userproduct/page',
+    modify: '/aicloudmerchant/merchant/userapp/modify',
     add: '',
     update: '',
     test: ''
@@ -39,5 +41,9 @@ export default {
     year: '/aicloudmerchant/merchant/userrecord/groupyear',
     searchDay: '/aicloudmerchant/merchant/userrecord/groupday',
     page: '/aicloudmerchant/merchant/userrecord/page'
+  },
+
+  secret: {
+    generate: '/aicloudmerchant/merchant/userapp/signkey'
   }
 };

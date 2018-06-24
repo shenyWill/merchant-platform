@@ -4,7 +4,7 @@
       <img class="avatar" :src="userInfo.avatar ? userInfo.avatar : avatar" alt="">
       <p class="username-title">{{ userInfo.userName }}</p>
     </div>
-    <i :class="['nav-userpane_icon', 'iconfont', userInfo.authStatus ? 'icon-yes' : '']"></i>
+    <i :class="['nav-userpane_icon', 'iconfont', userInfo.authStatus ? 'icon-yes' : 'icon-x']"></i>
     <p class="user-identify">{{ userInfo.authStatus ? '用户已认证' : '用户未认证' }}</p>
     <div @mouseover="toggleShow()" @mouseout="toggleShow()" v-show="isShow" class="dropdown-menu">
       <div class="dropdown-setting" @click="toAccountSetting">

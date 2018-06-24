@@ -24,11 +24,11 @@
             </el-upload>
           </el-form-item>
 
-          <el-form-item label="姓名">
+          <el-form-item label="姓名" prop="name">
             <el-input placeholder="请输入姓名"></el-input>
           </el-form-item>
 
-          <el-form-item label="身份证号">
+          <el-form-item label="身份证号" prop="userCode">
             <el-input placeholder="请输入身份证号"></el-input>
           </el-form-item>
 
@@ -59,8 +59,10 @@ export default {
       formRules: {
         // TODO
         name: [
+          { required: true, message: '请输入姓名', tirgger: 'blur' }
         ],
         userCode: [
+          { required: true, message: '请输入身份证号', tirgger: 'blur' }
         ]
       },
       tips: '只能上传JPG、JPEG、PNG格式图片，单张图片转码后不能超过2MB'

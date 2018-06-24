@@ -64,8 +64,10 @@ export default {
   },
   methods: {
     handleCompareResult (data) {
+      this.score = data;
     },
     handleIdentifyResult (data) {
+      this.score = data;
     },
     toggleLoading (isLoading) {
       this.isLoading = isLoading;

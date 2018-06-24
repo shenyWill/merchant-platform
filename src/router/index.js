@@ -47,7 +47,7 @@ export default new Router({
         name: 'Count',
         component: StatsCount
       }, {
-        path: '/secret/index',
+        path: '/secret',
         name: 'Secret',
         component: Secret
       }, {

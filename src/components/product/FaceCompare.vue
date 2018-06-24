@@ -48,6 +48,7 @@
 import { validateUploadImage, img2Base64, showMessage } from '@/utils';
 import { imageUploadTips } from '@/config/errorMsg';
 import api from '@/api';
+import config from '@/config';
 
 export default {
   name: 'FaceCompare',
@@ -94,9 +95,9 @@ export default {
       }
       try {
         // TODO
-        const res = await api.post('', this.form);
         this.$emit('loading', true);
-        this.$emit('result', res.data);
+        const response = await api.post(config.product.test, this.form);
+        this.$emit('result', response.data.data);
         this.$emit('loading', false);
       } catch (error) {
       }

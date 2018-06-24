@@ -1,7 +1,6 @@
 <template>
   <div class="secret-generate">
     <div class="secret-generate__title">
-      <img draggable="false" :src="image" alt="title">
     </div>
     <div class="secret-generate__form">
       <el-form ref="form" :model="form">
@@ -19,18 +18,18 @@
         </el-form-item>
 
         <el-form-item class="secret-generate__platform-public" label="平台签名公钥：">
-          <el-input resize="none" type="textarea"></el-input>
+          <el-input v-model="platformPublicKey" resize="none" type="textarea"></el-input>
         </el-form-item>
 
         <p class="text-warning">{{ text }}</p>
         <el-button class="secret-generate__button" @click="generateSecret" type="primary">在线生成</el-button>
 
         <el-form-item class="secret-generate__user-public" label="用户签名公钥：">
-          <el-input type="textarea" resize="none"></el-input>
+          <el-input v-model="form.userPublicKey" type="textarea" resize="none"></el-input>
         </el-form-item>
 
         <el-form-item class="secret-generate__user-secret" label="用户签名私钥：">
-          <el-input type="textarea" resize="none"></el-input>
+          <el-input v-model="form.userPrivateKey" type="textarea" resize="none"></el-input>
         </el-form-item>
       </el-form>
     </div>
@@ -38,21 +37,35 @@
 </template>
 
 <script>
+import api from '@/api';
+import config from '@/config';
+
 export default {
   name: 'SecretGenerate',
   data () {
     return {
+      platformPublicKey: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCXyE/yHrjuqHG9ZDVv2KIynVtozWyWj24c2HDBE8fokftA7bFodyrvvsaMrx4x/Q8kMbwt1wynAXTreeEFHm+DYfuuZYmpKd4jVrxJFPl3u87wmbIUwEDYWVK662YOwyZYaqjAiQelKI8tZCFuL8k2lDJqlt77Sw3JiECuJrNnMwIDAQAB',
       image: require('@/assets/images/navlogo.png'),
       text: '注：鉴权数据中心提供统一的RSA签名方式，即：用户可在平台在线生成或者自行生成密钥对，同时将签名公钥上传至平台，私钥留下自己注意保密，通过生成的签名密钥进行签名，产生签名值。通过平台签名公钥和平台返回签名值进行验签。',
       secretOptions: [
       ],
       form: {
-        secretType: ''
+        secretType: '',
+        userPublicKey: '',
+        userPrivateKey: ''
       }
     };
   },
   methods: {
-    generateSecret () {
+    async generateSecret () {
+      const response = await api.post(config.secret.generate);
+      if (response.data.resCode === '200') {
+        this.form = {
+          ...this.form,
+          userPublicKey: response.data.data.publicKey,
+          userPrivateKey: response.data.data.privateKey
+        };
+      }
     }
   }
 };
