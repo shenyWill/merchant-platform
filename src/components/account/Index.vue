@@ -65,7 +65,7 @@ export default {
         };
         return data;
       } else {
-        return {};
+        return {...this.user};
       }
     },
     async initialize() {

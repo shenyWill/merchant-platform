@@ -1,15 +1,33 @@
 <template>
   <el-card class="account__action-card">
-    <el-button type="danger">退出登录</el-button>
+    <el-button @click="logout" type="danger">退出登录</el-button>
   </el-card>
 </template>
 
 <script>
+import api from '@/api';
+import store from '@/store';
+import config from '@/config';
+import { mapMutations } from 'vuex';
+
 export default {
   name: 'AccountActionCard',
+  store,
   data () {
     return {
     };
+  },
+  methods: {
+    ...mapMutations([
+      'LOGOUT'
+    ]),
+    async logout () {
+      const response = await api.post(config.logout);
+      if (response.data.resCode === '200') {
+        this.LOGOUT();
+        this.$router.push('/login');
+      }
+    }
   }
 };
 </script>

@@ -18,8 +18,13 @@
 </template>
 
 <script>
+import config from '@/config';
+import api from '@/api';
+import store from '@/store';
+import { mapMutations } from 'vuex';
 export default {
   name: 'NavUserPane',
+  store,
   props: {
     userInfo: {
       type: Object,
@@ -39,11 +44,18 @@ export default {
     };
   },
   methods: {
+    ...mapMutations([
+      'LOGOUT'
+    ]),
     toggleShow () {
       this.isShow = !this.isShow;
     },
-    logout () {
-      this.$router.push('/login');
+    async logout () {
+      const response = await api.post(config.logout);
+      if (response.data.resCode === '200') {
+        this.LOGOUT();
+        this.$router.push('/login');
+      }
     },
     toAccountSetting () {
       this.$router.push('/account');
