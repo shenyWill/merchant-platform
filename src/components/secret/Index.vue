@@ -194,6 +194,7 @@ export default {
 .secret {
   position: relative;
   margin: 16px 90px 16px 64px;
+  width: 50%;
   text-align: left;
 }
 .secret__input {
