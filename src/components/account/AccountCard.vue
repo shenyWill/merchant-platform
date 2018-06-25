@@ -48,6 +48,7 @@
             {{ data.userPhone }}
           </div>
           <el-button
+            v-if="false"
             @click="showMobileDialog"
             class="account__modify-button"
             size="small"
@@ -282,14 +283,12 @@ export default {
       });
     },
     update (type, submit, cb) {
-      this.$refs[type].validate(async valid => {
+      this.$refs[type].validate(valid => {
         if (valid) {
           submit();
-        } else {
-          showMessage.call(this, 'error', '请填写完整的信息');
+          cb();
         }
       });
-      cb();
     },
     async fetchValidateImage () {
       api.post(config.account.validateImage, {}, {

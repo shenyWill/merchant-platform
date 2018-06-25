@@ -26,6 +26,12 @@
       </el-table>
     </div>
 
+    <div class="secret__bundle" v-if="isSDK && isSDK === true">
+      <div class="secret__input-title">包名：</div>
+      <el-input v-model="bundleID"></el-input>
+      <el-button @click="uploadBundleID" type="primary">提交</el-button>
+    </div>
+
     <div class="secret__whitelist">
       <div class="secret__input-title">IP白名单：</div>
       <el-row>
@@ -37,7 +43,7 @@
           <el-button class="secret__generate-button" type="primary" @click="generateKey">在线生成</el-button>
         </el-col>
       </el-row>
-      <el-button @click="uploadWhiteList" type="primary">确定</el-button>
+      <el-button @click="uploadWhiteList" type="primary">提交</el-button>
     </div>
 
     <div class="secret__input secret__user-public">
@@ -67,6 +73,8 @@ export default {
       userPublicKey: '',
       clipboard: null,
       ipWhiteList: '',
+      isSDK: null,
+      bundleID: '',
       appDetail: [{
         userName: '',
         userCode: ''
@@ -86,9 +94,17 @@ export default {
         return [{name: '', id: ''}];
       }
     },
+    validatePublicKey (key) {
+      if (!key) {
+        return false;
+      } else if (key.length < 10 || key.length > 5000) {
+        return false;
+      }
+      return true;
+    },
     async uploadPublicKey () {
-      if (!this.userPublicKey) {
-        showMessage.call(this, 'error', '请填写签名公钥');
+      if (!this.validatePublicKey(this.userPublicKey)) {
+        showMessage.call(this, 'error', '请填写正确格式的签名公钥');
         return;
       }
       const data = {
@@ -114,6 +130,12 @@ export default {
           }
         });
       }
+    },
+    validateBundleID (id) {
+      if (id.indexOf('.') === -1 || id.length < 5 || id.length > 100) {
+        return false;
+      }
+      return true;
     },
     validateIP (data) {
       const array = data.split('\n');
@@ -142,6 +164,20 @@ export default {
             showMessage.call(this, 'error', '请填写正确格式的IP地址');
         }
       }
+    },
+    async uploadBundleID () {
+      const valid = this.validateBundleID(this.bundleID);
+      if (valid) {
+        const response = await request(config.application.modify, {
+          id: this.$route.query.id,
+          packageName: this.bundleID
+        });
+        if (response.data.resCode === '200') {
+          showMessage.call(this, 'success', '添加成功');
+        }
+      } else {
+        showMessage.call(this, 'error', '请填写正确格式的包名');
+      }
     }
   },
   async mounted () {
@@ -149,6 +185,7 @@ export default {
     this.appDetail = await this.getAppDetail(this.$route.query.id);
     this.apiKey = this.appDetail[0].apiKey;
     this.ipWhiteList = this.appDetail[0].boundIp;
+    this.isSDK = this.appDetail[0].appType === '1';
   }
 };
 </script>
@@ -174,6 +211,12 @@ export default {
 .secret__binding .el-table th {
   background-color: #d5d5d5;
   color: black;
+}
+.secret__bundle {
+  margin-bottom: 10px;
+}
+.secret__bundle .el-button {
+  margin-top: 10px;
 }
 .secret__whitelist {
   margin-bottom: 10px;

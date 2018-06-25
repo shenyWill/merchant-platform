@@ -13,7 +13,7 @@
       </swiper-slide>
     </swiper>
     <div class="login-component__title">
-      <img class="login-component__logo" src="@/assets/images/navlogo.png" alt="">
+      <img class="login-component__logo" src="@/assets/images/loginlogo.png" alt="">
       <p>AI云平台</p>
     </div>
     <div class="login-component__login">
@@ -73,9 +73,9 @@ export default {
     return {
       swiper: null,
       images: [
-        require('@/assets/images/background01.png'),
-        require('@/assets/images/background02.png'),
-        require('@/assets/images/background03.png')
+        require('@/assets/images/background01.jpg'),
+        require('@/assets/images/background02.jpg'),
+        require('@/assets/images/background03.jpg')
       ],
       swiperOption: {
         loop: true,

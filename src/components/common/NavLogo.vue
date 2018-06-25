@@ -1,6 +1,6 @@
 <template>
   <div class="nav-logo">
-    <img @click="toIndexPage" class="nav-logo__image" src="@/assets/images/navlogo.png" alt="">
+    <img @click="toIndexPage" class="nav-logo__image" src="@/assets/images/loginlogo.png" alt="">
     <p class="nav-logo__title">AI云平台</p>
   </div>
 </template>
