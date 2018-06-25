@@ -28,13 +28,13 @@
             </div>
             <div class="list-table">
                 <el-table :data="serviceList" border header-row-class-name="list-head">
-                    <el-table-column prop="apiCode" label="产品编码" width="240"></el-table-column>
-                    <el-table-column prop="apiName" label="产品名称" width="180"></el-table-column>
-                    <el-table-column prop="signType" label="签约类型" width="180"></el-table-column>
-                    <el-table-column prop="signNum" label="签约次数" width="120"></el-table-column>
-                    <el-table-column prop="useNum" label="已使用次数" width="120"></el-table-column>
-                    <el-table-column prop="status" label="产品状态" width="180"></el-table-column>
-                    <el-table-column prop="createTime" label="创建时间"></el-table-column>
+                    <el-table-column prop="apiCode" label="产品编码" min-width="240"></el-table-column>
+                    <el-table-column prop="apiName" label="产品名称" min-width="180"></el-table-column>
+                    <el-table-column prop="signType" label="签约类型" min-width="180"></el-table-column>
+                    <el-table-column prop="signNum" label="签约次数" min-width="120"></el-table-column>
+                    <el-table-column prop="useNum" label="已使用次数" min-width="120"></el-table-column>
+                    <el-table-column prop="status" label="产品状态" min-width="180"></el-table-column>
+                    <el-table-column prop="createTime" label="创建时间" min-width="240"></el-table-column>
                 </el-table>
             </div>
         </div>

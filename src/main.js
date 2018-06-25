@@ -29,10 +29,7 @@ async function getUser () {
 router.beforeEach(async (to, from, next) => {
   let user = store.state.user;
   if (!user && to.path !== '/login') user = await getUser();
-  if (user && to.path === '/login') {
-    next({path: '/product'});
-    return;
-  }
+
   next();
 });
 

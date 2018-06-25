@@ -1,6 +1,6 @@
 <template>
   <div class="contract">
-    <h1 class="contract-title">签约产品(3)</h1>
+    <h1 class="contract-title">签约产品({{productList.length}})</h1>
     <div class="contract-product">
       <p class="contract-product-detail" v-for="item in productList" :key="item.id">
         <img src="@/assets/images/product-detail-icon.png" alt="">
