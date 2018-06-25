@@ -180,9 +180,10 @@ export default {
         return;
       }
       if (this.searchData.startDate && this.searchData.startDate) {
-        this.searchData.startDate = parseTime(this.searchData.startDate);
-        this.searchData.endDate = parseTime(this.searchData.endDate);
-        this.responseAPI(config.stat.searchDay, this.searchData);
+        let resObj = {...this.searchData};
+        resObj.startDate = parseTime(resObj.startDate);
+        resObj.endDate = parseTime(resObj.endDate);
+        this.responseAPI(config.stat.searchDay, resObj);
       } else {
         this.responseAPI(config.stat[this.clickName], this.searchData);
       }

@@ -11,7 +11,7 @@
       </p>
     </div>
     <!-- 查看详情弹出框 -->
-    <el-dialog title="产品详情" :visible.sync="detailDialog" class="detail-dialog">
+    <el-dialog title="产品详情" :visible.sync="detailDialog" class="detail-dialog" :lock-scroll="false">
       <ul class="detai-nav">
         <li class="detail-list"><span class="detail-list-key">产品编码</span><span class="detail-list-value">{{detailObj.apiCode}}</span></li>
         <li class="detail-list"><span class="detail-list-key">产品名称</span><span class="detail-list-value">{{detailObj.apiName}}</span></li>
@@ -132,6 +132,13 @@ export default {
   }
   .detail-list-key {
     width: 15%;
+    display: inline-block;
+    border-right: 1px solid #666666;
+    text-indent: 10px;
+    color: #000000;
+  }
+  .detail-list-value {
+    text-indent: 10px;
     display: inline-block;
   }
 }
