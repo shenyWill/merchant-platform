@@ -35,14 +35,14 @@
             </div>
             <div class="list-table">
                 <el-table :data="countList" border header-row-class-name="list-head">
-                    <el-table-column prop="apiCode" label="产品编码" width="220"></el-table-column>
-                    <el-table-column prop="apiName" label="产品名称" width="100"></el-table-column>
-                    <el-table-column prop="appName" label="应用名称" width="120"></el-table-column>
-                    <el-table-column prop="merTradeNo" label="商户流水" width="180"></el-table-column>
-                    <el-table-column prop="platTradeNo" label="平台流水" width="180"></el-table-column>
-                    <el-table-column prop="queryResult" label="查询结果" width="100"></el-table-column>
-                    <el-table-column prop="elapsedTime" label="耗时" width="100"></el-table-column>
-                    <el-table-column prop="createTime" label="创建时间"></el-table-column>
+                    <el-table-column prop="apiCode" label="产品编码" min-width="220"></el-table-column>
+                    <el-table-column prop="apiName" label="产品名称" min-width="100"></el-table-column>
+                    <el-table-column prop="appName" label="应用名称" min-width="120"></el-table-column>
+                    <el-table-column prop="merTradeNo" label="商户流水" min-width="180"></el-table-column>
+                    <el-table-column prop="platTradeNo" label="平台流水" min-width="180"></el-table-column>
+                    <el-table-column prop="queryResult" label="查询结果" min-width="100"></el-table-column>
+                    <el-table-column prop="elapsedTime" label="耗时" min-width="100"></el-table-column>
+                    <el-table-column prop="createTime" label="创建时间" min-width="180"></el-table-column>
                 </el-table>
 
                 <!-- 分页 -->

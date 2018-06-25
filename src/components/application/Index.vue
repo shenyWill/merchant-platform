@@ -6,14 +6,15 @@
     </h4>
     <div class="list-table">
       <el-table :data="appTableData" border class="app-table" row-class-name="app-table-tr">
-        <el-table-column prop="apiKey" label="API Key" width="300" align="center"></el-table-column>
-        <el-table-column prop="name" label="应用名称" width="180" align="center"></el-table-column>
-        <el-table-column prop="type" label="类型" width="120" align="center"></el-table-column>
-        <el-table-column prop="status" label="状态" width="100" align="center"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" align="center"></el-table-column>
+        <el-table-column prop="apiKey" label="API Key" min-width="300" align="center"></el-table-column>
+        <el-table-column prop="name" label="应用名称" min-width="160" align="center"></el-table-column>
+        <el-table-column prop="type" label="应用类型" min-width="100" align="center"></el-table-column>
+        <el-table-column prop="appType" label="签约类型" min-width="100" align="center"></el-table-column>
+        <el-table-column prop="status" label="状态" min-width="100" align="center"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" align="center" min-width="180"></el-table-column>
 
         <!-- 操作 -->
-        <el-table-column label="操作" align="center" width="300">
+        <el-table-column label="操作" align="center" min-width="280">
           <template slot-scope="scope">
             <el-button  size='small' @click="handleDisable(scope.$index,scope.row)" class="disable-btn" v-text="scope.row.status == '启用' ? '禁用': '启用'"></el-button>
             <el-button  size='small' :disabled="scope.row.status == '启用' ? false : true" @click="handleBindProduct(scope.$index,scope.row)">绑定产品</el-button>
@@ -121,6 +122,7 @@ export default {
             : (value.status = '禁用');
           value.type = this.appType[value.type];
           value.createTime = parseTime(value.createTime);
+          value.appType === '1' ? value.appType = 'SDK' : value.appType = 'API';
           this.appTableData.push(value);
         });
       }
