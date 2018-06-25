@@ -2,13 +2,12 @@ export default {
   serverURL: 'http://172.16.19.135:8084/aicloudmerchant',
   prepro: '',
   loginAPI: '/aicloudmerchant/merchant/useraccount/login',
+  logout: '/aicloudmerchant/merchant/useraccount/loginout',
   user: '/aicloudmerchant/merchant/useraccount/currentuser',
 
   product: {
     all: '/aicloudmerchant/merchant/userproduct/all',
-    detail: '/aicloudmerchant/merchant/userapp/detail',
     list: '/aicloudmerchant/merchant/userproduct/page',
-    modify: '/aicloudmerchant/merchant/userapp/modify',
     add: '',
     update: '',
     test: ''
@@ -26,6 +25,7 @@ export default {
 
   application: {
     list: '/aicloudmerchant/merchant/userapp/page',
+    detail: '/aicloudmerchant/merchant/userapp/detail',
     type: '/aicloudmerchant/merchant/userapp/types',
     add: '/aicloudmerchant/merchant/userapp/add',
     notsign: '/aicloudmerchant/merchant/userapp/notsigns',
