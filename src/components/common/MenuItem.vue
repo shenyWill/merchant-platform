@@ -73,7 +73,7 @@ export default {
 .menu-item:hover {
   background-color: #3b3b3b;
 }
-div .menu-item__icon {
+.menu-item__container .menu-item__icon {
   font-size: 37px;
   color: white;
 }

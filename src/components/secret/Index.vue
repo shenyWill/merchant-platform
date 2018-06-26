@@ -210,6 +210,7 @@ export default {
   async mounted () {
     this.clipboard = new ClipboardJS('.clipboard');
     this.appDetail = await this.getAppDetail(this.$route.query.id);
+    this.userPublicKey = this.appDetail[0].publicKey;
     this.apiKey = this.appDetail[0].apiKey;
     this.products = await this.getProducts(this.apiKey);
     this.ipWhiteList = this.appDetail[0].boundIp;
