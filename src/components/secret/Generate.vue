@@ -13,12 +13,12 @@
 
         <el-form-item class="secret-generate__user-public" label="用户签名公钥：">
           <el-input id="userPublicKey" v-model="form.userPublicKey" type="textarea" resize="none"></el-input>
-          <el-button @click="copy('public', form.userPublicKey, publicKeyClipboard)" class="publicKeyClipboard" data-clipboard-target="#userPublicKey" type="primary">复制</el-button>
+          <el-button @click="copy(form.userPublicKey, publicKeyClipboard)" class="publicKeyClipboard" data-clipboard-target="#userPublicKey" type="primary">复制</el-button>
         </el-form-item>
 
         <el-form-item class="secret-generate__user-secret" label="用户签名私钥：">
           <el-input id="userSecretKey" v-model="form.userPrivateKey" type="textarea" resize="none"></el-input>
-          <el-button @click="copy('secret', form.userPrivateKey, secretKeyClipboard)" class="secretKeyClipboard" data-clipboard-target="#userSecretKey" type="primary">复制</el-button>
+          <el-button @click="copy(form.userPrivateKey, secretKeyClipboard)" class="secretKeyClipboard" data-clipboard-target="#userSecretKey" type="primary">复制</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -57,9 +57,9 @@ export default {
         };
       }
     },
-    copy (type, key, clipboard) {
+    copy (key, clipboard) {
       if (key === '') {
-        const message = type === 'public' ? '请填写签名公钥' : '请填写签名私钥';
+        const message = '请生成公钥私钥';
         showMessage.call(this, 'error', message);
         return false;
       } else {

@@ -1,17 +1,6 @@
 <template>
   <div class="secret">
-    <div class="secret__input">
-      <div class="secret__input-title">apiKey:：</div>
-      <el-input v-model="apiKey"></el-input>
-    </div>
-
-    <div class="secret__input">
-      <div class="secret__input-title">平台签名公钥：</div>
-      <el-input type="textarea" v-model="platformPublicKey"></el-input>
-    </div>
-
     <div class="secret__binding">
-      <div class="secret__input-title">绑定应用：</div>
       <el-table
         :data="appDetail">
         <el-table-column
@@ -26,13 +15,41 @@
       </el-table>
     </div>
 
+    <div class="secret__input">
+      <div class="secret__input-title">apiKey:：</div>
+      <el-input v-model="apiKey"></el-input>
+    </div>
+
+    <div class="secret__input">
+      <div class="secret__input-title">平台签名公钥：</div>
+      <el-input type="textarea" v-model="platformPublicKey"></el-input>
+    </div>
+
+    <div class="secret__app-products">
+      <div class="secret__input-title">绑定产品：</div>
+      <el-table
+        :data="products"
+        >
+        <el-table-column
+          prop="apiCode"
+          label="产品编码"
+          >
+        </el-table-column>
+        <el-table-column
+          prop="apiName"
+          label="产品名称"
+          >
+        </el-table-column>
+      </el-table>
+    </div>
+
     <div class="secret__bundle" v-if="isSDK && isSDK === true">
       <div class="secret__input-title">包名：</div>
       <el-input v-model="bundleID"></el-input>
       <el-button @click="uploadBundleID" type="primary">提交</el-button>
     </div>
 
-    <div class="secret__whitelist">
+    <div class="secret__whitelist" v-if="isAPI && isAPI === true">
       <div class="secret__input-title">IP白名单：</div>
       <el-row>
         <el-col :span="12">
@@ -40,14 +57,15 @@
         </el-col>
         <el-col :span="12">
           <p class="secret__whitelist-info" v-html="ipInfo"></p>
-          <el-button class="secret__generate-button" type="primary" @click="generateKey">在线生成</el-button>
         </el-col>
       </el-row>
       <el-button @click="uploadWhiteList" type="primary">提交</el-button>
     </div>
 
     <div class="secret__input secret__user-public">
-      <div class="secret__input-title">用户签名公钥：</div>
+      <div class="secret__input-title">用户签名公钥：
+        <a class="secret__auto-generate" href="/#/secret/generate" target="_blank">在线生成</a>
+      </div>
       <el-input id="userPublicKey" v-model="userPublicKey" resize="none" type="textarea"></el-input>
     </div>
 
@@ -74,7 +92,9 @@ export default {
       clipboard: null,
       ipWhiteList: '',
       isSDK: null,
+      isAPI: null,
       bundleID: '',
+      products: [],
       appDetail: [{
         userName: '',
         userCode: ''
@@ -178,14 +198,23 @@ export default {
       } else {
         showMessage.call(this, 'error', '请填写正确格式的包名');
       }
+    },
+    async getProducts (key) {
+      const data = {apiKey: key};
+      const response = await request(config.application.products, data);
+      if (response.data.resCode === '200') {
+        return response.data.data;
+      }
     }
   },
   async mounted () {
     this.clipboard = new ClipboardJS('.clipboard');
     this.appDetail = await this.getAppDetail(this.$route.query.id);
     this.apiKey = this.appDetail[0].apiKey;
+    this.products = await this.getProducts(this.apiKey);
     this.ipWhiteList = this.appDetail[0].boundIp;
     this.isSDK = this.appDetail[0].appType === '1';
+    this.isAPI = this.appDetail[0].appType === '2';
   }
 };
 </script>
@@ -209,7 +238,7 @@ export default {
 .secret__binding .el-button {
   margin-top: 10px;
 }
-.secret__binding .el-table th {
+.secret .el-table th {
   background-color: #d5d5d5;
   color: black;
 }
@@ -231,10 +260,10 @@ export default {
 .secret__whitelist .el-button {
   margin-top: 10px;
 }
-.secret__generate-button {
-  float: right;
-}
 .secret__user-public .el-textarea__inner {
   min-height: 122px!important;
+}
+.secret__auto-generate {
+  float: right;
 }
 </style>
