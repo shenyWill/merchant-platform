@@ -30,7 +30,8 @@ export default {
     add: '/aicloudmerchant/merchant/userapp/add',
     notsign: '/aicloudmerchant/merchant/userapp/notsigns',
     bind: '/aicloudmerchant/merchant/userapp/bindproduct',
-    modify: '/aicloudmerchant/merchant/userapp/modify'
+    modify: '/aicloudmerchant/merchant/userapp/modify',
+    products: '/aicloudmerchant/merchant/userapp/signs'
   },
 
   stat: {

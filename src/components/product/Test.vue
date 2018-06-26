@@ -28,7 +28,7 @@
           v-if="selectedProduct === 'PRODUCT_FACE_COMPARE'"/>
         <FaceIdentification
           @result="handleIdentifyResult"
-          v-if="selectedProduct === 'PRODUCT_FACE_IDENTIFY'"/>
+          v-if="selectedProduct === 'PRODUCT_HD_PHOTO_AUTH_SDK'"/>
       </el-row>
       <div class="product-test__result">
         <div class="product-test__label">查询结果</div>
@@ -58,7 +58,7 @@ export default {
         apiCode: 'PRODUCT_FACE_COMPARE'
       }, {
         apiName: '人证比对',
-        apiCode: 'PRODUCT_FACE_IDENTIFY'
+        apiCode: 'PRODUCT_HD_PHOTO_AUTH_SDK'
       }]
     };
   },
