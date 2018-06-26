@@ -50,8 +50,8 @@ export default {
     },
     // 查看详情
     showDetail(detail) {
-      Number(detail.status) === 1 ? detail.status = '启用' : detail.status = '禁用';
-      this.detailObj = detail;
+      this.detailObj = {...detail};
+      Number(this.detailObj.status) === 1 ? this.detailObj.status = '启用' : this.detailObj.status = '禁用';
       this.detailDialog = true;
     }
   },

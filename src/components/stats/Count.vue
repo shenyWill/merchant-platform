@@ -1,6 +1,6 @@
 <template>
     <div class="count">
-        <h4 class="count-title">调用统计</h4>
+        <h4 class="count-title">调用明细</h4>
         <search @searchResult="searchResult" @searchReset="searchReset">
             <div slot="search-form">
                 <el-form :inline="true" :model="searchData" class="search-form">
@@ -13,11 +13,14 @@
                     <el-form-item label="　Apikey" class="search-item">
                         <el-input v-model="searchData.apiKey" placeholder="请输入apiKey"></el-input>
                     </el-form-item>
-                    <el-form-item label="开始日期" class="search-item">
-                        <el-date-picker v-model="searchData.startDate" placeholder="请选择日期"></el-date-picker>
+                    <el-form-item label="开始时间" class="search-item">
+                        <el-time-picker v-model="searchData.startDate" placeholder="请选择时间"></el-time-picker>
                     </el-form-item>
                     <el-form-item label="结束日期" class="search-item">
-                        <el-date-picker v-model="searchData.endDate" placeholder="请选择日期"></el-date-picker>
+                        <el-time-picker v-model="searchData.endDate" placeholder="请选择日期"></el-time-picker>
+                    </el-form-item>
+                    <el-form-item label="选择日期" class="search-item">
+                        <el-date-picker v-model="searchData.tableSuffix" placeholder="请选择日期"></el-date-picker>
                     </el-form-item>
                     <el-form-item label="商户流水" class="search-item">
                         <el-input v-model="searchData.merTradeNo" placeholder="请输入商户流水"></el-input>
@@ -35,13 +38,14 @@
             </div>
             <div class="list-table">
                 <el-table :data="countList" border header-row-class-name="list-head">
-                    <el-table-column prop="apiCode" label="产品编码" min-width="220"></el-table-column>
+                    <el-table-column prop="apiCode" label="产品编码" min-width="260"></el-table-column>
+                    <el-table-column prop="apiKey" label="apiKey" min-width="270"></el-table-column>
                     <el-table-column prop="apiName" label="产品名称" min-width="100"></el-table-column>
-                    <el-table-column prop="appName" label="应用名称" min-width="120"></el-table-column>
-                    <el-table-column prop="merTradeNo" label="商户流水" min-width="180"></el-table-column>
-                    <el-table-column prop="platTradeNo" label="平台流水" min-width="180"></el-table-column>
-                    <el-table-column prop="queryResult" label="查询结果" min-width="100"></el-table-column>
-                    <el-table-column prop="elapsedTime" label="耗时" min-width="100"></el-table-column>
+                    <el-table-column prop="appName" label="应用名称" min-width="100"></el-table-column>
+                    <el-table-column prop="merTradeNo" label="商户流水" min-width="220"></el-table-column>
+                    <el-table-column prop="platTradeNo" label="平台流水" min-width="270"></el-table-column>
+                    <el-table-column prop="queryResult" label="查询结果" min-width="80"></el-table-column>
+                    <el-table-column prop="elapsedTime" label="耗时" min-width="80"></el-table-column>
                     <el-table-column prop="createTime" label="创建时间" min-width="180"></el-table-column>
                 </el-table>
 
@@ -122,6 +126,7 @@ export default {
       let resObj = {...this.searchData};
         resObj.startDate = parseTime(resObj.startDate);
         resObj.endDate = parseTime(resObj.endDate);
+        resObj.tableSuffix = parseTime(resObj.tableSuffix);
         this.responseAPI(resObj);
     },
     // 重置

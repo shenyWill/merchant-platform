@@ -60,21 +60,18 @@ export default {
           {
             name: '不计费次数',
             type: 'line',
-            stack: '总量',
             data: [],
             smooth: true
           },
           {
             name: '计费次数',
             type: 'line',
-            stack: '总量',
             data: [],
             smooth: true
           },
           {
             name: '总次数',
             type: 'line',
-            stack: '总量',
             data: [],
             smooth: true
           }
