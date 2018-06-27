@@ -1,28 +1,47 @@
 <template>
   <div class="secret">
-    <div class="secret__binding">
-      <el-table
-        :data="appDetail">
-        <el-table-column
-          prop="userName"
-          label="应用名称"
-          >
-        </el-table-column>
-        <el-table-column
-          prop="userCode"
-          label="应用编号">
-        </el-table-column>
-      </el-table>
-    </div>
+    <el-row>
+      <el-col :span="12">
+        <div class="secret__merchant">
+          <div class="secret__info-label">商户名称:</div>
+          <div class="secret__info-value">{{ appDetail.userName }}</div>
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="secret__merchant">
+          <div class="secret__info-label">商户编码:</div>
+          <div class="secret__info-value">{{ appDetail.userCode }}</div>
+        </div>
+      </el-col>
+    </el-row>
+
+    <el-row>
+      <el-col :span="12">
+        <div class="secret__app">
+          <div class="secret__info-label">应用名称:</div>
+          <div class="secret__info-value">{{ appDetail.name }}</div>
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="secret__app">
+          <div class="secret__info-label">应用编码:</div>
+          <div class="secret__info-value">{{ appDetail.apiKey }}</div>
+        </div>
+      </el-col>
+    </el-row>
 
     <div class="secret__input">
-      <div class="secret__input-title">apiKey:：</div>
-      <el-input v-model="apiKey"></el-input>
+      <div class="secret__input-title">apiSecret：</div>
+      <div class="secret__input-content">
+        {{ apiSecret }}
+      </div>
     </div>
 
     <div class="secret__input">
       <div class="secret__input-title">平台签名公钥：</div>
-      <el-input type="textarea" v-model="platformPublicKey"></el-input>
+      <div class="secret__input-content">
+        {{ platformPublicKey }}
+      </div>
     </div>
 
     <div class="secret__app-products">
@@ -45,8 +64,10 @@
 
     <div class="secret__bundle" v-if="isSDK && isSDK === true">
       <div class="secret__input-title">包名：</div>
-      <el-input v-model="bundleID"></el-input>
-      <el-button @click="uploadBundleID" type="primary">提交</el-button>
+      <div class="secret__input-content">
+        {{ bundleID }}
+      </div>
+      <el-button @click="bundleDialog = true;" type="primary">修改</el-button>
     </div>
 
     <div class="secret__whitelist" v-if="isAPI && isAPI === true">
@@ -66,13 +87,39 @@
       <div class="secret__input-title">用户签名公钥：
         <a class="secret__auto-generate" href="/web/#/secret/generate" target="_blank">在线生成</a>
       </div>
-      <el-input id="userPublicKey" v-model="userPublicKey" resize="none" type="textarea"></el-input>
+      <div id="userPublicKey" class="secret__input-content">
+        {{ userPublicKey }}
+      </div>
     </div>
 
     <div>
-      <el-button @click="uploadPublicKey" type="primary">上传公钥</el-button>
+      <el-button @click="publicKeyDialog = true;" type="primary">上传公钥</el-button>
       <el-button data-clipboard-target="#userPublicKey" class="clipboard" @click="copySecret" type="primary">复制公钥</el-button>
     </div>
+
+    <el-dialog title="修改包名" :visible.sync="bundleDialog" :close-on-click-modal="false" :lock-scroll="false">
+      <el-form ref="bundleForm" label-width="100px" :model="bundleForm" :rules="bundleRules">
+        <el-form-item label="包名" prop="packageName">
+          <el-input v-model="bundleForm.packageName"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer">
+        <el-button @click="cancelBundleDialog">取消</el-button>
+        <el-button type="primary" @click="uploadBundleID">确定</el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog title="上传签名公钥" :visible.sync="publicKeyDialog" :close-on-click-modal="false" :lock-scroll="false">
+      <el-form ref="publicKeyForm" label-width="100px" :model="publicKeyForm" :rules="publicKeyRules">
+        <el-form-item label="签名公钥" prop="publicKey">
+          <el-input type="textarea" v-model="publicKeyForm.publicKey"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer">
+        <el-button @click="cancelPublicKeyDialog">取消</el-button>
+        <el-button type="primary" @click="uploadPublicKey">确定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -88,13 +135,35 @@ export default {
       platformPublicKey: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCXyE/yHrjuqHG9ZDVv2KIynVtozWyWj24c2HDBE8fokftA7bFodyrvvsaMrx4x/Q8kMbwt1wynAXTreeEFHm+DYfuuZYmpKd4jVrxJFPl3u87wmbIUwEDYWVK662YOwyZYaqjAiQelKI8tZCFuL8k2lDJqlt77Sw3JiECuJrNnMwIDAQAB',
       ipInfo: 'IP说明：<br/>如未设置IP白名单，则任何IP都可以请求<br/>该IP须为服务器外网IP，即最终出口访问的IP，可以是多个<br/>一行一个IP地址，如：<br/>12.6.56.125<br/>12.6.56.126',
       apiKey: '',
+      apiSecret: '',
       userPublicKey: '',
       clipboard: null,
       ipWhiteList: '',
       isSDK: null,
       isAPI: null,
       bundleID: '',
+      bundleDialog: false,
+      publicKeyDialog: false,
       products: [],
+      bundleForm: {
+        packageName: ''
+      },
+      bundleRules: {
+        packageName: [
+          { required: true, message: '请输入包名', trigger: 'blur' },
+          { min: 5, max: 100, message: '长度在5到100个字符', trigger: 'blur' },
+          { validator: this.validateBundleID, trigger: 'blur' }
+        ]
+      },
+      publicKeyForm: {
+        publicKey: ''
+      },
+      publicKeyRules: {
+        publicKey: [
+          { required: true, message: '请输入签名公钥', trigger: 'blur' },
+          { min: 10, max: 5000, message: '长度在10到5000个字符', trigger: 'blur' }
+        ]
+      },
       appDetail: [{
         userName: '',
         userCode: ''
@@ -114,29 +183,23 @@ export default {
         return [{name: '', id: ''}];
       }
     },
-    validatePublicKey (key) {
-      if (!key) {
-        return false;
-      } else if (key.length < 10 || key.length > 5000) {
-        return false;
-      }
-      return true;
-    },
-    async uploadPublicKey () {
-      if (!this.validatePublicKey(this.userPublicKey)) {
-        showMessage.call(this, 'error', '请填写正确格式的签名公钥');
-        return;
-      }
-      const data = {
-        id: this.$route.query.id,
-        publicKey: this.userPublicKey
-      };
-      const response = await request(config.application.modify, data);
-      if (response.data.resCode === '200') {
-        showMessage.call(this, 'success', '上传成功');
-      } else {
-        showMessage.call(this, 'error', `请重新上传：${response.data.resMsg}`);
-      }
+    uploadPublicKey () {
+      this.$refs['publicKeyForm'].validate(async valid => {
+        if (valid) {
+          const data = {
+            id: this.$route.query.id,
+            ...this.publicKeyForm
+          };
+          const response = await request(config.application.modify, data);
+          this.publicKeyDialog = false;
+          if (response.data.resCode === '200') {
+            this.userPublicKey = this.publicKeyForm.publicKey;
+            showMessage.call(this, 'success', '上传成功');
+          } else {
+            showMessage.call(this, 'error', `请重新上传：${response.data.resMsg}`);
+          }
+        }
+      });
     },
     copySecret () {
       if (this.userPublicKey === '') {
@@ -151,11 +214,12 @@ export default {
         });
       }
     },
-    validateBundleID (id) {
-      if (id.indexOf('.') === -1 || id.length < 5 || id.length > 100) {
-        return false;
+    validateBundleID (rule, value, callback) {
+      if (value.indexOf('.') === -1) {
+        callback(new Error('包名中包含"."'));
+      } else {
+        callback();
       }
-      return true;
     },
     validateIP (data) {
       const array = data.split('\n');
@@ -167,6 +231,14 @@ export default {
         }
       });
       return valid;
+    },
+    cancelBundleDialog () {
+      this.bundleDialog = false;
+      this.$refs['bundleForm'].resetFields();
+    },
+    cancelPublicKeyDialog () {
+      this.publicKeyDialog = false;
+      this.$refs['publicKeyForm'].resetFields();
     },
     async uploadWhiteList () {
       if (this.ipWhiteList === '') {
@@ -185,19 +257,20 @@ export default {
         }
       }
     },
-    async uploadBundleID () {
-      const valid = this.validateBundleID(this.bundleID);
-      if (valid) {
-        const response = await request(config.application.modify, {
-          id: this.$route.query.id,
-          packageName: this.bundleID
-        });
-        if (response.data.resCode === '200') {
-          showMessage.call(this, 'success', '添加成功');
+    uploadBundleID () {
+      this.$refs['bundleForm'].validate(async valid => {
+        if (valid) {
+          const response = await request(config.application.modify, {
+            id: this.$route.query.id,
+            ...this.bundleForm
+          });
+          this.bundleDialog = false;
+          if (response.data.resCode === '200') {
+            this.bundleID = this.bundleForm.packageName;
+            showMessage.call(this, 'success', '添加成功');
+          }
         }
-      } else {
-        showMessage.call(this, 'error', '请填写正确格式的包名');
-      }
+      });
     },
     async getProducts (key) {
       const data = {apiKey: key};
@@ -205,18 +278,23 @@ export default {
       if (response.data.resCode === '200') {
         return response.data.lists;
       }
+    },
+    initialize (data) {
+      this.userPublicKey = data.publicKey;
+      this.apiKey = data.apiKey;
+      this.apiSecret = data.apiSecret;
+      this.bundleID = data.packageName ? data.packageName : '';
+      this.ipWhiteList = data.boundIP;
+      this.isSDK = data.appType === '1';
+      this.isAPI = data.appType === '2';
     }
   },
   async mounted () {
     this.clipboard = new ClipboardJS('.clipboard');
-    this.appDetail = await this.getAppDetail(this.$route.query.id);
-    this.userPublicKey = this.appDetail[0].publicKey;
-    this.bundleID = this.appDetail[0].packageName ? this.appDetail[0].packageName : '';
-    this.apiKey = this.appDetail[0].apiKey;
+    const response = await this.getAppDetail(this.$route.query.id);
+    this.appDetail = response[0];
+    this.initialize(this.appDetail);
     this.products = await this.getProducts(this.apiKey);
-    this.ipWhiteList = this.appDetail[0].boundIp;
-    this.isSDK = this.appDetail[0].appType === '1';
-    this.isAPI = this.appDetail[0].appType === '2';
   }
 };
 </script>
@@ -228,11 +306,38 @@ export default {
   width: 50%;
   text-align: left;
 }
+.secret__merchant {
+  margin-bottom: 10px;
+}
 .secret__input {
-  margin-bottom: 43px;
+  margin: 20px 0;
 }
 .secret__input-title {
   font-weight: bold;
+}
+.secret__info-label {
+  display: inline-block;
+  left: 0;
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 80px;
+}
+.secret__info-value {
+  display: inline-block;
+  right: 10px;
+  left: 50px;
+  text-align: center;
+}
+.secret__input-content {
+  margin-top: 10px;
+  padding: 10px;
+  min-height: 50px;
+  width: 100%;
+  border: 1px solid lightgray;
+  overflow-wrap: break-word;
+}
+.secret__app-products {
+  margin-bottom: 20px;
 }
 .secret__binding {
   margin-bottom: 20px;

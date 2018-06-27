@@ -3,24 +3,25 @@
     <div class="secret-generate__title">
     </div>
     <div class="secret-generate__form">
-      <el-form ref="form" :model="form">
-        <el-form-item class="secret-generate__platform-public" label="平台签名公钥：">
-          <el-input v-model="platformPublicKey" resize="none" type="textarea"></el-input>
-        </el-form-item>
+      <div class="secret-generate__input-title">平台签名公钥：</div>
+      <div class="secret-generate__input-content">
+        {{ platformPublicKey }}
+      </div>
 
-        <p class="text-warning">{{ text }}</p>
-        <el-button class="secret-generate__button" @click="generateSecret" type="primary">在线生成</el-button>
+      <p class="text-warning">{{ text }}</p>
+      <el-button class="secret-generate__button" @click="generateSecret" type="primary">在线生成</el-button>
 
-        <el-form-item class="secret-generate__user-public" label="用户签名公钥：">
-          <el-input id="userPublicKey" v-model="form.userPublicKey" type="textarea" resize="none"></el-input>
-          <el-button @click="copy(form.userPublicKey, publicKeyClipboard)" class="publicKeyClipboard" data-clipboard-target="#userPublicKey" type="primary">复制</el-button>
-        </el-form-item>
+      <div class="secret-generate__public">
+        <div class="secret-generate__input-title">用户签名公钥：</div>
+        <div id="userPublicKey" class="secret-generate__public-key">{{ form.userPublicKey }}</div>
+        <el-button @click="copy(form.userPublicKey, publicKeyClipboard)" class="publicKeyClipboard" data-clipboard-target="#userPublicKey" type="primary">复制</el-button>
+      </div>
 
-        <el-form-item class="secret-generate__user-secret" label="用户签名私钥：">
-          <el-input id="userSecretKey" v-model="form.userPrivateKey" type="textarea" resize="none"></el-input>
-          <el-button @click="copy(form.userPrivateKey, secretKeyClipboard)" class="secretKeyClipboard" data-clipboard-target="#userSecretKey" type="primary">复制</el-button>
-        </el-form-item>
-      </el-form>
+      <div class="secret-generate__secret">
+        <div class="secret-generate__input-title">用户签名私钥：</div>
+        <div id="userSecretKey" class="secret-generate__secret-key">{{ form.userPrivateKey }}</div>
+        <el-button @click="copy(form.userPrivateKey, secretKeyClipboard)" class="secretKeyClipboard" data-clipboard-target="#userSecretKey" type="primary">复制</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -96,6 +97,17 @@ export default {
   height: 28px;
   width: 100%;
 }
+.secret-generate__input-title {
+  font-weight: bold;
+}
+.secret-generate .secret-generate__input-content {
+  margin-top: 10px;
+  padding: 10px;
+  min-height: 50px;
+  width: 100%;
+  border: 1px solid lightgray;
+  overflow-wrap: break-word;
+}
 .secret-generate .text-warning {
   color: red;
 }
@@ -103,17 +115,26 @@ export default {
   position: absolute;
   right: 0;
 }
-.secret-generate__user-public {
+.secret-generate__public {
+  margin-top: 40px;
+}
+.secret-generate__public-key {
   margin-top: 55px;
+  min-height: 92px;
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid lightgray;
+  overflow-wrap: break-word;
 }
-.secret-generate__platform-public .el-textarea__inner {
-  min-height: 92px!important;
-}
-.secret-generate__user-public .el-textarea__inner {
-  min-height: 92px!important;
-}
-.secret-generate__user-secret .el-textarea__inner {
-  min-height: 216px!important;
+.secret-generate__secret-key {
+  margin-top: 55px;
+  min-height: 216px;
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid lightgray;
+  overflow-wrap: break-word;
 }
 .publicKeyClipboard {
   margin-top: 10px;

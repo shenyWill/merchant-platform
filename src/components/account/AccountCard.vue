@@ -277,6 +277,7 @@ export default {
         const response = await request(config.account.changePwd, form);
         if (response.data.resCode === '200') {
           showMessage.call(this, 'success', '修改密码成功');
+          this.$emit('reload');
         }
       }, () => {
         this.passwordDialog = false;

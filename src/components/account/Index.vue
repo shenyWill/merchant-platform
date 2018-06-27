@@ -2,14 +2,14 @@
   <div class="account">
     <el-row>
       <el-col :span="8">
-        <UserCard :data="user" @reload="initialize"/>
+        <UserCard :data="user" @reload="reload()"/>
         <AccountActionCard/>
       </el-col>
 
       <el-col :span="16">
         <CompanyCard :data="{}"/>
         <ContactsCard :data="account"/>
-        <AccountCard :data='account' @reload="initialize"/>
+        <AccountCard :data='account' @reload="reload()"/>
       </el-col>
     </el-row>
   </div>
@@ -25,6 +25,7 @@ import ContactsCard from './ContactsCard';
 import store from '@/store';
 import api from '@/api';
 import config from '@/config';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'Account',
@@ -45,6 +46,9 @@ export default {
     };
   },
   methods: {
+    ...mapMutations([
+      'LOGIN'
+    ]),
     request (url, data = {}) {
       return api.post(url, data);
     },
@@ -52,9 +56,24 @@ export default {
       let user = store.state.user;
       if (!user) {
         const response = await this.request(config.account.user);
-        user = response.data.data;
+        if (response.data.resCode === '200') {
+          user = response.data.data;
+          this.LOGIN(user);
+        } else {
+          user = {};
+        }
       }
       return user;
+    },
+    async reload () {
+      const response = await this.request(config.account.user);
+      if (response.data.resCode === '200') {
+        this.user = response.data.data;
+        this.LOGIN(this.user);
+      } else {
+        this.user = store.state.user;
+      }
+      this.account = await this.getMerchantInfo();
     },
     async getMerchantInfo () {
       const response = await this.request(config.account.merchant);
