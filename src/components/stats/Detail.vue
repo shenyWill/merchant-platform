@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <h4 class="detail-title">调用明细</h4>
+    <h4 class="detail-title">调用统计</h4>
     <search @searchResult="searchResult" @searchReset="searchReset">
       <div slot="search-form">
         <el-form :inline="true" :model="searchData" class="search-form">
@@ -92,21 +92,18 @@ export default {
           {
             name: '不计费次数',
             type: 'line',
-            stack: '总量',
             data: [],
             smooth: true
           },
           {
             name: '计费次数',
             type: 'line',
-            stack: '总量',
             data: [],
             smooth: true
           },
           {
             name: '总次数',
             type: 'line',
-            stack: '总量',
             data: [],
             smooth: true
           }

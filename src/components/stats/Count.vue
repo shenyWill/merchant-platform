@@ -50,8 +50,8 @@
                 </el-table>
 
                 <!-- 分页 -->
-                <div class="list-pager">
-                    <el-pagination background layout="prev,pager,next" :total="500"></el-pagination>
+                <div class="list-pager" v-if="totalCount == 0 ? false : true">
+                    <el-pagination background layout="prev,pager,next" :current-page.sync="currentPage" :total="totalCount" @current-change="handleCurrentChange"></el-pagination>
                 </div>
             </div>
         </div>
@@ -71,7 +71,10 @@ export default {
     return {
       searchData: {},
       countList: [],
-      productList: [] // 产品列表
+      resObj: {}, // 发送数据
+      productList: [], // 产品列表
+      totalCount: 0, // 总共数目
+      currentPage: 1 // 当前页数
     };
   },
   methods: {
@@ -79,6 +82,7 @@ export default {
       const response = await api.post(config.stat.page, data);
       let resObj = response.data;
       this.countList = [];
+      this.totalCount = resObj.totalPage;
       if (Number(resObj.resCode) === 200) {
         this.countList = [...resObj.lists];
         this.countList.forEach(value => {
@@ -123,15 +127,26 @@ export default {
         });
         return;
       }
-      let resObj = {...this.searchData};
-        resObj.startDate = parseTime(resObj.startDate);
-        resObj.endDate = parseTime(resObj.endDate);
-        resObj.tableSuffix = parseTime(resObj.tableSuffix);
-        this.responseAPI(resObj);
+      this.resObj = {...this.searchData};
+        this.resObj.pageNo = 1;
+        this.currentPage = 1;
+        this.resObj.startDate = parseTime(this.resObj.startDate);
+        this.resObj.endDate = parseTime(this.resObj.endDate);
+        this.resObj.tableSuffix = parseTime(this.resObj.tableSuffix);
+        if (this.resObj.tableSuffix && this.resObj.startDate) {
+          this.resObj.startDate = `${this.resObj.tableSuffix.split(' ')[0]} ${this.resObj.startDate.split(' ')[1]}`;
+          this.resObj.endDate = `${this.resObj.tableSuffix.split(' ')[0]} ${this.resObj.endDate.split(' ')[1]}`;
+        }
+        this.responseAPI(this.resObj);
     },
     // 重置
     searchReset() {
         this.searchData = {};
+    },
+    // 分页
+    handleCurrentChange(val) {
+      this.resObj.pageNo = val;
+      this.responseAPI(this.resObj);
     }
   },
   mounted() {
