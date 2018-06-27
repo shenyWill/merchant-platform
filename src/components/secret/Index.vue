@@ -74,13 +74,13 @@
       <div class="secret__input-title">IP白名单：</div>
       <el-row>
         <el-col :span="12">
-          <el-input v-model="ipWhiteList" resize="none" type="textarea" class="secret__whitelist-input"></el-input>
+          <div class="secret__whitelist-input">{{ ipWhiteList }}</div>
         </el-col>
         <el-col :span="12">
           <p class="secret__whitelist-info" v-html="ipInfo"></p>
         </el-col>
       </el-row>
-      <el-button @click="uploadWhiteList" type="primary">提交</el-button>
+      <el-button @click="showIpDialog" type="primary">修改</el-button>
     </div>
 
     <div class="secret__input secret__user-public">
@@ -109,6 +109,18 @@
       </div>
     </el-dialog>
 
+    <el-dialog title="修改IP白名单" :visible.sync="ipDialog" :close-on-click-modal="false" :lock-scroll="false">
+      <el-form ref="ipForm" label-width="100px" :model="ipForm" :rules="ipRules">
+        <el-form-item label="IP白名单" prop="boundIp">
+          <el-input v-model="ipForm.boundIp" type="textarea"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer">
+        <el-button @click="cancelIpDialog">取消</el-button>
+        <el-button type="primary" @click="uploadWhiteList">确定</el-button>
+      </div>
+    </el-dialog>
+
     <el-dialog title="上传签名公钥" :visible.sync="publicKeyDialog" :close-on-click-modal="false" :lock-scroll="false">
       <el-form ref="publicKeyForm" label-width="100px" :model="publicKeyForm" :rules="publicKeyRules">
         <el-form-item label="签名公钥" prop="publicKey">
@@ -133,7 +145,7 @@ export default {
   data () {
     return {
       platformPublicKey: 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCXyE/yHrjuqHG9ZDVv2KIynVtozWyWj24c2HDBE8fokftA7bFodyrvvsaMrx4x/Q8kMbwt1wynAXTreeEFHm+DYfuuZYmpKd4jVrxJFPl3u87wmbIUwEDYWVK662YOwyZYaqjAiQelKI8tZCFuL8k2lDJqlt77Sw3JiECuJrNnMwIDAQAB',
-      ipInfo: 'IP说明：<br/>如未设置IP白名单，则任何IP都可以请求<br/>该IP须为服务器外网IP，即最终出口访问的IP，可以是多个<br/>一行一个IP地址，如：<br/>12.6.56.125<br/>12.6.56.126',
+      ipInfo: 'IP说明：<br/>如未设置IP白名单，则任何IP都可以请求<br/>该IP须为服务器外网IP，即最终出口访问的IP，可以是多个<br/>多个IP地址由英文逗号分隔，如：<br/>12.6.56.125,12.6.56.126',
       apiKey: '',
       apiSecret: '',
       userPublicKey: '',
@@ -143,6 +155,7 @@ export default {
       isAPI: null,
       bundleID: '',
       bundleDialog: false,
+      ipDialog: false,
       publicKeyDialog: false,
       products: [],
       bundleForm: {
@@ -162,6 +175,15 @@ export default {
         publicKey: [
           { required: true, message: '请输入签名公钥', trigger: 'blur' },
           { min: 10, max: 5000, message: '长度在10到5000个字符', trigger: 'blur' }
+        ]
+      },
+      ipForm: {
+        boundIp: ''
+      },
+      ipRules: {
+        boundIp: [
+          { required: true, message: '请输入IP白名单', trigger: 'blur' },
+          { validator: this.validateIP, trigger: 'blur' }
         ]
       },
       appDetail: [{
@@ -221,16 +243,15 @@ export default {
         callback();
       }
     },
-    validateIP (data) {
-      const array = data.split('\n');
-      let valid = true;
+    validateIP (rule, value, callback) {
+      const array = value.split(',');
       array.forEach((ip) => {
         const isIP = isValidIP(ip);
         if (!isIP) {
-          valid = false;
+          callback(new Error('请填写合法的IP地址'));
         }
       });
-      return valid;
+      callback();
     },
     cancelBundleDialog () {
       this.bundleDialog = false;
@@ -240,22 +261,27 @@ export default {
       this.publicKeyDialog = false;
       this.$refs['publicKeyForm'].resetFields();
     },
+    cancelIpDialog () {
+      this.ipDialog = false;
+      this.$refs['ipForm'].resetFields();
+    },
+    showIpDialog () {
+      this.ipForm.boundIp = this.ipWhiteList;
+      this.ipDialog = true;
+    },
     async uploadWhiteList () {
-      if (this.ipWhiteList === '') {
-        showMessage.call(this, 'error', '请填写IP白名单');
-      } else {
-        if (this.validateIP(this.ipWhiteList)) {
+      this.$refs['ipForm'].validate(async valid => {
+        if (valid) {
           const response = await request(config.application.modify, {
             id: this.$route.query.id,
-            boundIp: this.ipWhiteList
+            ...this.ipForm
           });
+          this.ipDialog = false;
           if (response.data.resCode === '200') {
             showMessage.call(this, 'success', '添加成功');
           }
-        } else {
-            showMessage.call(this, 'error', '请填写正确格式的IP地址');
         }
-      }
+      });
     },
     uploadBundleID () {
       this.$refs['bundleForm'].validate(async valid => {
@@ -284,7 +310,7 @@ export default {
       this.apiKey = data.apiKey;
       this.apiSecret = data.apiSecret;
       this.bundleID = data.packageName ? data.packageName : '';
-      this.ipWhiteList = data.boundIP;
+      this.ipWhiteList = data.boundIp;
       this.isSDK = data.appType === '1';
       this.isAPI = data.appType === '2';
     }
@@ -358,8 +384,9 @@ export default {
 .secret__whitelist {
   margin-bottom: 10px;
 }
-.secret__whitelist-input .el-textarea__inner {
-  height: 201px;
+.secret__whitelist-input {
+  min-height: 201px;
+  border: 1px solid lightgray;
 }
 .secret__whitelist-info {
   margin: 0 10px;
