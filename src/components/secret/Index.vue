@@ -64,7 +64,7 @@
 
     <div class="secret__input secret__user-public">
       <div class="secret__input-title">用户签名公钥：
-        <a class="secret__auto-generate" href="/#/secret/generate" target="_blank">在线生成</a>
+        <a class="secret__auto-generate" href="/web/#/secret/generate" target="_blank">在线生成</a>
       </div>
       <el-input id="userPublicKey" v-model="userPublicKey" resize="none" type="textarea"></el-input>
     </div>
@@ -203,7 +203,7 @@ export default {
       const data = {apiKey: key};
       const response = await request(config.application.products, data);
       if (response.data.resCode === '200') {
-        return response.data.data;
+        return response.data.lists;
       }
     }
   },
@@ -211,6 +211,7 @@ export default {
     this.clipboard = new ClipboardJS('.clipboard');
     this.appDetail = await this.getAppDetail(this.$route.query.id);
     this.userPublicKey = this.appDetail[0].publicKey;
+    this.bundleID = this.appDetail[0].packageName ? this.appDetail[0].packageName : '';
     this.apiKey = this.appDetail[0].apiKey;
     this.products = await this.getProducts(this.apiKey);
     this.ipWhiteList = this.appDetail[0].boundIp;
