@@ -239,7 +239,14 @@ export default {
       this.prodcutDetailArr = [];
       if (Number(resObj.resCode) === 200) {
         this.prodcutDetailArr = [...resObj.lists];
-        this.BindProductDetailDialog = true;
+        if (this.prodcutDetailArr.length) {
+          this.BindProductDetailDialog = true;
+        } else {
+          this.$message({
+            type: 'success',
+            message: '无绑定产品'
+          });
+        }
       }
     }
   },

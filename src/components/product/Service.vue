@@ -20,7 +20,6 @@
                 </el-form>
             </div>
         </search>
-
         <!-- 服务列表 -->
         <div class="service-list">
             <div class="list-title">
@@ -36,6 +35,10 @@
                     <el-table-column prop="status" label="产品状态" min-width="180"></el-table-column>
                     <el-table-column prop="createTime" label="创建时间" min-width="240"></el-table-column>
                 </el-table>
+                <!-- 分页 -->
+                <div class="list-pager" v-if="totalCount == 0 ? false : true">
+                    <el-pagination background layout="prev,pager,next" :current-page.sync="currentPage" :total="totalCount" @current-change="handleCurrentChange"></el-pagination>
+                </div>
             </div>
         </div>
     </div>
@@ -51,7 +54,9 @@ export default {
     return {
       searchData: {},
       serviceList: [],
-      productNameObj: []
+      productNameObj: [],
+      totalCount: 0, // 总共数目
+      currentPage: 1 // 当前页数
     };
   },
   mounted() {
@@ -75,6 +80,7 @@ export default {
   methods: {
     searchResult() {
       this.responseAPI(this.searchData);
+      this.currentPage = 1;
     },
     searchReset() {
         this.searchData = {};
@@ -84,6 +90,7 @@ export default {
         let resObj = response.data;
         if (Number(resObj.resCode) === 200) {
           this.serviceList = [];
+          this.totalCount = resObj.totalPage;
           resObj.lists.forEach(value => {
             value.signType === '2'
               ? (value.signType = '后付费')
@@ -96,6 +103,12 @@ export default {
           });
         }
       });
+    },
+    // 分页
+    handleCurrentChange(val) {
+      let reqObj = {...this.searchData};
+      reqObj.pageNo = val;
+      this.responseAPI(reqObj);
     }
   }
 };
@@ -122,6 +135,10 @@ export default {
     background-color: #ffffff;
     border: 1px solid rgba(228, 228, 228, 1);
     padding: 15px 10px;
+  }
+  .list-pager {
+    margin-top: 20px;
+    text-align: center;
   }
 }
 </style>

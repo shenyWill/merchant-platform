@@ -40,7 +40,7 @@
                 <el-table :data="countList" border header-row-class-name="list-head">
                     <el-table-column prop="apiCode" label="产品编码" min-width="260"></el-table-column>
                     <el-table-column prop="apiKey" label="apiKey" min-width="270"></el-table-column>
-                    <el-table-column prop="apiName" label="产品名称" min-width="100"></el-table-column>
+                    <el-table-column prop="apiName" label="产品名称" min-width="130"></el-table-column>
                     <el-table-column prop="appName" label="应用名称" min-width="100"></el-table-column>
                     <el-table-column prop="merTradeNo" label="商户流水" min-width="220"></el-table-column>
                     <el-table-column prop="platTradeNo" label="平台流水" min-width="270"></el-table-column>
