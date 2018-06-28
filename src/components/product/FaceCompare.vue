@@ -10,6 +10,17 @@
           :model="form"
           label-width="80px"
           label-position="left">
+          <el-form-item label="应用列表">
+            <el-select @change="onSelectApp" @clear="clearSelect" v-model="selectedApp" placeholder="请选择" clearable>
+              <el-option
+                v-for="(item, index) in appList"
+                :value="index"
+                :label="item.apiName"
+                :key="index"
+                >
+              </el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="上传照片">
             <el-upload
               class="product-image-uploader"
@@ -46,7 +57,7 @@
 
 <script>
 import { validateUploadImage, img2Base64, showMessage } from '@/utils';
-import { imageUploadTips } from '@/config/errorMsg';
+import { imageUploadTips, imageSelectedAppTips } from '@/config/errorMsg';
 import api from '@/api';
 import config from '@/config';
 
@@ -54,17 +65,53 @@ export default {
   name: 'FaceCompare',
   data () {
     return {
+      apiCode: 'PRODUCT_FACE_COMPARE_API',
       firstImage: '',
       secondImage: '',
+      appList: [],
+      selectedApp: '',
       form: {
         firstImage: '',
-        secondImage: ''
+        secondImage: '',
+        apiKey: '',
+        apiSecret: ''
       },
       tips: '只能上传JPG、JPEG、PNG格式图片，单张图片转码后不能超过2MB'
     };
   },
   methods: {
+    validateHasAuth (apps, cb) {
+      if (!cb) {
+        cb = () => {
+          showMessage.call(this, 'error', '请先签约或绑定产品');
+        };
+      }
+      if (apps && apps.length === 0) {
+        cb();
+        return false;
+      }
+      return true;
+    },
+    onSelectApp (index) {
+      if (index === '') return;
+      const app = this.appList[index];
+      this.form.apiKey = app.apiKey;
+      this.form.apiSecret = app.apiSecret;
+    },
+    clearSelect () {
+      this.form.apiKey = '';
+      this.form.apiSecret = '';
+    },
+    async fetchAppList () {
+      const response = await api.post(config.product.appList, {apiCode: this.apiCode});
+      if (response.data.resCode === '200') {
+        return response.data.lists;
+      } else {
+        return [];
+      }
+    },
     handleFirstImageChange (file) {
+      if (!this.validateHasAuth(this.appList)) return;
       if (validateUploadImage(file)) {
         const url = URL.createObjectURL(file.raw);
         let image = new Image();
@@ -77,6 +124,7 @@ export default {
       }
     },
     handleSecondImageChange (file) {
+      if (!this.validateHasAuth(this.appList)) return;
       if (validateUploadImage(file)) {
         const url = URL.createObjectURL(file.raw);
         let image = new Image();
@@ -89,19 +137,32 @@ export default {
       }
     },
     async submit () {
+      if (!this.validateHasAuth(this.appList)) return;
+      if (this.form.apiKey === '') {
+        showMessage.call(this, 'error', imageSelectedAppTips);
+        return;
+      }
       if (this.firstImage === '' || this.secondImage === '') {
         showMessage.call(this, 'error', imageUploadTips);
         return;
       }
       try {
-        // TODO
         this.$emit('loading', true);
-        const response = await api.post(config.product.test, this.form);
-        this.$emit('result', response.data.data);
+        const data = {
+          image1: this.form.firstImage,
+          image2: this.form.secondImage,
+          apiKey: this.form.apiKey,
+          apiSecret: this.form.apiSecret
+        };
+        const response = await api.post(config.product.faceCompare, data);
+        this.$emit('result', JSON.parse(response.data.data.result));
         this.$emit('loading', false);
       } catch (error) {
       }
     }
+  },
+  async mounted () {
+    this.appList = await this.fetchAppList();
   }
 };
 </script>

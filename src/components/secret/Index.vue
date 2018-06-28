@@ -24,7 +24,7 @@
       </el-col>
       <el-col :span="12">
         <div class="secret__app">
-          <div class="secret__info-label">应用编码:</div>
+          <div class="secret__info-label">apiKey:</div>
           <div class="secret__info-value">{{ appDetail.apiKey }}</div>
         </div>
       </el-col>
@@ -182,7 +182,6 @@ export default {
       },
       ipRules: {
         boundIp: [
-          { required: true, message: '请输入IP白名单', trigger: 'blur' },
           { validator: this.validateIP, trigger: 'blur' }
         ]
       },
@@ -244,6 +243,7 @@ export default {
       }
     },
     validateIP (rule, value, callback) {
+      if (value === '') callback();
       const array = value.split(',');
       array.forEach((ip) => {
         const isIP = isValidIP(ip);
@@ -278,7 +278,8 @@ export default {
           });
           this.ipDialog = false;
           if (response.data.resCode === '200') {
-            showMessage.call(this, 'success', '添加成功');
+            this.ipWhiteList = this.ipForm.boundIp;
+            showMessage.call(this, 'success', '修改成功');
           }
         }
       });

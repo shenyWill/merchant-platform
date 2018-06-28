@@ -10,8 +10,9 @@ export default {
     list: '/aicloudmerchant/merchant/userproduct/page',
     add: '',
     update: '',
-    test: '',
-    applist: '/aicloudmerchant/merchant/test/signapps'
+    faceCompare: '/aicloudmerchant/merchant/test/rl',
+    faceAuth: '/aicloudmerchant/merchant/test/rz',
+    appList: '/aicloudmerchant/merchant/test/signapps'
   },
 
   account: {

@@ -97,7 +97,7 @@ export default {
 .account__company-image :hover {
   border-color: #409EFF;
 }
-.account__auth-icon {
+.account__company-card .account__auth-icon {
   font-size: 30px;
 }
 </style>

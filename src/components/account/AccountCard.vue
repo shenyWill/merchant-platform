@@ -326,7 +326,7 @@ export default {
   margin: 5px;
   margin-left: 10px;
 }
-.account__user-icon {
+.account__account-card .account__user-icon {
   font-size: 22px;
 }
 </style>

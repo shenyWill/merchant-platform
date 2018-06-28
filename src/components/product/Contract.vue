@@ -52,7 +52,7 @@ export default {
     },
     // 查看详情
     async showDetail(detail) {
-      const response = await api.post(config.product.applist, {apiCode: detail.apiCode});
+      const response = await api.post(config.product.appList, {apiCode: detail.apiCode});
       let resObj = response.data;
       this.detailObj = {...detail};
       this.detailObj.appArr = [];
