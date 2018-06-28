@@ -9,6 +9,7 @@
           产品名称
         </div>
         <el-select
+          @change="changeProduct"
           v-model="selectedProduct"
           placeholder="请选择产品">
           <el-option
@@ -25,14 +26,14 @@
         <FaceCompare
           @result="handleCompareResult"
           @loading="toggleLoading"
-          v-if="selectedProduct === 'PRODUCT_FACE_COMPARE'"/>
+          v-if="selectedProduct === 'PRODUCT_FACE_COMPARE_API'"/>
         <FaceIdentification
           @result="handleIdentifyResult"
-          v-if="selectedProduct === 'PRODUCT_HD_PHOTO_AUTH_SDK'"/>
+          v-if="selectedProduct === 'PRODUCT_HD_PHOTO_AUTH_API'"/>
       </el-row>
       <div class="product-test__result">
         <div class="product-test__label">查询结果</div>
-        <div class="product-test__result-score">{{ score }}</div>
+        <div class="product-test__result-score">{{ result }}</div>
       </div>
     </el-card>
   </div>
@@ -50,24 +51,32 @@ export default {
   },
   data () {
     return {
-      score: '',
+      result: '',
       isLoading: false,
-      selectedProduct: 'PRODUCT_FACE_COMPARE',
+      selectedProduct: 'PRODUCT_FACE_COMPARE_API',
       products: [{
-        apiName: '人脸比对',
-        apiCode: 'PRODUCT_FACE_COMPARE'
+        apiName: '人脸比对(API)',
+        apiCode: 'PRODUCT_FACE_COMPARE_API'
       }, {
-        apiName: '人证比对',
-        apiCode: 'PRODUCT_HD_PHOTO_AUTH_SDK'
+        apiName: '人证比对(API)',
+        apiCode: 'PRODUCT_HD_PHOTO_AUTH_API'
       }]
     };
   },
   methods: {
+    changeProduct () {
+      this.result = '';
+    },
     handleCompareResult (data) {
-      this.score = data;
+      this.result = {
+        '返回码': data['res_code'],
+        '置信值': data.confidence ? data.confidence : '无'
+      };
     },
     handleIdentifyResult (data) {
-      this.score = data;
+      this.result = {
+        '返回码': data['res_code']
+      };
     },
     toggleLoading (isLoading) {
       this.isLoading = isLoading;
@@ -105,5 +114,6 @@ export default {
   border: 1px solid lightgray;
   height: 100px;
   max-width: 400px;
+  overflow-wrap: break-word;
 }
 </style>
