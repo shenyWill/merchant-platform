@@ -16,7 +16,7 @@
               <el-option
                 v-for="(item, index) in appList"
                 :value="index"
-                :label="item.apiName"
+                :label="item.appName"
                 :key="index"
                 >
               </el-option>

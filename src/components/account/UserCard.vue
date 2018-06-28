@@ -20,14 +20,6 @@
     </div>
     <div class="account__info">
       <div class="account__info-label">
-        密码：
-      </div>
-      <div class="account__info-value">
-          *******************
-      </div>
-    </div>
-    <div class="account__info">
-      <div class="account__info-label">
         用户昵称：
       </div>
       <div class="account__info-value">

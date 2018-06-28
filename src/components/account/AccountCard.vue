@@ -11,7 +11,7 @@
             商户编码：
           </div>
           <div class="account__info-user-value">
-            {{ data.merchantId }}
+            {{ data.userCode }}
           </div>
         </div>
 
@@ -20,7 +20,7 @@
             商户名称：
           </div>
           <div class="account__info-user-value">
-            {{ data.merchantName }}
+            {{ data.userNickName }}
           </div>
         </div>
 
