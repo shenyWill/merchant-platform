@@ -85,7 +85,7 @@ export default {
     overflow: hidden;
     cursor: pointer;
     li {
-      background-color: #384d57;
+      background-color: #3b3b3b;
       color: #ffffff;
       margin-bottom: 1px;
       text-align: center;
@@ -114,7 +114,7 @@ export default {
       transform: translateX(0);
     }
     &.active-color {
-      background-color: #548faa;
+      background-color: #4f4f4f;
     }
   }
 }

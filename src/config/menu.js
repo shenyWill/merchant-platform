@@ -1,11 +1,13 @@
-export default [{
+export default [
+  {
+    icon: 'icon-shouye',
+    name: '首　页',
+    route: '/product'
+  },
+  {
   icon: 'icon-bag',
   name: '服务中心',
   children: [{
-    name: '产品管理',
-    icon: '',
-    route: '/product'
-  }, {
     name: '产品服务',
     icon: '',
     route: '/product/service'

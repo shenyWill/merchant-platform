@@ -164,7 +164,8 @@ export default {
       border-left: 0;
     }
     &.active {
-      background-color: #548faa;
+      background-color: #4f4f4f;
+      color: #ffffff;
     }
   }
   .consumption-totle {

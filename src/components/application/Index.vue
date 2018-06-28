@@ -6,19 +6,20 @@
     </h4>
     <div class="list-table">
       <el-table :data="appTableData" border class="app-table" row-class-name="app-table-tr">
-        <el-table-column prop="apiKey" label="API Key" min-width="300" align="center"></el-table-column>
-        <el-table-column prop="name" label="应用名称" min-width="160" align="center"></el-table-column>
+        <el-table-column prop="apiKey" label="API Key" min-width="270" align="center"></el-table-column>
+        <el-table-column prop="name" label="应用名称" min-width="130" align="center"></el-table-column>
         <el-table-column prop="type" label="应用类型" min-width="100" align="center"></el-table-column>
         <el-table-column prop="appType" label="签约类型" min-width="100" align="center"></el-table-column>
-        <el-table-column prop="status" label="状态" min-width="100" align="center"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" align="center" min-width="180"></el-table-column>
+        <el-table-column prop="status" label="状态" min-width="90" align="center"></el-table-column>
+        <el-table-column prop="createTime" label="创建时间" align="center" min-width="160"></el-table-column>
 
         <!-- 操作 -->
-        <el-table-column label="操作" align="center" min-width="280">
+        <el-table-column label="操作" align="center" min-width="380">
           <template slot-scope="scope">
             <el-button  size='small' @click="handleDisable(scope.$index,scope.row)" class="disable-btn" v-text="scope.row.status == '启用' ? '禁用': '启用'"></el-button>
             <el-button  size='small' :disabled="scope.row.status == '启用' ? false : true" @click="handleBindProduct(scope.$index,scope.row)">绑定产品</el-button>
             <el-button  size='small' @click="handleSettings(scope.row.id)" :disabled="scope.row.status == '启用' ? false : true">参数配置</el-button>
+            <el-button size="small" @click="showDetail(scope.row)">查看产品</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -57,6 +58,16 @@
       </span>
     </el-dialog>
 
+    <!-- 已绑定产品详情看 -->
+    <el-dialog title="已绑定产品详情" :visible.sync="BindProductDetailDialog">
+      <ul class="detail-nav">
+        <li v-for="item in prodcutDetailArr" :key="item.apiKey" class="detail-list">
+          <span class="detail-list-title">产品名称</span>
+          <span class="detail-list-text">{{item.apiName}}</span>
+        </li>
+      </ul>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -75,6 +86,8 @@ export default {
       bindForm: [], // 绑定产品数据
       bindDate: [], // 绑定产品传送数据
       bindRow: '', // 绑定产品的API Key
+      prodcutDetailArr: [], // 已绑定产品详情
+      BindProductDetailDialog: false, // 已绑定产品详情弹出框标识
       rules: {
         name: [
           { required: true, message: '请输入应用名称', trigger: 'blur' },
@@ -218,6 +231,16 @@ export default {
     // 参数设置
     handleSettings (id) {
       this.$router.push({path: 'secret', query: { id: id }});
+    },
+    // 查看已绑定产品
+    async showDetail(row) {
+      const response = await api.post(config.application.products, {apiKey: row.apiKey});
+      let resObj = response.data;
+      this.prodcutDetailArr = [];
+      if (Number(resObj.resCode) === 200) {
+        this.prodcutDetailArr = [...resObj.lists];
+        this.BindProductDetailDialog = true;
+      }
     }
   },
   mounted() {
@@ -269,6 +292,29 @@ export default {
     background-color: #ffffff;
     border: 1px solid rgba(228, 228, 228, 1);
     padding: 15px 10px;
+  }
+  .detail-nav {
+    border: 1px solid #888;
+  }
+  .detail-list {
+    border-bottom: 1px solid #888;
+    height: 50px;
+    line-height: 50px;
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+  .detail-list-title {
+    border-right: 1px solid #888;
+    display: inline-block;
+    width: 100px;
+    text-indent: 10px;
+    font-size: 16px;
+    color: #000;
+  }
+  .detail-list-text {
+    display: inline-block;
+    text-indent: 10px;
   }
 }
 </style>
