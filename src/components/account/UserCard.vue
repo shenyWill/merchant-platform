@@ -68,6 +68,7 @@ export default {
 <style>
 .account__user-card {
   position: relative;
+  min-height: 540px;
   border-radius: 10px;
   margin-right: 10px;
 }

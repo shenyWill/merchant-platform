@@ -20,7 +20,7 @@ export default {
   color: #2c3e50;
 }
 body {
-  margin-top: 60px;
+  margin-top: 62px;
   padding: 0;
   margin: 0;
   height: 100%;
@@ -28,7 +28,8 @@ body {
   background-size: 100% 100%;
 }
 html, body {
-  padding: 0;
+  bottom: 0;
   margin: 0;
+  padding: 0;
 }
 </style>

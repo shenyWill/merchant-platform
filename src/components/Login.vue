@@ -147,6 +147,7 @@ export default {
   bottom: 0;
   right: 0;
   overflow: hidden;
+  border: none;
 }
 .login-component__swiper {
   height: 100%;

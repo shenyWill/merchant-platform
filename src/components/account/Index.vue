@@ -1,7 +1,7 @@
 <template>
   <div class="account">
     <el-row>
-      <el-col :span="8">
+      <el-col :span="8" class="account__left">
         <UserCard :data="user" @reload="reload()"/>
         <AccountActionCard/>
       </el-col>
@@ -104,6 +104,10 @@ export default {
   margin: 10px 10px;
   text-align: left;
 }
+.account__left {
+  position: relative;
+  min-height: 700px;
+}
 .account .el-card__header {
   background-color: #4f4f4f;
   font-size: 15px;
@@ -115,6 +119,7 @@ export default {
   border-radius: 10px;
   margin-right: 10px;
   border-bottom: none;
+  margin-top: -8px;
 }
 .account__collapse-card .el-card__header {
   padding: 0;
