@@ -76,7 +76,8 @@ export default {
     },
     handleIdentifyResult (data) {
       this.result = {
-        '返回码': data['res_code']
+        '返回码': data['res_code'],
+        '结果': data['res_compare'] ? data['res_compare'] : '无'
       };
     },
     toggleLoading (isLoading) {

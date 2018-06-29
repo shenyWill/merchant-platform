@@ -18,7 +18,8 @@
     </div>
     <div class="login-component__login">
       <el-card class="box-card login-component__login-card" shadow="never">
-        <div class="login-card-title">用户名登录</div>
+        <div class="login-component__login-title">AI云管理平台</div>
+        <div class="login-card-user">用户名登录</div>
       </el-card>
       <el-form
         :model="loginForm"
@@ -177,7 +178,7 @@ export default {
 }
 .login-component__login {
   position: absolute;
-  top: 45px;
+  top: 85px;
   right: 78px;
   width: 432px;
   height: 706px;
@@ -185,7 +186,12 @@ export default {
   background-color: #fff;
   border-radius: 20px;
 }
-.login-card-title {
+.login-component__login-title {
+  margin-top: 30px;
+  font-size: 32px;
+  font-weight: bold;
+}
+.login-card-user {
   margin: 0 auto;
   margin-top: 98px;
   width: 140px;
