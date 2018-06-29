@@ -29,6 +29,7 @@
           v-if="selectedProduct === 'PRODUCT_FACE_COMPARE_API'"/>
         <FaceIdentification
           @result="handleIdentifyResult"
+          @loading="toggleLoading"
           v-if="selectedProduct === 'PRODUCT_HD_PHOTO_AUTH_API'"/>
       </el-row>
       <div class="product-test__result">

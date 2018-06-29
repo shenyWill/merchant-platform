@@ -7,7 +7,7 @@
       </el-col>
 
       <el-col :span="16">
-        <CompanyCard :data="{}"/>
+        <CompanyCard :data="account"/>
         <ContactsCard :data="account"/>
         <AccountCard :data='account' @reload="reload()"/>
       </el-col>

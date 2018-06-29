@@ -2,7 +2,7 @@ import {
   imageSizeTips,
   imageTypeTips
 } from '@/config/errorMsg';
-
+import { Message } from 'element-ui';
 import api from '@/api';
 
 function fileType(name) {
@@ -28,13 +28,19 @@ export async function request (url, data = {}) {
 export function validateUploadImage(file) {
   const isImg = isImage(file.name);
   if (!isImg) {
-    showMessage.call(this, 'error', imageTypeTips);
+    Message({
+      type: 'error',
+      message: imageTypeTips
+    });
     return false;
   }
 
   const isLt2M = file.size / 1024 / 1024 < 2;
   if (!isLt2M) {
-    showMessage.call(this, 'error', imageSizeTips);
+    Message({
+      type: 'error',
+      message: imageSizeTips
+    });
     return false;
   }
   return true;

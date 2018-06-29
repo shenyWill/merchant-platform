@@ -34,6 +34,7 @@ export default {
 
 <style>
 .account__action-card {
+  position: relative;
   margin: 20px 10px 0 0;
   height: 160px;
   bottom: 10px;

@@ -13,7 +13,7 @@
                 联系人：
               </div>
               <div class="account__info-user-value">
-                {{ contactsInfo.contactName }}
+                {{ data.contactName }}
               </div>
             </div>
           </el-col>
@@ -23,7 +23,7 @@
                 联系电话：
               </div>
               <div class="account__info-user-value">
-                {{ contactsInfo.contactPhone }}
+                {{ data.contactPhone }}
               </div>
             </div>
           </el-col>
@@ -33,7 +33,7 @@
             地址：
           </div>
           <div class="account__info-user-value">
-            {{ contactsInfo.detailAddress }}
+            {{ data.detailAddress }}
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@
 export default {
   name: 'ContactsCard',
   props: {
-    contactsInfo: {
+    data: {
       type: Object,
       default: () => {
         return {

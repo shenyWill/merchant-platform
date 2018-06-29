@@ -71,6 +71,7 @@ export default {
   display: block;
 }
 .menu-item:hover {
+  border-left: 2px solid #409eff;
   background-color: #3b3b3b;
 }
 .menu-item__container .menu-item__icon {
@@ -84,8 +85,9 @@ export default {
 .menu-item__submenu {
   position: absolute;
   top: 0;
-  left: 99px;
-  width: 99px;
+  left: 97px;
+  width: 160px;
+  padding: 20px;
   background-color: #4f4f4f;
 }
 .menu-item__submenu-title {
@@ -93,6 +95,7 @@ export default {
   color: white;
   height: 35px;
   padding-top: 8px;
+  border-radius: 15px;
   text-decoration: none;
 }
 .menu-item__submenu-title:hover {
