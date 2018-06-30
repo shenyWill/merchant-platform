@@ -76,4 +76,7 @@ export default {
   transition: all .5s;
   height: 0;
 }
+.account__contacts-card .account__card-icon {
+  font-size: 22px;
+}
 </style>

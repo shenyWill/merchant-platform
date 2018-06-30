@@ -119,7 +119,7 @@ export default {
   border-radius: 10px;
   margin-right: 10px;
   border-bottom: none;
-  margin-top: -8px;
+  margin-top: -10px;
 }
 .account__collapse-card .el-card__header {
   padding: 0;

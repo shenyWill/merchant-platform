@@ -31,7 +31,7 @@
         <div>
           <div class="account__info">
             <div class="account__info-label">营业执照：</div>
-            <img class="account__company-image" :src="data.businessLicense" alt="">
+            <img class="account__company-image" v-if="data.businessLicense" :src="'/aicloudmerchant' + data.businessLicense" alt="">
           </div>
         </div>
         <div>
@@ -39,13 +39,13 @@
             <el-col :span="12">
               <div class="account__info">
                 <div class="account__info-label">法人身份证正面：</div>
-                <img class="account__company-image" :src="data.idcardFront" alt="">
+                <img class="account__company-image" v-if="data.idcardFront" :src="'/aicloudmerchant' + data.idcardFront" alt="">
               </div>
             </el-col>
             <el-col :span="12">
               <div class="account__info">
                 <div class="account__info-label">法人身份证反面：</div>
-                <img class="account__company-image" :src="data.idcardBack" alt="">
+                <img class="account__company-image" v-if="data.idcardBack" :src="'/aicloudmerchant' + data.idcardBack" alt="">
               </div>
             </el-col>
           </el-row>
