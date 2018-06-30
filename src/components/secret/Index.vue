@@ -1,5 +1,9 @@
 <template>
   <div class="secret">
+    <el-breadcrumb separator="/" class="sercert__breadcrumb">
+      <el-breadcrumb-item :to="{ path: '/application'}">应用管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/application'}">参数配置</el-breadcrumb-item>
+    </el-breadcrumb>
     <el-row>
       <el-col :span="12">
         <div class="secret__merchant">
@@ -332,6 +336,11 @@ export default {
   margin: 16px 90px 16px 64px;
   width: 50%;
   text-align: left;
+}
+.sercert__breadcrumb {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: bold;
 }
 .secret__merchant {
   margin-bottom: 10px;

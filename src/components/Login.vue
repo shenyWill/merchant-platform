@@ -200,7 +200,7 @@ export default {
   padding-bottom: 10px;
   border-bottom: 5px solid black;
 }
-.login-component__login-card {
+.login-component .login-component__login-card {
   margin-top: 20px;
   border: none;
 }
