@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { validateUploadImage, img2Base64, showMessage } from '@/utils';
+import { validateUploadImage, img2Base64, showMessage, base64Length } from '@/utils';
 import { imageUploadTips, imageSelectedAppTips } from '@/config/errorMsg';
 import api from '@/api';
 import config from '@/config';
@@ -118,8 +118,10 @@ export default {
         image.src = url;
         image.onload = () => {
           const data = img2Base64(image);
-          this.firstImage = data;
-          this.form.firstImage = data;
+          if (base64Length(data)) {
+            this.firstImage = data;
+            this.form.firstImage = data;
+          }
         };
       }
     },
@@ -131,8 +133,10 @@ export default {
         image.src = url;
         image.onload = () => {
           const data = img2Base64(image);
-          this.secondImage = data;
-          this.form.secondImage = data;
+          if (base64Length(data)) {
+            this.secondImage = data;
+            this.form.secondImage = data;
+          }
         };
       }
     },

@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { validateUploadImage, img2Base64, showMessage } from '@/utils';
+import { validateUploadImage, img2Base64, showMessage, base64Length } from '@/utils';
 import { imageUploadTips, imageSelectedAppTips } from '@/config/errorMsg';
 import api from '@/api';
 import config from '@/config';
@@ -124,8 +124,10 @@ export default {
         image.src = url;
         image.onload = () => {
           const data = img2Base64(image);
-          this.image = data;
-          this.$emit('data', data);
+          if (base64Length(data)) {
+            this.image = data;
+            this.$emit('data', data);
+          }
         };
       }
     },
