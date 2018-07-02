@@ -11,6 +11,7 @@
         <el-table-column prop="type" label="应用类型" min-width="100" align="center"></el-table-column>
         <el-table-column prop="appType" label="签约类型" min-width="100" align="center"></el-table-column>
         <el-table-column prop="status" label="状态" min-width="90" align="center"></el-table-column>
+        <el-table-column prop="packageName" label="包名" min-width="90" align="center"></el-table-column>
         <el-table-column prop="createTime" label="创建时间" align="center" min-width="160"></el-table-column>
 
         <!-- 操作 -->
