@@ -54,7 +54,7 @@
           <div class="account__info-label">
             密码：
           </div>
-          <div class="account__info-value">
+          <div class="account__info-value-mini">
             *******************
           </div>
           <el-button
@@ -70,7 +70,7 @@
           <div class="account__info-label">
             邮箱：
           </div>
-          <div class="account__info-value">
+          <div class="account__info-value-mini">
             {{ data.email }}
           </div>
           <el-button
@@ -86,7 +86,7 @@
           <div class="account__info-label">
             手机：
           </div>
-          <div class="account__info-value">
+          <div class="account__info-value-mini">
             {{ data.userPhone }}
           </div>
           <el-button
@@ -341,4 +341,11 @@ export default {
 </script>
 
 <style>
+.account__info-value-mini {
+  min-width: 180px;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  text-align: center;
+}
 </style>
