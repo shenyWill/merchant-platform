@@ -246,6 +246,8 @@ export default {
         if (response.data.resCode === '200') {
           showMessage.call(this, 'success', '修改邮箱成功');
           this.$emit('reload');
+        } else {
+          showMessage.call(this, 'error', response.data.resMsg);
         }
       }, () => {
         this.emailDialog = false;
@@ -280,6 +282,8 @@ export default {
         if (response.data.resCode === '200') {
           showMessage.call(this, 'success', '修改密码成功');
           this.$emit('reload');
+        } else {
+          showMessage.call(this, 'error', response.data.resMsg);
         }
       }, () => {
         this.passwordDialog = false;

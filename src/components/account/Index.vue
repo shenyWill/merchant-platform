@@ -52,15 +52,13 @@ export default {
       return api.post(url, data);
     },
     async getUserInfo () {
-      let user = store.state.user;
-      if (!user) {
-        const response = await this.request(config.account.user);
-        if (response.data.resCode === '200') {
-          user = response.data.data;
-          this.LOGIN(user);
-        } else {
-          user = {};
-        }
+      let user = {};
+      const response = await this.request(config.account.user);
+      if (response.data.resCode === '200') {
+        user = response.data.data;
+        this.LOGIN(user);
+      } else {
+        user = {};
       }
       return user;
     },
