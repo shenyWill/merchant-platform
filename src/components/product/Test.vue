@@ -56,10 +56,10 @@ export default {
       isLoading: false,
       selectedProduct: 'PRODUCT_FACE_COMPARE_API',
       products: [{
-        apiName: '人脸比对(API)',
+        apiName: '人脸比对-API',
         apiCode: 'PRODUCT_FACE_COMPARE_API'
       }, {
-        apiName: '人证比对(API)',
+        apiName: '人证比对-API',
         apiCode: 'PRODUCT_HD_PHOTO_AUTH_API'
       }]
     };

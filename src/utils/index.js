@@ -4,6 +4,7 @@ import {
 } from '@/config/errorMsg';
 import { Message } from 'element-ui';
 import api from '@/api';
+import CryptoJS from 'crypto-js';
 
 function fileType(name) {
   if (!name) return '';
@@ -89,4 +90,8 @@ export function browserVersion () {
 export function isValidIP (ip) {
   const reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
   return reg.test(ip);
+}
+
+export function MD5(string) {
+  return CryptoJS.MD5(string).toString();
 }

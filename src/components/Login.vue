@@ -58,7 +58,6 @@ import 'swiper/dist/css/swiper.css';
 import { mapMutations } from 'vuex';
 import { showMessage } from '@/utils';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
-import CryptoJS from 'crypto-js';
 import config from '@/config';
 import api from '@/api';
 import store from '@/store';
@@ -113,7 +112,7 @@ export default {
             const data = {
               userName: this.loginForm.userName,
               password: this.loginForm.password
-              // password: encrypt(this.loginForm.password)
+              // password: MD5(this.loginForm.password)
             };
             const response = await this.login(data);
             this.buttonDisabled = false;
@@ -132,9 +131,6 @@ export default {
           return false;
         }
       });
-    },
-    encrypt (string) {
-      return CryptoJS.MD5(string).toString();
     }
   }
 };

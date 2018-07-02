@@ -7,8 +7,8 @@
       </el-col>
 
       <el-col :span="16">
-        <CompanyCard :data="account"/>
-        <ContactsCard :data="account"/>
+        <CompanyCard :data="account" v-if="user.authStatus === '1'"/>
+        <ContactsCard :data="account" v-if="user.authStatus === '1'"/>
         <AccountCard :data='account' @reload="reload()"/>
       </el-col>
     </el-row>
@@ -41,8 +41,7 @@ export default {
     return {
       user: {
       },
-      account: {
-      }
+      account: {}
     };
   },
   methods: {

@@ -85,4 +85,7 @@ export default {
   font-weight: bold;
   text-align: center;
 }
+.account__user-card .account__card-icon {
+  font-size: 23px;
+}
 </style>

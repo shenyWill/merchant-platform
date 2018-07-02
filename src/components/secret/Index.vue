@@ -2,7 +2,7 @@
   <div class="secret">
     <el-breadcrumb separator="/" class="sercert__breadcrumb">
       <el-breadcrumb-item :to="{ path: '/application'}">应用管理</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/application'}">参数配置</el-breadcrumb-item>
+      <el-breadcrumb-item>参数配置</el-breadcrumb-item>
     </el-breadcrumb>
     <el-row>
       <el-col :span="12">
@@ -247,15 +247,21 @@ export default {
       }
     },
     validateIP (rule, value, callback) {
-      if (value === '') callback();
-      const array = value.split(',');
-      array.forEach((ip) => {
-        const isIP = isValidIP(ip);
-        if (!isIP) {
-          callback(new Error('请填写合法的IP地址'));
+      if (!value) {
+        callback();
+      } else {
+        if (value.indexOf('，') !== -1) {
+          callback(new Error('请使用英文逗号'));
         }
-      });
-      callback();
+        const array = value.split(',');
+        array.forEach(ip => {
+          const isIP = isValidIP(ip);
+          if (!isIP) {
+            callback(new Error('请填写合法的IP地址'));
+          }
+        });
+        callback();
+      };
     },
     cancelBundleDialog () {
       this.bundleDialog = false;
@@ -307,7 +313,10 @@ export default {
       const data = {apiKey: key};
       const response = await request(config.application.products, data);
       if (response.data.resCode === '200') {
-        return response.data.lists;
+        const products = response.data.lists.filter(item => {
+          return item.status === '1';
+        });
+        return products;
       }
     },
     initialize (data) {
@@ -337,7 +346,7 @@ export default {
   width: 50%;
   text-align: left;
 }
-.sercert__breadcrumb {
+.secret .sercert__breadcrumb {
   margin-bottom: 20px;
   font-size: 18px;
   font-weight: bold;

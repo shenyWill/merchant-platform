@@ -273,6 +273,8 @@ export default {
         const form = {
           oldPassword: this.passwordForm.oldPassword,
           newPassword: this.passwordForm.newPassword
+          // oldPassword: MD5(this.passwordForm.oldPassword),
+          // newPassword: MD5(this.passwordForm.newPassword)
         };
         const response = await request(config.account.changePwd, form);
         if (response.data.resCode === '200') {

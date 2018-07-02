@@ -14,7 +14,7 @@ const service = axios.create({
  * */
 service.interceptors.request.use(config => {
   let reg = new RegExp('[|&;$%\'"<>()+,]');
-  let NoFilterKey = ['publickey', 'apiCode', 'boundIp'];
+  let NoFilterKey = ['publickey', 'apiCode', 'boundIp', 'image1', 'image2'];
   const request = config.data;
   for (let item in request) {
     if (NoFilterKey.indexOf(item) < 0) {
