@@ -3,6 +3,16 @@
     <div class="account__pane-title">
       认证信息：
     </div>
+
+    <div class="account__info">
+      <div class="account__info-label">
+        企业信息：
+      </div>
+      <div v-if="data.companyName" class="account__info-value">
+        {{ data.companyName }}
+      </div>
+      <div v-else>无</div>
+    </div>
     <el-row>
       <el-col :span="8">
         <div class="account__info">

@@ -9,9 +9,10 @@
           <div class="account__info-label">
             联系人：
           </div>
-          <div class="account__info-value">
+          <div v-if="data.contactName" class="account__info-value">
             {{ data.contactName }}
           </div>
+          <div v-else>无</div>
         </div>
       </el-col>
       <el-col :span="8">
@@ -19,9 +20,10 @@
           <div class="account__info-label">
             联系电话：
           </div>
-          <div class="account__info-value">
+          <div v-if="data.contactPhone" class="account__info-value">
             {{ data.contactPhone }}
           </div>
+          <div v-else>无</div>
         </div>
       </el-col>
       <el-col :span="8">
@@ -29,9 +31,10 @@
           <div class="account__info-label">
             地址：
           </div>
-          <div class="account__info-value">
+          <div v-if="data.detailAddress" class="account__info-value">
             {{ data.detailAddress }}
           </div>
+          <div v-else>无</div>
         </div>
       </el-col>
     </el-row>
