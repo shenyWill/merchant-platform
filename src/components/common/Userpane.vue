@@ -4,8 +4,8 @@
       <img class="avatar" :src="userInfo.avatar ? userInfo.avatar : avatar" alt="">
       <p class="username-title">{{ userInfo.userName }}</p>
     </div>
-    <i v-if="false" :class="['nav-userpane_icon', 'iconfont', userInfo.authStatus ? 'icon-yes' : 'icon-x']"></i>
-    <p v-if="false" class="user-identify">{{ userInfo.authStatus ? '用户已认证' : '用户未认证' }}</p>
+    <i :class="['nav-userpane_icon', 'iconfont', userInfo.authStatus === '1' ? 'icon-yes' : 'icon-x']"></i>
+    <p class="user-identify">{{ userInfo.authStatus === '1' ? '用户已认证' : '用户未认证' }}</p>
     <div @mouseover="toggleShow()" @mouseout="toggleShow()" v-show="isShow" class="dropdown-menu">
       <div class="dropdown-setting" @click="toAccountSetting">
         账号设置

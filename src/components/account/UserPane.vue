@@ -1,50 +1,92 @@
 <template>
-  <div class="account__account-card">
-    <el-card class="account__collapse-card">
-      <div slot="header" @click="toggleCard">
-        账号信息：
-        <i class="iconfont account__card-icon account__user-icon icon-card"></i>
-      </div>
-      <div :class="['account__collapse-user', isToggle ? 'height-zero': '']">
+  <div class="account__pane">
+    <div class="account__pane-title">
+      用户信息：
+    </div>
+    <el-row>
+      <el-col :span="12">
         <div class="account__info">
           <div class="account__info-label">
             商户编码：
           </div>
-          <div class="account__info-user-value">
+          <div class="account__info-value">
             {{ data.userCode }}
           </div>
         </div>
-
+      </el-col>
+      <el-col :span="12">
         <div class="account__info">
           <div class="account__info-label">
             商户名称：
           </div>
-          <div class="account__info-user-value">
+          <div class="account__info-value">
+            {{ data.userName }}
+          </div>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        <div class="account__info">
+          <div class="account__info-label">
+            账号：
+          </div>
+          <div class="account__info-value">
+            {{ data.userName }}
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="account__info">
+          <div class="account__info-label">
+            昵称：
+          </div>
+          <div class="account__info-value">
             {{ data.userNickName }}
           </div>
         </div>
+      </el-col>
+    </el-row>
 
+    <el-row>
+      <el-col :span="8">
         <div class="account__info">
           <div class="account__info-label">
-            电子邮箱：
+            密码：
           </div>
-          <div class="account__info-user-value">
+          <div class="account__info-value">
+            *******************
+          </div>
+          <el-button
+            @click="showPasswordDialog"
+            class="account__modify-button"
+            type="primary">
+            修改
+          </el-button>
+        </div>
+      </el-col>
+      <el-col :span="8">
+        <div class="account__info">
+          <div class="account__info-label">
+            邮箱：
+          </div>
+          <div class="account__info-value">
             {{ data.email }}
           </div>
           <el-button
-            size="small"
             class="account__modify-button"
             @click="showEmailDialog"
             type="primary">
-            修改信息
+            修改
           </el-button>
         </div>
-
+      </el-col>
+      <el-col :span="8">
         <div class="account__info">
           <div class="account__info-label">
-            手机号码：
+            手机：
           </div>
-          <div class="account__info-user-value">
+          <div class="account__info-value">
             {{ data.userPhone }}
           </div>
           <el-button
@@ -56,24 +98,8 @@
             修改信息
           </el-button>
         </div>
-
-        <div class="account__info">
-          <div class="account__info-label">
-            密码：
-          </div>
-          <div class="account__info-user-value">
-            *******************
-          </div>
-          <el-button
-            @click="showPasswordDialog"
-            class="account__modify-button"
-            size="small"
-            type="primary">
-            修改信息
-          </el-button>
-        </div>
-      </div>
-    </el-card>
+      </el-col>
+    </el-row>
 
     <el-dialog title="修改手机号码" :visible.sync="mobileDialog" :close-on-click-modal="false" :lock-scroll="false">
       <el-form ref="mobileForm" :model="mobileForm" label-width="100px" :rules="mobileRules">
@@ -126,7 +152,6 @@
         <el-button type="primary" @click="changeEmail">确定</el-button>
       </div>
     </el-dialog>
-
   </div>
 </template>
 
@@ -136,7 +161,7 @@ import config from '@/config';
 import api from '@/api';
 
 export default {
-  name: 'AccountCard',
+  name: 'UserPane',
   props: {
     data: {
       type: Object,
@@ -312,27 +337,8 @@ export default {
     }
   }
 };
+
 </script>
 
 <style>
-.account__collapse-user {
-  height: 390px;
-  transition: all .5s;
-}
-.account__modify-button {
-  position: absolute;
-  right: 0;
-}
-.height-zero {
-  transition: all .5s;
-  height: 0;
-}
-.account__validate-image {
-  cursor: pointer;
-  margin: 5px;
-  margin-left: 10px;
-}
-.account__account-card .account__user-icon {
-  font-size: 22px;
-}
 </style>

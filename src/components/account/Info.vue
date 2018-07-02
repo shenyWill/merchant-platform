@@ -1,26 +1,22 @@
 <template>
   <div class="account">
-    <el-row>
-      <el-col :span="8" class="account__left">
-        <UserCard :data="user" @reload="reload()"/>
-        <AccountActionCard/>
-      </el-col>
-
-      <el-col :span="16">
-        <CompanyCard :data="account" v-if="user.authStatus === '1'"/>
-        <ContactsCard :data="account" v-if="user.authStatus === '1'"/>
-        <AccountCard :data='account' @reload="reload()"/>
-      </el-col>
-    </el-row>
+    <el-card class="account__card">
+      <div slot="header">
+        基本信息
+      </div>
+      <div class="account__card-body">
+        <UserPane :data="account"/>
+        <ContactsPane :data="account"/>
+        <CompanyPane :data="account"/>
+      </div>
+    </el-card>
   </div>
 </template>
 
 <script>
-import UserCard from './UserCard';
-import AccountActionCard from './ActionCard';
-import AccountCard from './AccountCard';
-import CompanyCard from './CompanyCard';
-import ContactsCard from './ContactsCard';
+import UserPane from './UserPane';
+import CompanyPane from './CompanyPane';
+import ContactsPane from './ContactsPane';
 
 import store from '@/store';
 import api from '@/api';
@@ -31,16 +27,13 @@ export default {
   name: 'Account',
   store,
   components: {
-    UserCard,
-    AccountActionCard,
-    AccountCard,
-    CompanyCard,
-    ContactsCard
+    UserPane,
+    CompanyPane,
+    ContactsPane
   },
   data () {
     return {
-      user: {
-      },
+      user: {},
       account: {}
     };
   },
@@ -97,42 +90,24 @@ export default {
 
 <style>
 .account {
-  position: relative;
-  margin: 10px 10px;
+  margin: 10px;
+  padding: 10px;
   text-align: left;
 }
-.account__left {
-  position: relative;
-  min-height: 700px;
-}
 .account .el-card__header {
-  background-color: #4f4f4f;
-  font-size: 15px;
   color: white;
+  background-color: #4f4f4f;
+}
+.account__pane {
+  margin-bottom: 5px;
+}
+.account__pane-title {
+  padding: 8px;
+  margin-left: 30px;
+  font-size: 16px;
   font-weight: bold;
-}
-.account__collapse-card {
-  position: relative;
-  border-radius: 10px;
-  margin-right: 10px;
-  border-bottom: none;
-  margin-top: -10px;
-}
-.account__collapse-card .el-card__header {
-  padding: 0;
-  cursor: pointer;
-  height: 57px;
-}
-.account__collapse-card .el-card__header div {
-  padding: 20px;
-}
-.account__collapse-card .el-card__body {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-.account__card-icon {
-  float: right;
-  font-size: 25px;
+  background-color: #d5d5d5;
+  color: white;
 }
 .account__info {
   position: relative;
@@ -142,28 +117,16 @@ export default {
   display: inline-block;
 }
 .account__info-label {
-  position: absolute;
   left: 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   min-width: 80px;
 }
 .account__info-value {
-  position: absolute;
-  right: 10px;
-  left: 50px;
+  min-width: 300px;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
   text-align: center;
-  border-bottom: 1px solid black;
-}
-.account__info-user-value {
-  margin-left: 120px;
-}
-.account__company .el-form-item__label {
-  font-weight: bold;
-  font-size: 16px;
-}
-.height-zero {
-  transition: all .5s;
-  height: 0;
 }
 </style>

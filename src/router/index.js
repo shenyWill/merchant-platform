@@ -6,7 +6,7 @@ import Secret from '@/components/secret/Index';
 import SecretGenerate from '@/components/secret/Generate';
 import Product from '@/components/product/Index';
 import Application from '@/components/Application/Index';
-import Account from '@/components/account/Index';
+import Account from '@/components/account/Info';
 import Service from '@/components/product/Service';
 import ProductTest from '@/components/product/Test';
 
