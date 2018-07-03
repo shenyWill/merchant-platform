@@ -4,6 +4,7 @@
       <el-breadcrumb-item :to="{ path: '/application'}">应用管理</el-breadcrumb-item>
       <el-breadcrumb-item>参数配置</el-breadcrumb-item>
     </el-breadcrumb>
+
     <el-row>
       <el-col :span="12">
         <div class="secret__merchant">
@@ -99,6 +100,7 @@
     <div>
       <el-button @click="publicKeyDialog = true;" type="primary">上传公钥</el-button>
       <el-button data-clipboard-target="#userPublicKey" class="clipboard" @click="copySecret" type="primary">复制公钥</el-button>
+      <el-button @click="$router.go(-1);" type="success">返回</el-button>
     </div>
 
     <el-dialog title="修改包名" :visible.sync="bundleDialog" :close-on-click-modal="false" :lock-scroll="false">
@@ -320,7 +322,7 @@ export default {
       }
     },
     initialize (data) {
-      this.userPublicKey = data.publicKey;
+      this.userPublicKey = data.publicKey || '';
       this.apiKey = data.apiKey;
       this.apiSecret = data.apiSecret;
       this.bundleID = data.packageName ? data.packageName : '';
@@ -348,8 +350,17 @@ export default {
 }
 .secret .sercert__breadcrumb {
   margin-bottom: 20px;
+  padding: 15px;
+  background-color: #4f4f4f;
+  border-bottom: 1px solid lightgray;
   font-size: 18px;
   font-weight: bold;
+}
+.secret .el-breadcrumb .el-breadcrumb__inner {
+  color: #ffffff;
+}
+.secret .el-breadcrumb .el-breadcrumb__inner:hover {
+  color: white;
 }
 .secret__merchant {
   margin-bottom: 10px;

@@ -1,5 +1,6 @@
 <template>
   <div class="login-component">
+    <!-- Login Swiper -->
     <swiper class="login-component__swiper" :options="swiperOption">
       <swiper-slide
         class="swiper-no-swiping"
@@ -12,13 +13,14 @@
         alt="'background' + index">
       </swiper-slide>
     </swiper>
+
     <div class="login-component__title">
       <img class="login-component__logo" src="@/assets/images/loginlogo.png" alt="">
-      <p>AI云平台</p>
     </div>
+
+    <!-- Login Form -->
     <div class="login-component__login">
       <el-card class="box-card login-component__login-card" shadow="never">
-        <div class="login-component__login-title">AI云管理平台</div>
         <div class="login-card-user">用户名登录</div>
       </el-card>
       <el-form
@@ -50,6 +52,7 @@
         <el-button :disabled="buttonDisabled" @click="onSubmit" class="login-component_login-button">登录</el-button>
       </el-form>
     </div>
+
   </div>
 </template>
 
@@ -73,9 +76,9 @@ export default {
     return {
       swiper: null,
       images: [
-        require('@/assets/images/background01.jpg'),
-        require('@/assets/images/background02.jpg'),
-        require('@/assets/images/background03.jpg')
+        require('@/assets/images/background.jpg'),
+        require('@/assets/images/background.jpg'),
+        require('@/assets/images/background.jpg')
       ],
       swiperOption: {
         loop: true,
@@ -155,11 +158,12 @@ export default {
 }
 .login-component__title {
   position: absolute;
-  top: 93px;
-  left: 65px;
+  top: 83px;
+  left: 35px;
   width: 400px;
   color: white;
   font-size: 20px;
+  text-align: left;
   z-index: 1;
 }
 .login-component__logo {
@@ -181,11 +185,6 @@ export default {
   z-index: 1;
   background-color: #fff;
   border-radius: 20px;
-}
-.login-component__login-title {
-  margin-top: 30px;
-  font-size: 32px;
-  font-weight: bold;
 }
 .login-card-user {
   margin: 0 auto;
@@ -209,7 +208,7 @@ export default {
   height: 49px;
   color: white;
   font-size: 20px;
-  background-color: black;
+  background-color: #3b3b3b;
   border: 1px solid white;
   border-radius: 15px;
 }
@@ -224,22 +223,23 @@ export default {
   border-bottom: 1px solid black;
 }
 .login-component_login-button:hover {
-  border: 1px solid black;
-  background-color: white;
-  color: black;
+  border: 1px solid #4f4f4f;
+  background-color: #4f4f4f;
+  color: white;
 }
 .login-component_login-button:focus {
-  border: 1px solid black;
-  background-color: white;
-  color: black;
+  border: 1px solid #4f4f4f;
+  background-color: #4f4f4f;
+  color: white;
 }
 .login-component_login-button:active {
-  border: 1px solid black;
-  background-color: white;
-  color: black;
+  border: 1px solid #4f4f4f;
+  background-color: #4f4f4f;
+  color: white;
 }
 .login-component_login-button:disabled {
-  border: 1px solid lightgray;
-  color: black;
+  border: 1px solid #4f4f4f;
+  background-color: #4f4f4f;
+  color: white;
 }
 </style>

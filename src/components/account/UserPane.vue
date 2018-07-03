@@ -58,7 +58,6 @@
             *******************
           </div>
           <el-button
-            size="small"
             @click="showPasswordDialog"
             class="account__modify-button"
             type="primary">
@@ -75,7 +74,6 @@
             {{ data.email }}
           </div>
           <el-button
-            size="small"
             class="account__modify-button"
             @click="showEmailDialog"
             type="primary">
@@ -93,7 +91,6 @@
           </div>
           <el-button
             v-if="false"
-            size="small"
             @click="showMobileDialog"
             class="account__modify-button"
             type="primary">
@@ -345,9 +342,10 @@ export default {
 <style>
 .account__info-value-mini {
   min-width: 180px;
-  padding: 5px;
+  height: 38px;
+  line-height: 38px;
+  padding-left: 5px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 5px;
-  padding-left: 10px;
 }
 </style>
