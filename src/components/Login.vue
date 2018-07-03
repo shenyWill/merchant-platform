@@ -202,7 +202,7 @@ export default {
 .login-component_login-form {
   margin: 20px 30px 20px 30px;
 }
-.login-component_login-button {
+.login-component .login-component_login-button {
   margin-top: 135px;
   width: 329px;
   height: 49px;
@@ -222,22 +222,22 @@ export default {
 .login-component_login-input input:focus {
   border-bottom: 1px solid black;
 }
-.login-component_login-button:hover {
+.login-component .login-component_login-button:hover {
   border: 1px solid #4f4f4f;
   background-color: #4f4f4f;
   color: white;
 }
-.login-component_login-button:focus {
+.login-component .login-component_login-button:focus {
   border: 1px solid #4f4f4f;
   background-color: #4f4f4f;
   color: white;
 }
-.login-component_login-button:active {
+.login-component .login-component_login-button:active {
   border: 1px solid #4f4f4f;
   background-color: #4f4f4f;
   color: white;
 }
-.login-component_login-button:disabled {
+.login-component .login-component_login-button:disabled {
   border: 1px solid #4f4f4f;
   background-color: #4f4f4f;
   color: white;

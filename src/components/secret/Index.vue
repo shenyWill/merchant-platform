@@ -357,7 +357,7 @@ export default {
   font-weight: bold;
 }
 .secret .el-breadcrumb .el-breadcrumb__inner {
-  color: #ffffff;
+  color: #ffffff!important;
 }
 .secret .el-breadcrumb .el-breadcrumb__inner:hover {
   color: white;

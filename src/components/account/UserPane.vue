@@ -20,7 +20,7 @@
             商户名称：
           </div>
           <div class="account__info-value">
-            {{ data.userName }}
+            {{ data.userNickName }}
           </div>
         </div>
       </el-col>
@@ -192,15 +192,15 @@ export default {
       passwordRules: {
         oldPassword: [
           { required: true, message: '请输入原始密码', trigger: 'blur' },
-          { min: 6, max: 20, message: '长度在6到20个字符', trigger: 'blur' }
+          { min: 8, max: 20, message: '长度在6到20个字符', trigger: 'blur' }
         ],
         newPassword: [
           { required: true, message: '请输入新密码', trigger: 'blur' },
-          { min: 6, max: 20, message: '长度在6到20个字符', trigger: 'blur' }
+          { min: 8, max: 20, message: '长度在6到20个字符', trigger: 'blur' }
         ],
         confirmPassword: [
           { required: true, message: '请再次输入新密码', trigger: 'blur' },
-          { min: 6, max: 20, message: '长度在6到20个字符', trigger: 'blur' },
+          { min: 8, max: 20, message: '长度在6到20个字符', trigger: 'blur' },
           { validator: this.validatePwd, trigger: 'blur' }
         ]
       },
