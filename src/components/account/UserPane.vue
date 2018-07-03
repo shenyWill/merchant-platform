@@ -4,7 +4,7 @@
       用户信息：
     </div>
     <el-row>
-      <el-col :span="12">
+      <el-col :span="8">
         <div class="account__info">
           <div class="account__info-label">
             商户编码：
@@ -14,7 +14,7 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="8">
         <div class="account__info">
           <div class="account__info-label">
             商户名称：
@@ -26,7 +26,7 @@
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12">
+      <el-col :span="8">
         <div class="account__info">
           <div class="account__info-label">
             账号：
@@ -36,7 +36,7 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="8">
         <div class="account__info">
           <div class="account__info-label">
             昵称：
@@ -68,7 +68,7 @@
       <el-col :span="8">
         <div class="account__info">
           <div class="account__info-label">
-            邮箱：
+            电子邮箱：
           </div>
           <div class="account__info-value-mini">
             {{ data.email }}
@@ -84,7 +84,7 @@
       <el-col :span="8">
         <div class="account__info">
           <div class="account__info-label">
-            手机：
+            手机号码：
           </div>
           <div class="account__info-value-mini">
             {{ data.userPhone }}
@@ -93,7 +93,6 @@
             v-if="false"
             @click="showMobileDialog"
             class="account__modify-button"
-            size="small"
             type="primary">
             修改信息
           </el-button>
@@ -343,9 +342,10 @@ export default {
 <style>
 .account__info-value-mini {
   min-width: 180px;
-  padding: 10px;
+  height: 38px;
+  line-height: 38px;
+  padding-left: 5px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 5px;
-  text-align: center;
 }
 </style>

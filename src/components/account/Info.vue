@@ -124,9 +124,10 @@ export default {
 }
 .account__info-value {
   min-width: 300px;
-  padding: 10px;
+  height: 38px;
+  line-height: 38px;
+  padding-left: 5px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 5px;
-  text-align: center;
 }
 </style>

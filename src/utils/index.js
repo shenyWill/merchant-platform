@@ -36,8 +36,11 @@ export function validateUploadImage(file) {
     return false;
   }
 
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
+  return true;
+}
+
+export function base64Length (string) {
+  if (string.length >= 2097152) {
     Message({
       type: 'error',
       message: imageSizeTips

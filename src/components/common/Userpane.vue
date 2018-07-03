@@ -30,7 +30,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          avatar: require('@/assets/images/logo.png'),
+          avatar: require('@/assets/images/avatar.png'),
           userName: 'admin',
           authStatus: true
         };
@@ -40,7 +40,7 @@ export default {
   data () {
     return {
       isShow: false,
-      avatar: require('@/assets/images/logo.png')
+      avatar: require('@/assets/images/avatar.png')
     };
   },
   methods: {

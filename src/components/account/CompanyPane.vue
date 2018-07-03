@@ -6,7 +6,7 @@
 
     <div class="account__info">
       <div class="account__info-label">
-        企业信息：
+        企业名称：
       </div>
       <div v-if="data.companyName" class="account__info-value">
         {{ data.companyName }}
