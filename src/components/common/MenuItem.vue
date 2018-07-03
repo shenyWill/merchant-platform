@@ -8,15 +8,18 @@
       <i :class="['iconfont', 'menu-item__icon', icon]"></i>
       <p class="menu-item__name">{{ name }}</p>
       <div class="menu-item__submenu">
-        <router-link v-for="(item, index) in children" :key="index" class="menu-item__submenu-title" :to="item.route">
+        <div class="xs-shadow" v-for="(item, index) in children" :key="index">
+          <router-link  class="menu-item__submenu-title" :to="item.route">
           {{ item.name }}
         </router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import '@/assets/js/xs.js';
 export default {
   name: 'MenuItem',
   props: {
@@ -38,6 +41,9 @@ export default {
         return [];
       }
     }
+  },
+  mounted() {
+    $('.xs-shadow').xs999();
   }
 };
 </script>
@@ -91,10 +97,6 @@ export default {
   padding-top: 8px;
   border-radius: 15px;
   text-decoration: none;
-}
-.menu-item__submenu-title:hover {
-  background-color: #3b3b3b;
-  transition: all 0.5s;
-  transform: scale(1.1);
+  z-index: 3;
 }
 </style>
