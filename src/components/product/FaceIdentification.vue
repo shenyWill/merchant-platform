@@ -152,8 +152,8 @@ export default {
             apiSecret: this.form.apiSecret
           };
           const response = await api.post(config.product.faceAuth, data);
-          this.$emit('result', JSON.parse(response.data.data.result));
           this.$emit('loading', false);
+          this.$emit('result', JSON.parse(response.data.data.result));
         } else {
           return false;
         }
