@@ -155,7 +155,7 @@
 </template>
 
 <script>
-import { showMessage, request } from '@/utils';
+import { showMessage, request, MD5 } from '@/utils';
 import config from '@/config';
 import api from '@/api';
 
@@ -297,10 +297,8 @@ export default {
     changePassword () {
       this.update('passwordForm', async () => {
         const form = {
-          oldPassword: this.passwordForm.oldPassword,
-          newPassword: this.passwordForm.newPassword
-          // oldPassword: MD5(this.passwordForm.oldPassword),
-          // newPassword: MD5(this.passwordForm.newPassword)
+          oldPassword: MD5(this.passwordForm.oldPassword),
+          newPassword: MD5(this.passwordForm.newPassword)
         };
         const response = await request(config.account.changePwd, form);
         if (response.data.resCode === '200') {

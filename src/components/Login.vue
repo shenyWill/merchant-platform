@@ -59,7 +59,7 @@
 <script>
 import 'swiper/dist/css/swiper.css';
 import { mapMutations } from 'vuex';
-import { showMessage } from '@/utils';
+import { showMessage, MD5 } from '@/utils';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import config from '@/config';
 import api from '@/api';
@@ -114,8 +114,7 @@ export default {
             this.buttonDisabled = true;
             const data = {
               userName: this.loginForm.userName,
-              password: this.loginForm.password
-              // password: MD5(this.loginForm.password)
+              password: MD5(this.loginForm.password)
             };
             const response = await this.login(data);
             this.buttonDisabled = false;
