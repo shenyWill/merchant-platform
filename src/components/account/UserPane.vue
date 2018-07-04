@@ -24,8 +24,6 @@
           </div>
         </div>
       </el-col>
-    </el-row>
-    <el-row>
       <el-col :span="8">
         <div class="account__info">
           <div class="account__info-label">
@@ -33,16 +31,6 @@
           </div>
           <div class="account__info-value">
             {{ data.userName }}
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="account__info">
-          <div class="account__info-label">
-            昵称：
-          </div>
-          <div class="account__info-value">
-            {{ data.userNickName }}
           </div>
         </div>
       </el-col>
