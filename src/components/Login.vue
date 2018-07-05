@@ -1,6 +1,5 @@
 <template>
   <div class="login-component">
-    <!-- Login Swiper -->
     <swiper class="login-component__swiper" :options="swiperOption">
       <swiper-slide
         class="swiper-no-swiping"
@@ -59,7 +58,7 @@
 <script>
 import 'swiper/dist/css/swiper.css';
 import { mapMutations } from 'vuex';
-import { showMessage } from '@/utils';
+import { showMessage, MD5 } from '@/utils';
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 import config from '@/config';
 import api from '@/api';
@@ -82,7 +81,7 @@ export default {
       ],
       swiperOption: {
         loop: true,
-        autoplay: true,
+        autoplay: false,
         speed: 400
       },
       loginForm: {
@@ -114,8 +113,7 @@ export default {
             this.buttonDisabled = true;
             const data = {
               userName: this.loginForm.userName,
-              password: this.loginForm.password
-              // password: MD5(this.loginForm.password)
+              password: MD5(this.loginForm.password)
             };
             const response = await this.login(data);
             this.buttonDisabled = false;
@@ -202,7 +200,7 @@ export default {
 .login-component_login-form {
   margin: 20px 30px 20px 30px;
 }
-.login-component_login-button {
+.login-component .login-component_login-button {
   margin-top: 135px;
   width: 329px;
   height: 49px;
@@ -222,22 +220,22 @@ export default {
 .login-component_login-input input:focus {
   border-bottom: 1px solid black;
 }
-.login-component_login-button:hover {
+.login-component .login-component_login-button:hover {
   border: 1px solid #4f4f4f;
   background-color: #4f4f4f;
   color: white;
 }
-.login-component_login-button:focus {
+.login-component .login-component_login-button:focus {
   border: 1px solid #4f4f4f;
   background-color: #4f4f4f;
   color: white;
 }
-.login-component_login-button:active {
+.login-component .login-component_login-button:active {
   border: 1px solid #4f4f4f;
   background-color: #4f4f4f;
   color: white;
 }
-.login-component_login-button:disabled {
+.login-component .login-component_login-button:disabled {
   border: 1px solid #4f4f4f;
   background-color: #4f4f4f;
   color: white;

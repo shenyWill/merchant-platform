@@ -20,12 +20,10 @@
             商户名称：
           </div>
           <div class="account__info-value">
-            {{ data.userName }}
+            {{ data.userNickName }}
           </div>
         </div>
       </el-col>
-    </el-row>
-    <el-row>
       <el-col :span="8">
         <div class="account__info">
           <div class="account__info-label">
@@ -33,16 +31,6 @@
           </div>
           <div class="account__info-value">
             {{ data.userName }}
-          </div>
-        </div>
-      </el-col>
-      <el-col :span="8">
-        <div class="account__info">
-          <div class="account__info-label">
-            昵称：
-          </div>
-          <div class="account__info-value">
-            {{ data.userNickName }}
           </div>
         </div>
       </el-col>
@@ -155,7 +143,7 @@
 </template>
 
 <script>
-import { showMessage, request } from '@/utils';
+import { showMessage, request, MD5 } from '@/utils';
 import config from '@/config';
 import api from '@/api';
 
@@ -192,15 +180,15 @@ export default {
       passwordRules: {
         oldPassword: [
           { required: true, message: '请输入原始密码', trigger: 'blur' },
-          { min: 6, max: 20, message: '长度在6到20个字符', trigger: 'blur' }
+          { min: 8, max: 20, message: '长度在8到20个字符', trigger: 'blur' }
         ],
         newPassword: [
           { required: true, message: '请输入新密码', trigger: 'blur' },
-          { min: 6, max: 20, message: '长度在6到20个字符', trigger: 'blur' }
+          { min: 8, max: 20, message: '长度在8到20个字符', trigger: 'blur' }
         ],
         confirmPassword: [
           { required: true, message: '请再次输入新密码', trigger: 'blur' },
-          { min: 6, max: 20, message: '长度在6到20个字符', trigger: 'blur' },
+          { min: 8, max: 20, message: '长度在8到20个字符', trigger: 'blur' },
           { validator: this.validatePwd, trigger: 'blur' }
         ]
       },
@@ -297,10 +285,8 @@ export default {
     changePassword () {
       this.update('passwordForm', async () => {
         const form = {
-          oldPassword: this.passwordForm.oldPassword,
-          newPassword: this.passwordForm.newPassword
-          // oldPassword: MD5(this.passwordForm.oldPassword),
-          // newPassword: MD5(this.passwordForm.newPassword)
+          oldPassword: MD5(this.passwordForm.oldPassword),
+          newPassword: MD5(this.passwordForm.newPassword)
         };
         const response = await request(config.account.changePwd, form);
         if (response.data.resCode === '200') {

@@ -84,21 +84,18 @@ export default {
   position: relative;
   margin: 10px 102px 10px 102px;
   width: 50%;
+  font-size: 14px;
   text-align: left;
 }
 .secret-generate__form {
   margin-top: 30px;
 }
 .secret-generate .el-form-item__label {
-  font-size: 16px;
   font-weight: bold;
 }
 .secret-generate .el-select {
   height: 28px;
   width: 100%;
-}
-.secret-generate__input-title {
-  font-weight: bold;
 }
 .secret-generate .secret-generate__input-content {
   margin-top: 10px;

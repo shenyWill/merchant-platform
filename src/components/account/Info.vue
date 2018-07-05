@@ -90,8 +90,9 @@ export default {
 
 <style>
 .account {
-  margin: 10px;
+  margin: 0 10px;
   padding: 10px;
+  font-size: 14px;
   text-align: left;
 }
 .account .el-card__header {
@@ -104,7 +105,6 @@ export default {
 .account__pane-title {
   padding: 8px;
   margin-left: 30px;
-  font-size: 16px;
   font-weight: bold;
   background-color: #d5d5d5;
   color: white;
@@ -118,12 +118,10 @@ export default {
 }
 .account__info-label {
   left: 0;
-  font-size: 16px;
-  font-weight: bold;
   min-width: 80px;
 }
 .account__info-value {
-  min-width: 300px;
+  min-width: 250px;
   height: 38px;
   line-height: 38px;
   padding-left: 5px;
