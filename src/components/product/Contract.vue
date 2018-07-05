@@ -101,7 +101,7 @@ export default {
     }
     span {
       display: block;
-      margin-left: 133px;
+      margin-left: 120px;
       margin-bottom: 13px;
       color: #000000;
       font-size: 13px;
