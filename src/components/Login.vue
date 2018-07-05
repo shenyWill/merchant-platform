@@ -1,6 +1,5 @@
 <template>
   <div class="login-component">
-    <!-- Login Swiper -->
     <swiper class="login-component__swiper" :options="swiperOption">
       <swiper-slide
         class="swiper-no-swiping"
@@ -82,7 +81,7 @@ export default {
       ],
       swiperOption: {
         loop: true,
-        autoplay: true,
+        autoplay: false,
         speed: 400
       },
       loginForm: {

@@ -346,6 +346,7 @@ export default {
   position: relative;
   margin: 16px 90px 16px 64px;
   width: 50%;
+  font-size: 14px;
   text-align: left;
 }
 .secret .sercert__breadcrumb {
@@ -353,7 +354,7 @@ export default {
   padding: 15px;
   background-color: #4f4f4f;
   border-bottom: 1px solid lightgray;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 }
 .secret .el-breadcrumb .el-breadcrumb__inner {
@@ -369,13 +370,10 @@ export default {
   margin: 20px 0;
 }
 .secret__input-title {
-  font-weight: bold;
 }
 .secret__info-label {
   display: inline-block;
   left: 0;
-  font-size: 16px;
-  font-weight: bold;
   min-width: 80px;
 }
 .secret__info-value {
