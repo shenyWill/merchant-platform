@@ -21,7 +21,7 @@
         <li class="detail-list"><span class="detail-list-key">状态</span><span class="detail-list-value">{{detailObj.status}}</span></li>
         <li class="detail-list"><span class="detail-list-key">申请时间</span><span class="detail-list-value">{{detailObj.createTime}}</span></li>
         <li class="detail-list" v-if="detailObj.updateTime ? true : false"><span class="detail-list-key">更新时间</span><span class="detail-list-value">{{detailObj.updateTime}}</span></li>
-        <li class="detail-list"><span class="detail-list-key">已绑定应用</span><span class="detail-list-value" v-for="item in detailObj.appArr" :key="item">{{item}}</span></li>
+        <li class="detail-list"><span class="detail-list-key">已绑定应用</span><span class="detail-list-value" v-for="item in detailObj.appArr" :key="item.appName" v-if="item.status ==1 ? true : false">{{item.appName}}</span></li>
       </ul>
     </el-dialog>
   </div>
@@ -58,7 +58,7 @@ export default {
       this.detailObj.appArr = [];
       Number(this.detailObj.status) === 1 ? this.detailObj.status = '启用' : this.detailObj.status = '禁用';
       resObj.lists.forEach(value => {
-        this.detailObj.appArr.push(value.appName);
+        this.detailObj.appArr.push({appName: value.appName, status: value.status});
       });
       this.detailDialog = true;
     }

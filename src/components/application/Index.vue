@@ -150,7 +150,6 @@ export default {
           let number = Number(value.paraVal);
           this.appType[number] = value.paraName;
         });
-        console.log(this.appType)
       }
     },
     // 第一次获取数据渲染页面
