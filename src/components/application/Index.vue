@@ -34,7 +34,7 @@
         </el-form-item>
         <el-form-item label="应用类型" prop="type">
           <el-select v-model="addForm.type" placeholder="请选择">
-            <el-option v-for="item in appType" :key="item" :label="item" :value="appType.indexOf(item)"></el-option>
+            <el-option v-for="(item,index) in appType" :key="item" :label="item" :value="index" v-if="item == undefined ? false : true"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="签约类型" prop="appType">
@@ -150,6 +150,7 @@ export default {
           let number = Number(value.paraVal);
           this.appType[number] = value.paraName;
         });
+        console.log(this.appType)
       }
     },
     // 第一次获取数据渲染页面
